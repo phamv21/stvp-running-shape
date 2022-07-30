@@ -1,0 +1,10 @@
+<script type='text/javascript'>
+<% if logged_in? %>
+window.currentUser = <%= (render partial:'api/users/user', formats: :json, locals:{user: current_user}).html_safe %>
+<% else %>
+window.currentUser = null
+<% end %>
+</script>
+<div id='root'>
+
+</div>

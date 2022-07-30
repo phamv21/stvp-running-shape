@@ -2,7 +2,7 @@ var path = require('path');
 
 module.exports = {
 context: __dirname,
-  entry: './frontend/entry.jsx',
+  entry: './frontend/running_shape.jsx',
   output: {
     path: path.resolve(__dirname, 'app', 'assets', 'javascripts'),
     filename: 'bundle.js'
@@ -18,7 +18,12 @@ context: __dirname,
             presets: ['@babel/env', '@babel/react']
           }
         },
-      }
+        
+      },
+       {
+          test: /\.css$/i,
+          use: ['style-loader', 'css-loader'],
+        }
     ]
   },
   devtool: 'source-map',

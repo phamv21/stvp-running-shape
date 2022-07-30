@@ -3,4 +3,9 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+    root 'static#root'
+    namespace :api, default:{format: :json} do
+      resource :session, only:[:create,:destroy]
+      resources :users, only:[:create,:destroy,:show,:update]
+    end
 end
