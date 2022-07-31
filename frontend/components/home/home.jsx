@@ -6,7 +6,7 @@ export default function Home({loggedIn,userInfo,logout}){
     if(loggedIn){
         banner = (
             <nav className="user-banner">
-                <h1>Hello ${userInfo.username}</h1>
+                <h3>Hello {userInfo.username}</h3>
             <button onClick={(e)=>{e.preventDefault(); logout()}}>Logout</button>
             </nav>
         )
@@ -19,11 +19,8 @@ export default function Home({loggedIn,userInfo,logout}){
         )
     };
     return(
-        <div>
-            <h1>
-                Home
-                {banner}
-            </h1>
-        </div>
+        <nav>
+            {banner}
+        </nav>
     )
 }
