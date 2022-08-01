@@ -1,6 +1,7 @@
 <script type='text/javascript'>
+window.keys = <%= ({map:ENV.fetch('GOOGLE_MAPS_API')}).to_json.html_safe  %>;
 <% if logged_in? %>
-window.currentUser = <%= (render partial:'api/users/user', formats: :json, locals:{user: current_user}).html_safe %>
+ window.currentUser = <%= (render partial:'api/users/user', formats: :json, locals:{user: current_user}).html_safe %>;
 <% else %>
 window.currentUser = null
 <% end %>

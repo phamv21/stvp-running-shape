@@ -2,8 +2,9 @@ import React from "react";
 import { Routes,Route } from "react-router-dom";
 import LoginFormContainer from "./login/login_form_container";
 import SignupFormContainer from "./login/sigup_form_container";
-import { AuthRoute,ProtectedRoute } from "../util/route_util";
-import HomeContainer from "./home/home_container";
+import { AuthRoute,ProtectedRoute } from "../utils/route_util";
+import HomeContainer from "./nav-bar/home_container";
+import MyMap from "./running-routes/map";
 export default function App(){
     return(
         <Routes>
@@ -19,6 +20,7 @@ export default function App(){
                     <SignupFormContainer/>
                 </AuthRoute>
             }/>
+            <Route path='map' element={<MyMap/>}/>
 
         </Routes>
     )

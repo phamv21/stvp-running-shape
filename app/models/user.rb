@@ -12,6 +12,8 @@ class User < ApplicationRecord
     validate :should_older_than_fourteen
     after_initialize :ensure_session_token
     
+
+    has_many :routes, dependent: :destroy, inverse_of: :user
     # add the validation of age
     
 
