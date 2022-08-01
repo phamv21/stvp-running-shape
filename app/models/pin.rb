@@ -3,4 +3,5 @@ class Pin < ApplicationRecord
     validates :lng, presence: true
 
     belongs_to :route
+    
 end

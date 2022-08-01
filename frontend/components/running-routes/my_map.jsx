@@ -9,7 +9,11 @@ class MyMap extends React.Component {
         super(props)
 
         this.state = {
-            bounds: {}
+            bounds: {},
+            pin_infos: [],
+            name: '',
+            description: '',
+
         }
 
         this.directionsService = new google.maps.DirectionsService();
@@ -66,12 +70,48 @@ class MyMap extends React.Component {
         let loc = { lat:coords.lat(),lng:coords.lng() }
         this.MarkerManager.updateMarker(loc);
         this.MarkerManager.renderRoute();
+        this.setState({pin_infos:[...this.state.pin_infos,loc]})
+
     }
+    handleName(e){
+        e.preventDefault();
+        this.setState({name:e.target.value})
+    }
+
+    handleDescription(e){
+        e.preventDefault();
+        this.setState({description:e.target.value})
+    }
+
+    handleSubmit(e){
+        e.preventDefault();
+        // count total distance 
+        let distanceSum = 0.0;
+        this.MarkerManager.route_steps.forEach(el => {distanceSum += el.distance.value})
+        // submit propr
+        let info = {
+            name: this.state.name,
+            description: this.state.description,
+            pin_infos: this.state.pin_infos,
+            distance: distanceSum,
+
+        } 
+        this.props.submit(info);
+    }
+
     render(){
         
         return(
+        <>
          <div id="map-container" ref={map => this.mapNode = map}>
         </div>
+        <form onSubmit={this.handleSubmit.bind(this)}>
+            <input type="text" name="name" value={this.state.name} onChange={this.handleName.bind(this)}/>
+            <input type="text" name='description' value={this.state.description} onChange={this.handleDescription.bind(this)}/>
+            {/* add field privacy and activity type */}
+            <input type="submit" value="Submit" />
+        </form>
+        </>
 
         )
     }

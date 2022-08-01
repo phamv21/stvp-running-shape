@@ -26,4 +26,20 @@ class Route < ApplicationRecord
         end
         
     end
+
+    def pin_infos=(infos) #infors is the array of infor
+        result = []
+        infos.each do |info|
+            #info is object have lat lng and desc
+            els = self.pins.where('lat = ?',info[:lat].to_f).where('lng = ?',info[:lng].to_f)
+            if els.empty?
+                result << Pin.new(lat:info[:lat].to_f,lng:info[:lng].to_f,description:info[:description])
+            else
+                els.first.update(description:info[:description]) if info[:description] != '' && info[:description] != nil && els.first.description != info[:description]
+                result << els.first
+            end
+        end
+        self.pins = result
+    end
+
 end

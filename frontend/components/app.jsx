@@ -4,7 +4,7 @@ import LoginFormContainer from "./login/login_form_container";
 import SignupFormContainer from "./login/sigup_form_container";
 import { AuthRoute,ProtectedRoute } from "../utils/route_util";
 import HomeContainer from "./nav-bar/home_container";
-import MyMap from "./running-routes/map";
+import MyMapContainer from "./running-routes/my_map_container";
 export default function App(){
     return(
         <Routes>
@@ -20,7 +20,7 @@ export default function App(){
                     <SignupFormContainer/>
                 </AuthRoute>
             }/>
-            <Route path='map' element={<MyMap/>}/>
+            <Route path='map' element={<MyMapContainer/>}/>
 
         </Routes>
     )
