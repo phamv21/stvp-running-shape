@@ -4,7 +4,7 @@ import {useNavigate} from 'react-router-dom'
 
 
 
-class MyMap extends React.Component {
+class CreateMap extends React.Component {
     constructor(props){
         super(props)
 
@@ -63,6 +63,9 @@ class MyMap extends React.Component {
     //     if (prevProps.highlightId != this.props.highlightId){
     //         this.MarkerManager.markerHightlight(this.props.highlightId)
     //     }
+            if(prevProps.newRouteId != this.props.newRouteId){
+                this.props.navigate(`/routes/${this.props.newRouteId}`)
+            }
     }
 
     _handleClick(coords) {
@@ -70,6 +73,7 @@ class MyMap extends React.Component {
         let loc = { lat:coords.lat(),lng:coords.lng() }
         this.MarkerManager.updateMarker(loc);
         this.MarkerManager.renderRoute();
+        // loc['pin_type'] = 'Ways'
         this.setState({pin_infos:[...this.state.pin_infos,loc]})
 
     }
@@ -88,7 +92,8 @@ class MyMap extends React.Component {
         // count total distance 
         let distanceSum = 0.0;
         this.MarkerManager.route_steps.forEach(el => {distanceSum += el.distance.value})
-        // submit propr
+        
+        // submit props
         let info = {
             name: this.state.name,
             description: this.state.description,
@@ -97,10 +102,17 @@ class MyMap extends React.Component {
 
         } 
         this.props.submit(info);
+        
+        // this.props.navigate(`/routes/${routeId}`)
+
     }
 
     render(){
-        
+        let button = this.props.loading ? 
+        ( <button disabled={true}>
+                <div className="loading-btn"/>
+            </button>)
+             : (<input type="submit" value="Submit" />);
         return(
         <>
          <div id="map-container" ref={map => this.mapNode = map}>
@@ -109,7 +121,8 @@ class MyMap extends React.Component {
             <input type="text" name="name" value={this.state.name} onChange={this.handleName.bind(this)}/>
             <input type="text" name='description' value={this.state.description} onChange={this.handleDescription.bind(this)}/>
             {/* add field privacy and activity type */}
-            <input type="submit" value="Submit" />
+            {button}
+
         </form>
         </>
 
@@ -120,5 +133,5 @@ class MyMap extends React.Component {
 
 export default function(props){
     let navigate = useNavigate()
-    return <MyMap {...props} navigate={navigate}/>
+    return <CreateMap {...props} navigate={navigate}/>
 }

@@ -1,9 +1,12 @@
 class Api::RoutesController < ApplicationController
+    before_action :ensure_current_user!
     def index
         #it have the boundary
         #it may show my run
         #it my show the result of the friend route or the public route in the area
-
+        sleep 1
+        @routes = current_user.routes #should apply filter later
+        render :index
 
     end
 
@@ -18,6 +21,7 @@ class Api::RoutesController < ApplicationController
     end
 
     def create
+        sleep 3
         tmp = route_params
         tmp[:user_id] = current_user.id
         @route = Route.new(tmp)

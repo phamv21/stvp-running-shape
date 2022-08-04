@@ -55,7 +55,9 @@ export default class MarkerManager{
         else{
 
             //now we can draw map with these data
-            this.start_point.setMap(null);
+            if(this.start_point != null){
+                this.start_point.setMap(null);
+            }
             this.directionsService
             .route({
                 origin: this.headTail[0],
