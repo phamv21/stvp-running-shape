@@ -7,6 +7,8 @@ export default class MarkerManager{
         this.betweens = [];
         this.start_point = null;
         this.route_steps = [];
+        this.currentInfoWindow = null;
+        this.callFormListener = false;
 
     }
 
@@ -28,21 +30,48 @@ export default class MarkerManager{
     removeMarker(coords){
 
     }
+    createMarker(latlng,icon,idx){
+    let contentString = `<form class='infowindow-form' id='form-${idx}'><input type='text' value='ploom'/> <input type='submit'/></form>`;
+    const infowindow = new google.maps.InfoWindow({
+        content:contentString
+    });
+    let marker = new google.maps.Marker({
+      position: latlng,
+      map: this.map,
+      icon: icon,
+    
+    });
+    marker.addListener('click',()=> {
+        if(this.currentInfoWindow != null){
+            this.currentInfoWindow.close();
+        }
+
+        infowindow.open({
+          map:this.map,
+          anchor: marker,
+        });
+        this.currentInfoWindow = infowindow;
+        
+        // let xx = $('#form-2').serializeArray();
+        // console.log(xx)
+    });
+    }
+
     renderRoute(){
         let customIcon ={
-            path: "M -6 0 C -6 -9 -1 -7 6 0 Q -26 7 -6 0 T 6 0",
+            path: "M 0 -2 C -2 -2 -2 1 0 1 S 2 -2 0 -2",
             fillColor: "blue",
             strokeWeight: 0,
-            fillOpacity: 0.6,
-            scale: 2,
+            fillOpacity: 0.8,
+            scale: 3,
             
         };
         let customIconRed ={
-            path: "M -6 0 C -6 -9 -1 -7 6 0 Q -26 7 -6 0 T 6 0",
+            path: "M 0 -2 C -2 -2 -2 1 0 1 S 2 -2 0 -2",
             fillColor: 'red',
             strokeWeight: 0,
-            fillOpacity: 0.6,
-            scale: 2,
+            fillOpacity: 0.8,
+            scale: 3,
         };
         // put the pin for the first marker
         if(this.headTail.length < 2){
@@ -53,7 +82,7 @@ export default class MarkerManager{
             })
         }
         else{
-
+            const infoString = "<input type='text' id='stv'>"+"</div>"+"<button>Remove</button>"
             //now we can draw map with these data
             if(this.start_point != null){
                 this.start_point.setMap(null);
@@ -67,18 +96,22 @@ export default class MarkerManager{
                 travelMode: google.maps.TravelMode.WALKING,
             }).then(
                 response =>{
+                    window.stvp = response;
                     this.directionsRenderer.setOptions({
                         directions:response,
-                        markerOptions:{
-                            icon:customIconRed,
-                        },
+                        suppressMarkers: true,
+                        
                     });
+                    
+                    const legs = response.routes[0].legs
+                    this.headTail.forEach((el,idx) => this.createMarker(el.location,customIcon,idx))
+                    this.betweens.forEach((el,idx) => this.createMarker(el.location,customIconRed,idx + 5))
+                    
                     // this.directionsRenderer.setDirections(response);
                     // let steps = response.routes
                     // console.log('map respond',response.routes)
-                    this.route_steps = response.routes[0].legs;
-                    console.log('steps-as',this.route_steps );
-                },
+                    
+                },  
                 errors => {
                     console.log('errors',errors)
                 }
@@ -86,6 +119,10 @@ export default class MarkerManager{
             )
 
 
+        }
+        if(this.callFormListener == false){
+            $('#map-container').on('submit','form',(e)=>{e.preventDefault(); console.log(e.currentTarget)});
+            this.callFormListener = true
         }
     }
     

@@ -141,14 +141,14 @@ class CreateMap extends React.Component {
                 <label htmlFor="privacy"> Visibility</label>
                 <select name="privacy" id="privacy" value={this.state.privacy} onChange={this.handlePrivacy.bind(this)}>
                     {PRIVACY.map((el,idx)=>(
-                        <option value={el}>{el} </option>
+                        <option key={idx} value={el}>{el} </option>
                     ))}
                 </select>
 
                 <label htmlFor="activity"> Activity</label>
                 <select name="activity" id="activity" value={this.state.activity} onChange={this.handleActivity.bind(this)}>
                     {ACTIVITIES.map((el,idx)=>(
-                        <option value={el}>{el} </option>
+                        <option key={idx} value={el}>{el} </option>
                     ))}
                 </select>
             </div>
