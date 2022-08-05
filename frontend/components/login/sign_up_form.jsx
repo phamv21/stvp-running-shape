@@ -1,6 +1,7 @@
 import React from "react";
 import {useState} from 'react';
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 // import { signup } from "../../actions/session_actions";
 import DatePicker from "react-datepicker";
 // import "react-datepicker/dist/react-datepicker.css";
@@ -48,7 +49,8 @@ export default function SignupForm({submit}){
             </div>
             <input type="password" name="password" value={password} onChange={handlePassword} placeholder='Password'/>
             <DatePicker selected={birthday} onChange={(date) => setBirthday(date)} />
-            <input type="submit" value="Submit" />
+            <input type="submit" value="Signup" />
+            <Link to="/login">Login Page</Link>
         </form>
     )
 }

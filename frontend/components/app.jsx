@@ -7,11 +7,17 @@ import HomeContainer from "./nav-bar/home_container";
 import CreateMapContainer from "./running-routes/create_map_container";
 import ShowMapContainer from "./running-routes/show_map_container";
 import IndexRoutesContainer from "./running-routes/index_routes_container";
+import ErrorsShowContainer from "./errors/errors_show_container";
 export default function App(){
     return(
+        <>
+        <header>
+            <HomeContainer/>
+        </header>
+        <ErrorsShowContainer/>
+        <div className="main-content">
         <Routes>
-
-            <Route exact path="/" element={<HomeContainer/>}/>
+            
             <Route exact path="/login" element={
                 <AuthRoute>
                     <LoginFormContainer/>
@@ -22,11 +28,30 @@ export default function App(){
                     <SignupFormContainer/>
                 </AuthRoute>
             }/>
-            <Route path='map' element={<CreateMapContainer/>}/>
-            <Route path='routes' element={<IndexRoutesContainer/>}></Route>
-            <Route path='routes'>
-                <Route path=":id" element={<ShowMapContainer/>} />
+            <Route path='map' element={
+                <ProtectedRoute>
+                    <CreateMapContainer/>
+                </ProtectedRoute>
+            }/>
+            <Route path='routes' element={
+                    <ProtectedRoute>
+                        <IndexRoutesContainer/>
+                    </ProtectedRoute>
+                }>
+
             </Route>
+            <Route path='routes'>
+                <Route path=":id" element={
+                <ProtectedRoute>
+                    <ShowMapContainer/>
+                </ProtectedRoute>
+                } />
+            </Route>
+            
         </Routes>
+        </div>
+        </>
+
+        
     )
 }

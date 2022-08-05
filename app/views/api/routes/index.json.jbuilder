@@ -1,5 +1,5 @@
 @routes.each do |route|
     json.set! route.id do
-        json.extract! route, :id, :name, :description, :user_id, :privacy, :activity
+        json.extract! route, :id, :name, :description, :user_id, :privacy, :activity,:distance,:created_at
     end
 end

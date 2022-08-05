@@ -1,26 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
-export default function Home({loggedIn,userInfo,logout}){
-    let banner = null;
+import Logo from "./logo";
+import StaticNav from "./static-nav";
+import ProfileControl from "./profile-control";
 
-    if(loggedIn){
-        banner = (
-            <nav className="user-banner">
-                <h3>Hello {userInfo.username}</h3>
-            <button onClick={(e)=>{e.preventDefault(); logout()}}>Logout</button>
-            </nav>
-        )
-    }else{
-        banner = (
-            <nav className="user-banner">
-                <Link to='/login'>Login</Link>
-                <Link to='/signup'>Signup</Link>
-            </nav>
-        )
-    };
+export default function Home({loggedIn,userInfo,logout}){
     return(
-        <nav>
-            {banner}
+        <nav className="home-nav">
+            <Logo/>
+            <StaticNav/>
+            <ProfileControl loggedIn={loggedIn} userInfo={userInfo} logout={logout}/>
         </nav>
     )
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 
 export default function loginForm({submit}){
@@ -20,7 +21,8 @@ export default function loginForm({submit}){
         <form onSubmit={handleSubmit} className='login-form'>
             <input type="text" name="username" value={username} onChange={(e)=>{e.preventDefault; setUsername(e.target.value)}} placeholder='Username'/>
             <input type="password" name="password" value={password} onChange={e => {e.preventDefault(); setPassword(e.target.value)}} placeholder='Password'/>
-            <input type="submit" value="Submit" />
+            <input type="submit" value="Login" />
+            <Link to='/signup'> Create Account </Link>
         </form>
     )
 }

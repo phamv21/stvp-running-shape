@@ -1,9 +1,8 @@
 import React from "react";
 import MarkerManager from "../../utils/marker_manager";
 import {useNavigate} from 'react-router-dom'
-
-
-
+import AutoCompleteSearch from "../../utils/auto_complete_search_util";
+import { PRIVACY, ACTIVITIES } from "../../utils/const_util";
 class CreateMap extends React.Component {
     constructor(props){
         super(props)
@@ -13,6 +12,8 @@ class CreateMap extends React.Component {
             pin_infos: [],
             name: '',
             description: '',
+            privacy: 'Friend',
+            activity: 'Run'
 
         }
 
@@ -45,6 +46,10 @@ class CreateMap extends React.Component {
             this.setState({bounds:{northEast:{lat:northEast.lat(),lng:northEast.lng()},southWest:{lat:southWest.lat(),lng:southWest.lng()}}});
         })
 
+        //add the seach box for place in the map
+       
+        this.searchBox = new AutoCompleteSearch(this.map)
+        this.searchBox.renderSearchBox();
         //add_click listener
         this.map.addListener('click',(mapsMouseEvent)=>{
             let coords = mapsMouseEvent.latLng
@@ -87,6 +92,15 @@ class CreateMap extends React.Component {
         this.setState({description:e.target.value})
     }
 
+    handleActivity(e){
+        e.preventDefault();
+        this.setState({activity:e.target.value})
+    }
+    handlePrivacy(e){
+        e.preventDefault();
+        this.setState({privacy:e.target.value})
+    }
+
     handleSubmit(e){
         e.preventDefault();
         // count total distance 
@@ -114,17 +128,44 @@ class CreateMap extends React.Component {
             </button>)
              : (<input type="submit" value="Submit" />);
         return(
-        <>
-         <div id="map-container" ref={map => this.mapNode = map}>
-        </div>
-        <form onSubmit={this.handleSubmit.bind(this)}>
-            <input type="text" name="name" value={this.state.name} onChange={this.handleName.bind(this)}/>
-            <input type="text" name='description' value={this.state.description} onChange={this.handleDescription.bind(this)}/>
+        <div className="create-route">
+           <div className="left-create-route">
+            <input type="text" id='auto-complete-search' placeholder="Please type the area that you want to run" />
+
+            {/* form for name and description input */}
+            <form className="create-route-form" onSubmit={this.handleSubmit.bind(this)}>
+            <input placeholder="Route's Name" type="text" name="name" value={this.state.name} onChange={this.handleName.bind(this)}/>
+            <input placeholder="Description" type="text" name='description' value={this.state.description} onChange={this.handleDescription.bind(this)}/>
             {/* add field privacy and activity type */}
+            <div className="select-container">
+                <label htmlFor="privacy"> Visibility</label>
+                <select name="privacy" id="privacy" value={this.state.privacy} onChange={this.handlePrivacy.bind(this)}>
+                    {PRIVACY.map((el,idx)=>(
+                        <option value={el}>{el} </option>
+                    ))}
+                </select>
+
+                <label htmlFor="activity"> Activity</label>
+                <select name="activity" id="activity" value={this.state.activity} onChange={this.handleActivity.bind(this)}>
+                    {ACTIVITIES.map((el,idx)=>(
+                        <option value={el}>{el} </option>
+                    ))}
+                </select>
+            </div>
+            
+
+
             {button}
 
         </form>
-        </>
+
+           </div>
+             <div className="right-create-route" id="map-container" ref={map => this.mapNode = map}>
+            </div>
+        
+              
+        
+        </div>
 
         )
     }

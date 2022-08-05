@@ -4,7 +4,7 @@ class Api::RoutesController < ApplicationController
         #it have the boundary
         #it may show my run
         #it my show the result of the friend route or the public route in the area
-        sleep 1
+        sleep 2
         @routes = current_user.routes #should apply filter later
         render :index
 

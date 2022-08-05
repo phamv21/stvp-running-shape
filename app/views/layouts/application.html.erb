@@ -3,11 +3,13 @@
   <head>
     <title>StvpRunningShape</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_MAPS_API']}",defer: true %>
+    <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_MAPS_API']}&libraries=places",defer: true %>
+    <%= javascript_include_tag "https://kit.fontawesome.com/0a7e237ff7.js" %>
     <%= javascript_include_tag 'application'%>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/react-datepicker/2.14.1/react-datepicker.min.css" %>
     <%= stylesheet_link_tag "application" %>
   </head>
 

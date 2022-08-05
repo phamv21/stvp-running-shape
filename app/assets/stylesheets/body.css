@@ -1,5 +1,17 @@
-/* #root{
+ /* #root{ */
+    /* display: flex; */
+     /* background-color: black;  */
+    /* min-height: 800px; */
+    /* margin-top: 30px; */
+/* }   */
+
+.main-content {
     display: flex;
-    background-color: black;
-    min-height: 800px;
-} */
+    justify-content: center;
+}
+.errors-show{
+    color: red;
+    justify-content: center;
+    justify-items: center;
+    text-justify: center;
+}

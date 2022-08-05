@@ -1,0 +1,24 @@
+.login-form{
+    display: flex;
+    flex-direction: column;
+    border: 1px black ;
+    border-radius: 3px;
+    width: 60%;
+    margin-top: 30px 
+}
+.login-form input[type=submit]{
+    display: flex;
+    width: 30%;
+    margin: 10px;
+    margin-left: 50px;
+}
+.login-form a{
+    display: flex;
+    background-color: gainsboro;
+    border: 1px black;
+    border-radius: 2px;
+    width: 30%;
+    margin: 10px;
+    margin-left: 50px;
+    text-decoration: none;
+}
