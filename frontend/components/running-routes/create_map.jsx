@@ -37,7 +37,7 @@ class CreateMap extends React.Component {
 
         this.map = new google.maps.Map(this.mapNode, mapOptions);
         this.directionsRenderer.setMap(this.map);
-        this.MarkerManager = new MarkerManager(this.map,this.directionsService,this.directionsRenderer);
+        this.MarkerManager = new MarkerManager(this.map,this.directionsService,this.directionsRenderer,false);
 
         //add the listener to the map
         this.map.addListener('bounds_changed',()=>{
@@ -79,7 +79,7 @@ class CreateMap extends React.Component {
         this.MarkerManager.updateMarker(loc);
         this.MarkerManager.renderRoute();
         // loc['pin_type'] = 'Ways'
-        this.setState({pin_infos:[...this.state.pin_infos,loc]})
+        // this.setState({pin_infos:[...this.state.pin_infos,loc]})
 
     }
     handleName(e){
@@ -106,12 +106,16 @@ class CreateMap extends React.Component {
         // count total distance 
         let distanceSum = 0.0;
         this.MarkerManager.route_steps.forEach(el => {distanceSum += el.distance.value})
-        
+        const pin_nodes = this.MarkerManager.nodes;
+        let pin_infomation = [];
+        pin_nodes.forEach(el=>{pin_infomation.push({lat:el.location.lat,lng:el.location.lng,description:el.description})})
+
+
         // submit props
         let info = {
             name: this.state.name,
             description: this.state.description,
-            pin_infos: this.state.pin_infos,
+            pin_infos: pin_infomation,
             distance: distanceSum,
 
         } 

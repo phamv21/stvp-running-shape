@@ -12,7 +12,7 @@ class Api::RoutesController < ApplicationController
 
     def show
         @route = Route.find_by(id:params[:id])
-        if @route.can_show?(current_user.id)
+        if @route.try(:can_show?,current_user.id) 
             render :show
         else
             render json: ['It is private route,or the route does not exist'], status: 401

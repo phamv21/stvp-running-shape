@@ -1,37 +1,56 @@
 export default class MarkerManager{
-    constructor(map,directionsService,directionsRenderer){
+    constructor(map,directionsService,directionsRenderer,isShowOnly=true){
         this.map = map;
         this.directionsService = directionsService;
         this.directionsRenderer = directionsRenderer;
-        this.headTail = [];
-        this.betweens = [];
+        // this.headTail = [];
+        // this.betweens = [];
+        this.nodes =[];
+        this.infoNodes =[]
         this.start_point = null;
         this.route_steps = [];
         this.currentInfoWindow = null;
         this.callFormListener = false;
-
+        this.isShowOnly = isShowOnly;
     }
 
-    updateMarker(coords){
-        if (this.headTail.length < 2){
-            this.headTail.push({
-            location: coords,
-        })        
-        }else{
-            let tmp = this.headTail.pop();
-            tmp['stopover'] = true
-            this.headTail.push({
-            location: coords,
-            });
-            this.betweens.push(tmp);
-        }
+    updateMarker(coords,desc =''){
+        // if (this.headTail.length < 2){
+        //     this.headTail.push({
+        //     location: coords,
+        // })        
+        // }else{
+        //     let tmp = this.headTail.pop();
+        //     tmp['stopover'] = true
+        //     this.headTail.push({
+        //     location: coords,
+        //     });
+        //     this.betweens.push(tmp);
+        // }
+        this.nodes.push({
+            location:coords,
+            description: desc||''
+        })
         
     }
     removeMarker(coords){
 
     }
-    createMarker(latlng,icon,idx){
-    let contentString = `<form class='infowindow-form' id='form-${idx}'><input type='text' value='ploom'/> <input type='submit'/></form>`;
+    createMarker(latlng,icon,htb,idx,desc){
+    let contentString = '';
+        if(this.isShowOnly){
+            contentString = `<span>${desc}</span>`
+        }else{
+            if(htb = "betweens"){
+                contentString = `<form class='info-description-form' id='betweens-${idx}'><input type='text' name='description' value='${desc}'/> <input type='submit' value='Save' /></form>`
+                + `<form class='info-delete-form' id='delete-betweens-${idx}'> <input type='submit' value='Delete'/></form>`;
+            }{
+                contentString = `<form class='info-description-form' id='headtail-${idx}'><input type='text' name='description' value='${desc}'/> <input type='submit' value='Save'/></form>`
+                + `<form class='info-delete-form' id='delete-headtail-${idx}'><input type='submit' value='Delete'/></form>`;
+            }
+        }
+
+
     const infowindow = new google.maps.InfoWindow({
         content:contentString
     });
@@ -52,9 +71,11 @@ export default class MarkerManager{
         });
         this.currentInfoWindow = infowindow;
         
+        
         // let xx = $('#form-2').serializeArray();
         // console.log(xx)
     });
+    this.infoNodes.push(marker)
     }
 
     renderRoute(){
@@ -74,24 +95,30 @@ export default class MarkerManager{
             scale: 3,
         };
         // put the pin for the first marker
-        if(this.headTail.length < 2){
+        if(this.nodes.length < 2){//this.headTail.length < 2){
             this.start_point = new google.maps.Marker({
-                position: this.headTail[0].location,
+                position: this.nodes[0].location,
                 icon: customIcon,
                 map: this.map,
             })
         }
         else{
-            const infoString = "<input type='text' id='stv'>"+"</div>"+"<button>Remove</button>"
             //now we can draw map with these data
             if(this.start_point != null){
                 this.start_point.setMap(null);
             }
+            const nodesLength = this.nodes.length
+            const headTail = [{location:this.nodes[0].location},{location:this.nodes[nodesLength-1].location}]
+            let tmp = this.nodes.slice(1,-1)
+            const betweens = tmp.map(el => { return {
+                location:el.location,
+                stopover:true,
+            };});
             this.directionsService
             .route({
-                origin: this.headTail[0],
-                destination: this.headTail[1],
-                waypoints: this.betweens,
+                origin: headTail[0],
+                destination: headTail[1],
+                waypoints: betweens,
                 optimizeWaypoints: true,
                 travelMode: google.maps.TravelMode.WALKING,
             }).then(
@@ -103,10 +130,17 @@ export default class MarkerManager{
                         
                     });
                     
-                    const legs = response.routes[0].legs
-                    this.headTail.forEach((el,idx) => this.createMarker(el.location,customIcon,idx))
-                    this.betweens.forEach((el,idx) => this.createMarker(el.location,customIconRed,idx + 5))
-                    
+                     this.route_steps = response.routes[0].legs
+
+                    // headTail.forEach((el,idx) => this.createMarker(el.location,customIcon,`ht-${idx}`))
+                    // betweens.forEach((el,idx) => this.createMarker(el.location,customIconRed,`b-${idx}`))
+                    this.nodes.forEach((el,idx)=>{
+                        if(idx == 0 || idx == nodesLength -1){
+                            this.createMarker(el.location,customIconRed,'headTail',idx,el.description);
+                        }else{
+                            this.createMarker(el.location,customIcon,'between',idx,el.description);
+                        }
+                    })
                     // this.directionsRenderer.setDirections(response);
                     // let steps = response.routes
                     // console.log('map respond',response.routes)
@@ -121,11 +155,34 @@ export default class MarkerManager{
 
         }
         if(this.callFormListener == false){
-            $('#map-container').on('submit','form',(e)=>{e.preventDefault(); console.log(e.currentTarget)});
+            // add listening for description
+            $('#map-container').on('submit','.info-description-form',(e)=>{
+                e.preventDefault(); 
+                let currentForm = e.currentTarget;
+                let formData = new FormData(currentForm);
+                let nId = parseInt(currentForm.id.slice(9));
+                this.nodes[nId]['description'] = formData.get('description');
+            });
+
+            //add the delete handler
+            $('#map-container').on('submit','.info-delete-form',(e)=>{
+                e.preventDefault(); 
+                let currentForm = e.currentTarget;
+                let nId = parseInt(currentForm.id.slice(16))
+                this.currentInfoWindow.close();
+                this.infoNodes.forEach(el => {
+                    google.maps.event.clearInstanceListeners(el);
+                    el.setMap(null)
+                })
+                this.infoNodes = [];
+                this.nodes.splice(nId,1);
+                this.renderRoute();
+
+            });
             this.callFormListener = true
         }
     }
     
-
+    
 
 }

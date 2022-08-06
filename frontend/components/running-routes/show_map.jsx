@@ -33,7 +33,7 @@ class Show extends React.Component{
         this.map = new google.maps.Map(this.mapNode, mapOptions);
         this.directionsRenderer.setMap(this.map);
         this.MarkerManager = new MarkerManager(this.map,this.directionsService,this.directionsRenderer);
-        this.pins.forEach(pin =>{ this.MarkerManager.updateMarker({lat:pin.lat,lng:pin.lng})});
+        this.pins.forEach(pin =>{ this.MarkerManager.updateMarker({lat:pin.lat,lng:pin.lng},pin.description)});
         this.MarkerManager.renderRoute();
         }
     }
