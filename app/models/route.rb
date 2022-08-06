@@ -15,12 +15,13 @@ class Route < ApplicationRecord
         elsif self.privacy == 'Private' && self.user_id == user_id
             return true
         elsif self.privacy == 'Friend' 
-            friends = User.find_by(id:user_id).friend_ids
-            if friends.include?(self.user_id)
-                return true
-            else
-                return false
-            end
+            # friends = User.find_by(id:user_id).friend_ids
+            # if friends.include?(self.user_id)
+                # return true
+            # else
+                # return false
+            # end
+            return true #fix later when add friend table
         else
             return false
         end

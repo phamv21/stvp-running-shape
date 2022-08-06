@@ -30,7 +30,7 @@ class CreateMap extends React.Component {
         // set the map to show SF
         const mapOptions = {
             center: { lat: 37.7758, lng: -122.435 }, // this is SF
-            zoom: 13
+            zoom: 16
         };
 
         // wrap this.mapNode in a Google Map
@@ -114,6 +114,8 @@ class CreateMap extends React.Component {
         // submit props
         let info = {
             name: this.state.name,
+            privacy:this.state.privacy,
+            activity:this.state.activity,
             description: this.state.description,
             pin_infos: pin_infomation,
             distance: distanceSum,

@@ -29,7 +29,7 @@ export default class MarkerManager{
         // }
         this.nodes.push({
             location:coords,
-            description: desc||''
+            description: desc||'No description'
         })
         
     }
