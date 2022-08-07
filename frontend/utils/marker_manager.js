@@ -12,6 +12,8 @@ export default class MarkerManager{
         this.currentInfoWindow = null;
         this.callFormListener = false;
         this.isShowOnly = isShowOnly;
+        this.response = null;
+        this.staticUrl = null;
     }
 
     updateMarker(coords,desc =''){
@@ -35,6 +37,15 @@ export default class MarkerManager{
     }
     removeMarker(coords){
 
+    }
+    getPreviewURL(){
+        if (this.response != null){
+        let path = this.response.routes[0].overview_path;
+        let encodedPath = google.maps.geometry.encoding.encodePath(path);
+        let url = `https://maps.googleapis.com/maps/api/staticmap?size=400x400&path=weight:3%7Ccolor:red%7Cenc:${encodedPath}&key=${keys.map}`
+        this.staticUrl = url;
+        }
+        
     }
     createMarker(latlng,icon,htb,idx,desc){
     let contentString = '';
@@ -131,7 +142,7 @@ export default class MarkerManager{
                     });
                     
                      this.route_steps = response.routes[0].legs
-
+                     this.response = response
                     // headTail.forEach((el,idx) => this.createMarker(el.location,customIcon,`ht-${idx}`))
                     // betweens.forEach((el,idx) => this.createMarker(el.location,customIconRed,`b-${idx}`))
                     this.nodes.forEach((el,idx)=>{

@@ -15,7 +15,6 @@ export default function App(){
             <HomeContainer/>
         </header>
         <ErrorsShowContainer/>
-        <div className="main-content">
         <Routes>
             
             <Route exact path="/login" element={
@@ -49,7 +48,6 @@ export default function App(){
             </Route>
             
         </Routes>
-        </div>
         </>
 
         

@@ -42,13 +42,40 @@ class Show extends React.Component{
         let route = this.props.routes[this.props.id];
         let name = route == null ? null : route.name;
         let distance = route == null ? null : route.distance;
-        return(
-            <>
-
-            <h1>{name + '-' + distance + 'm'}</h1>
-            <div id="map-container" ref={map => this.mapNode = map}></div>
-            </>
-        )
+        if(route == null) {
+            return(<div className="loading"></div>)
+        }else{
+            return(
+            <div className="row mb-3 text-center">
+                <div className="col-4 col-lg-4 themed-grid-col">
+                    <div className="card">
+                        <div className="card-header">
+                                Route Infomation
+                        </div>
+                    <ul className="list-group list-group-flush">
+                    
+                    <li className="list-group-item"> 
+                        <h3>Name: {route.name}</h3>
+                    </li>
+                    <li className="list-group-item">
+                        <span>Description: {route.description} </span>
+                    </li>
+                    <li className="list-group-item">
+                        <span>Distance: {route.distance}</span>
+                    </li>
+                    <li className="list-group-item">
+                        <span>Visibility: {route.privacy} </span>
+                    </li>
+                </ul>
+                </div>
+                </div>
+            
+            <div className="col-8 col-lg-8 themed-grid-col" id="map-container" ref={map => this.mapNode = map}></div>
+            </div>)
+        } 
+            
+        
+            
     }
 
 }

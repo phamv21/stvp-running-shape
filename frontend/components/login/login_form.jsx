@@ -18,11 +18,27 @@ export default function loginForm({submit}){
 
 
     return(
-        <form onSubmit={handleSubmit} className='login-form'>
-            <input type="text" name="username" value={username} onChange={(e)=>{e.preventDefault; setUsername(e.target.value)}} placeholder='Username'/>
-            <input type="password" name="password" value={password} onChange={e => {e.preventDefault(); setPassword(e.target.value)}} placeholder='Password'/>
-            <input type="submit" value="Login" />
-            <Link to='/signup'> Create Account </Link>
+        <div className="text-center">
+            
+        
+        <main className="form-signin w-100 m-auto">
+        <form onSubmit={handleSubmit}>
+            <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
+            <div className="form-floating">
+                <input className="form-control" type="text" name="username1" value={username} onChange={(e)=>{e.preventDefault; setUsername(e.target.value)}} id="username" placeholder="Username" />
+                <label htmlFor="username">Username</label>
+            </div>
+            <div className="form-floating">
+                <input className="form-control" type="password" name="password" value={password} onChange={e => {e.preventDefault(); setPassword(e.target.value)}}  id="password" placeholder='Password'/>
+                <label htmlFor="password">Password</label>
+                
+            </div>
+            
+            <input className="w-100 btn btn-lg btn-primary" type="submit" value="Login" />
+            <Link className="w-100 btn btn-lg btn-primary" to='/signup'> Create Account </Link>
+            <p className="mt-5 mb-3 text-muted">Stephen 2022</p>
         </form>
+        </main>
+        </div>
     )
 }

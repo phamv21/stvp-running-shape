@@ -17,99 +17,39 @@ export default class IndexRoutes extends React.Component{
         let routeEl = routes.map((el,idx) => <IndexRouteElement key={idx} route={el}/> )
 
         let showEl = this.props.loading ? (
-             <tbody>
-    <tr>
-      <td className="td-1"><span></span></td>
-      <td className="td-2"><span></span></td>
-      <td className="td-3"><span></span></td>
-      <td className="td-4"></td>
-      <td className="td-5"><span></span></td>
-    </tr>
-    <tr>
-      <td className="td-1"><span></span></td>
-      <td className="td-2"><span></span></td>
-      <td className="td-3"><span></span></td>
-      <td className="td-4"></td>
-      <td className="td-5"><span></span></td>
-    </tr>
-    <tr>
-      <td className="td-1"><span></span></td>
-      <td className="td-2"><span></span></td>
-      <td className="td-3"><span></span></td>
-      <td className="td-4"></td>
-      <td className="td-5"><span></span></td>
-    </tr>
-    <tr>
-      <td className="td-1"><span></span></td>
-      <td className="td-2"><span></span></td>
-      <td className="td-3"><span></span></td>
-      <td className="td-4"></td>
-      <td className="td-5"><span></span></td>
-    </tr>
-    <tr>
-      <td className="td-1"><span></span></td>
-      <td className="td-2"><span></span></td>
-      <td className="td-3"><span></span></td>
-      <td className="td-4"></td>
-      <td className="td-5"><span></span></td>
-    </tr>
-    <tr>
-      <td className="td-1"><span></span></td>
-      <td className="td-2"><span></span></td>
-      <td className="td-3"><span></span></td>
-      <td className="td-4"></td>
-      <td className="td-5"><span></span></td>
-    </tr>
-    <tr>
-      <td className="td-1"><span></span></td>
-      <td className="td-2"><span></span></td>
-      <td className="td-3"><span></span></td>
-      <td className="td-4"></td>
-      <td className="td-5"><span></span></td>
-    </tr>
-    <tr>
-      <td className="td-1"><span></span></td>
-      <td className="td-2"><span></span></td>
-      <td className="td-3"><span></span></td>
-      <td className="td-4"></td>
-      <td className="td-5"><span></span></td>
-    </tr><tr>
-      <td className="td-1"><span></span></td>
-      <td className="td-2"><span></span></td>
-      <td className="td-3"><span></span></td>
-      <td className="td-4"></td>
-      <td className="td-5"><span></span></td>
-    </tr>
-  </tbody>
-        ) : (<tbody>{routeEl}</tbody>)
+    <></>
+    ) : ( 
+        <tbody>{routeEl}</tbody>
+        )
 
-        return(
-          
-            <table>
-        <thead>
+    return(   
+       <table className="table table-hover" >
+        <thead className="thead-dark">
             <tr>
-                <th>
+                <th scope="col">
                     Route Name
                 </th>
-                <th>
+                <th scope="col">
                     Distance
                 </th>
-                <th>
+                <th scope="col">
                     City
                 </th>
-                <th>
+                <th scope="col">
                     Created
                 </th>
-                <th>
+                <th scope="col">
                     Visibility
                 </th>
-                <th>
+                <th scope="col">
                     Action
                 </th>
             </tr>
         </thead>
-            {showEl}
-    </table>
+        {showEl}
+        </table>
+       
+
         )
     }
 }

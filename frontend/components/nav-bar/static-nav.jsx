@@ -3,28 +3,28 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function StaticNav(){
-    const[isrouteActive,setRouteActive] = useState(false)
+//     const[isrouteActive,setRouteActive] = useState(false)
 
-   function handleMouseRoute(){
-        setRouteActive(!isrouteActive);
-    }
+//    function handleMouseRoute(){
+//         setRouteActive(!isrouteActive);
+//     }
     
-    let routesChildClass = isrouteActive ? 'routes-child active' : 'routes-child'
+    // let routesChildClass = isrouteActive ? 'routes-child active' : 'routes-child'
     return(
-        <ul className="nav-main-btn">
-            <li id="routes-btn"   onMouseLeave={handleMouseRoute} onMouseEnter={handleMouseRoute}>
-                <span> Routes</span>
-                <ul className={routesChildClass}>
+        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            <li id="nav-item dropdown" > 
+                <a className="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Routes</a>
+                <ul className='dropdown-menu'>
                     <li>
-                        <Link to='/map'> Create Route</Link>
+                        <Link to='/map' className="dropdown-item"> Create Route</Link>
                     </li>
                     <li>
-                        <Link to='/routes'>My Routes </Link>
+                        <Link to='/routes' className="dropdown-item">My Routes </Link>
                     </li>
                 </ul>
             </li>
-            <li id="community-btn">
-                <span> Communities</span>
+            <li className="nav-item">
+                <a className="nav-link" href="#">Communities</a>
             </li>
         </ul>
         

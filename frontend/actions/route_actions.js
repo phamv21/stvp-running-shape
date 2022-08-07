@@ -25,8 +25,8 @@ export const fetchRoutes = () => dispatch => {
             dispatch(stopLoading());
         },
         errors => {
-            dispatch(receiveErrors(errors.responseJSON));
             dispatch(stopLoading());
+            dispatch(receiveErrors(errors.responseJSON));
         }
     )
 }
@@ -39,9 +39,8 @@ export const getRoute = routeId => dispatch => {
             dispatch(stopLoading());
         },
         errors => {
-            dispatch(receiveErrors(errors.responseJSON));
             dispatch(stopLoading());
-
+            dispatch(receiveErrors(errors.responseJSON));
         }
     )
 }
@@ -56,8 +55,8 @@ export const createRoute = info => dispatch => {
              dispatch(receiveLoading());
         },
         errors => {
-            dispatch(receiveErrors(errors.responseJSON));
             dispatch(receiveLoading());
+            dispatch(receiveErrors(errors.responseJSON));
         }
     )
 }

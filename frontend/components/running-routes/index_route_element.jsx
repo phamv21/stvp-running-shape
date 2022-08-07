@@ -4,7 +4,7 @@ const IndexRouteElement = ({route}) => {
     return(
         
             <tr>
-            <td>
+            <td scope='row'>
                 <Link to={"/routes/"+route.id} >
                     {route.name}
                 </Link>

@@ -130,43 +130,54 @@ class CreateMap extends React.Component {
     render(){
         let button = this.props.loading ? 
         ( <button disabled={true}>
-                <div className="loading-btn"/>
+                <div className="spinner-border" role="status">
+                    <span className="sr-only">Loading...</span>
+                </div>
             </button>)
-             : (<input type="submit" value="Submit" />);
+             : (<div className="col-12"><input className="btn btn-dark" type="submit" value="Submit" /></div>);
         return(
-        <div className="create-route">
-           <div className="left-create-route">
-            <input type="text" id='auto-complete-search' placeholder="Please type the area that you want to run" />
+        <div className="row mb-3 text-center">
+           <div className="col-4 col-lg-4 themed-grid-col">
+            <div className="search-container">
+                <input className="form-control" type="search" id='auto-complete-search' placeholder="Please type the area that you want to run" aria-label="Search"/>
+            </div>
+            
 
             {/* form for name and description input */}
-            <form className="create-route-form" onSubmit={this.handleSubmit.bind(this)}>
-            <input placeholder="Route's Name" type="text" name="name" value={this.state.name} onChange={this.handleName.bind(this)}/>
-            <input placeholder="Description" type="text" name='description' value={this.state.description} onChange={this.handleDescription.bind(this)}/>
+            <form  onSubmit={this.handleSubmit.bind(this)}>
+            <div className="form-group">
+                <input className="form-control" id="route-name"  placeholder="Route's Name" type="text" name="name" value={this.state.name} onChange={this.handleName.bind(this)}/>
+                {/* <label htmlFor="route-name">Name:</label> */}
+            </div>
+            <div className="form-group">
+                {/* <label htmlFor="route-description">Description</label> */}
+                <input className="form-control" id="route-description" placeholder="Description" type="text" name='description' value={this.state.description} onChange={this.handleDescription.bind(this)}/>
+            </div>
             {/* add field privacy and activity type */}
-            <div className="select-container">
+
                 <label htmlFor="privacy"> Visibility</label>
-                <select name="privacy" id="privacy" value={this.state.privacy} onChange={this.handlePrivacy.bind(this)}>
+                <select className="form-floating form-control-sm" name="privacy" id="privacy" value={this.state.privacy} onChange={this.handlePrivacy.bind(this)}>
                     {PRIVACY.map((el,idx)=>(
                         <option key={idx} value={el}>{el} </option>
                     ))}
                 </select>
 
                 <label htmlFor="activity"> Activity</label>
-                <select name="activity" id="activity" value={this.state.activity} onChange={this.handleActivity.bind(this)}>
+                <select className="form-floating form-control-sm" name="activity" id="activity" value={this.state.activity} onChange={this.handleActivity.bind(this)}>
                     {ACTIVITIES.map((el,idx)=>(
                         <option key={idx} value={el}>{el} </option>
                     ))}
                 </select>
-            </div>
+
             
 
 
             {button}
 
         </form>
-
-           </div>
-             <div className="right-create-route" id="map-container" ref={map => this.mapNode = map}>
+                        {/* map showing */}
+           </div> 
+             <div className="col-sm-8 col-lg-8 themed-grid-col"id="map-container" ref={map => this.mapNode = map}>
             </div>
         
               

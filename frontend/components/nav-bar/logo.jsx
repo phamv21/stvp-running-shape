@@ -1,10 +1,10 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 export default function Logo(){
     return(
-        <ul className="logo">
-            <h1>Run!</h1>
-        </ul>
+        <Link className="navbar-brand" to="/routes">
+            Logo
+        </Link>
         
     )
 }

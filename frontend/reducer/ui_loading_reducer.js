@@ -8,7 +8,7 @@ const uiLoadingReducer = (state = false,action) => {
         case STOP_LOADING:
             return false;
         default:
-            return state;
+            return false;
     }
 }
 export default uiLoadingReducer;

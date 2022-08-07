@@ -5,7 +5,7 @@ class Route < ApplicationRecord
     validates :name, presence: true
     validates :privacy, inclusion: PRIVACY
     validates :activity, inclusion: ACTIVITIES
-
+    validate :should_have_more_than_two_points
 
     belongs_to :user 
     has_many   :pins, dependent: :destroy, inverse_of: :route
@@ -41,6 +41,12 @@ class Route < ApplicationRecord
             end
         end
         self.pins = result
+    end
+    private
+    def should_have_more_than_two_points
+        unless self.pins.length > 1
+            errors.add(:points,'You should have at least two points to have a route! ') 
+        end
     end
 
 end

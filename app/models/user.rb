@@ -68,7 +68,7 @@ class User < ApplicationRecord
     end
     def should_older_than_fourteen
         unless self.age > 14  
-            errors.add(:birthday, 'Only for people over 14')
+            errors.add(:too_young, 'Only for people over 14')
         end
     end
 

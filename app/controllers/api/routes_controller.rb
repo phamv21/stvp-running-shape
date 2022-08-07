@@ -21,14 +21,14 @@ class Api::RoutesController < ApplicationController
     end
 
     def create
-        sleep 3
+        sleep 2
         tmp = route_params
         tmp[:user_id] = current_user.id
         @route = Route.new(tmp)
         if @route.save
             render 'api/routes/show'
         else
-            render @route.errors.full_messages, status: 401
+            render json: @route.errors.full_messages, status: 401
         end
 
     end
