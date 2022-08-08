@@ -49,7 +49,7 @@ class Show extends React.Component{
             <div className="row mb-3 text-center">
                 <div className="col-4 col-lg-4 themed-grid-col">
                     <div className="card">
-                        <div className="card-header">
+                        <div className="card-header h2">
                                 Route Infomation
                         </div>
                     <ul className="list-group list-group-flush">

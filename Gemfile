@@ -14,6 +14,8 @@ gem "pg", "~> 1.1"
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
+#gem to save the image
+gem "aws-sdk-s3" ,require: false
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"

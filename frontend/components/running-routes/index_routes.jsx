@@ -17,13 +17,110 @@ export default class IndexRoutes extends React.Component{
         let routeEl = routes.map((el,idx) => <IndexRouteElement key={idx} route={el}/> )
 
         let showEl = this.props.loading ? (
-    <></>
+    <tbody>
+      <tr >
+          <td>
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+          </td>
+          <td>
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+          </td>
+          <td>
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+          </td>
+          <td>
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+          </td>
+          <td>
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+          </td>
+          <td>
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+          </td>
+      </tr>
+      <tr >
+          <td>
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+          </td>
+          <td>
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+          </td>
+          <td>
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+          </td>
+          <td>
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+          </td>
+          <td>
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+          </td>
+          <td>
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+          </td>
+      </tr>
+      <tr >
+          <td>
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+          </td>
+          <td>
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+          </td>
+          <td>
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+          </td>
+          <td>
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+          </td>
+          <td>
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+          </td>
+          <td>
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+          </td>
+      </tr>
+    </tbody>
     ) : ( 
         <tbody>{routeEl}</tbody>
         )
 
     return(   
-       <table className="table table-hover" >
+       <table className="table" >
         <thead className="thead-dark">
             <tr>
                 <th scope="col">

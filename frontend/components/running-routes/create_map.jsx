@@ -3,6 +3,7 @@ import MarkerManager from "../../utils/marker_manager";
 import {useNavigate} from 'react-router-dom'
 import AutoCompleteSearch from "../../utils/auto_complete_search_util";
 import { PRIVACY, ACTIVITIES } from "../../utils/const_util";
+import getStaticMap from "../../utils/get_static_map";
 class CreateMap extends React.Component {
     constructor(props){
         super(props)
@@ -100,28 +101,55 @@ class CreateMap extends React.Component {
         e.preventDefault();
         this.setState({privacy:e.target.value})
     }
-
+    // handleFile(e){
+    //     e.preventDefault();
+    //     console.log(e.target.files[0])
+    // }
     handleSubmit(e){
         e.preventDefault();
         // count total distance 
         let distanceSum = 0.0;
-        this.MarkerManager.route_steps.forEach(el => {distanceSum += el.distance.value})
+        this.MarkerManager.route_steps.forEach(el => {distanceSum += el.distance.value});
         const pin_nodes = this.MarkerManager.nodes;
         let pin_infomation = [];
-        pin_nodes.forEach(el=>{pin_infomation.push({lat:el.location.lat,lng:el.location.lng,description:el.description})})
+        pin_nodes.forEach(el=>{pin_infomation.push({lat:el.location.lat,lng:el.location.lng,description:el.description})});
+        // let thumb_file = (<img src="this.MarkerManager.getPreviewURL()" ></img>);
+
+        getStaticMap(this.MarkerManager.getPreviewURL()).then(res => {
+        let image = new File([res],'map_thumb',{type:'image/png'});
 
 
-        // submit props
-        let info = {
-            name: this.state.name,
-            privacy:this.state.privacy,
-            activity:this.state.activity,
-            description: this.state.description,
-            pin_infos: pin_infomation,
-            distance: distanceSum,
+        let formData = new FormData();
+        formData.append('route[name]',this.state.name);
+        formData.append('route[thumb]',image);
+        formData.append('route[privacy]',this.state.privacy);
+        formData.append('route[activity]',this.state.activity);
+        formData.append('route[description]',this.state.description);
+        for(let i = 0; i < pin_infomation.length; i++ ){
+            formData.append('route[pin_infos][]',JSON.stringify(pin_infomation[i]));
+        }
+        
+        formData.append('route[distance]',distanceSum);
+        this.props.submit(formData);
+        
+        });
+        
+        
 
-        } 
-        this.props.submit(info);
+        // console.log(thumb_file);
+        // window.formDataF = formData;
+        // window.thumbf = thumb_file;
+        // // submit props
+        // let info = {
+        //     name: this.state.name,
+        //     privacy:this.state.privacy,
+        //     activity:this.state.activity,
+        //     description: this.state.description,
+        //     pin_infos: pin_infomation,
+        //     distance: distanceSum,
+
+        // } 
+        // this.props.submit(formData);
         
         // this.props.navigate(`/routes/${routeId}`)
 
@@ -168,7 +196,7 @@ class CreateMap extends React.Component {
                         <option key={idx} value={el}>{el} </option>
                     ))}
                 </select>
-
+                {/* <input type="file" name="file" onChange={this.handleFile.bind(this)} id="" /> */}
             
 
 

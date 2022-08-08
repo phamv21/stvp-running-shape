@@ -24,6 +24,7 @@ class Api::RoutesController < ApplicationController
         sleep 2
         tmp = route_params
         tmp[:user_id] = current_user.id
+        tmp[:pin_infos] = tmp[:pin_infos].map{|el| JSON.parse(el)}
         @route = Route.new(tmp)
         if @route.save
             render 'api/routes/show'
@@ -38,7 +39,7 @@ class Api::RoutesController < ApplicationController
 
     private
     def route_params
-        params.require(:route).permit(:name,:description,:privacy,:activity,:distance,:pin_infos=>[:lat,:lng,:description])
+        params.require(:route).permit(:name,:description,:privacy,:activity,:distance,:thumb,:pin_infos=>[])#[:lat,:lng,:description]
     end
 
 end

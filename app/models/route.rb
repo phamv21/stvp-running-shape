@@ -9,6 +9,7 @@ class Route < ApplicationRecord
 
     belongs_to :user 
     has_many   :pins, dependent: :destroy, inverse_of: :route
+    has_one_attached :thumb
     def can_show?(user_id)
         if self.privacy == 'Public'
             return true
