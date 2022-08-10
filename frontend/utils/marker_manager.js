@@ -136,7 +136,6 @@ export default class MarkerManager{
                 travelMode: google.maps.TravelMode.WALKING,
             }).then(
                 response =>{
-                    window.stvp = response;
                     this.directionsRenderer.setOptions({
                         directions:response,
                         suppressMarkers: true,

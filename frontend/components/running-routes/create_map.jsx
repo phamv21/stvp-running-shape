@@ -118,8 +118,6 @@ class CreateMap extends React.Component {
         //get name_area
         let area_name = this.MarkerManager.route_steps[0].start_address;
         area_name = area_name.match(/\b[^,]+[\b,\b\w]/ig).slice(-2).join('');
-        console.log(this.MarkerManager.getPreviewURL());
-        console.log(area_name);
         getStaticMap(this.MarkerManager.getPreviewURL()).then(res => {
             let image = null
             if(res != 'error'){
@@ -145,25 +143,6 @@ class CreateMap extends React.Component {
         
         });
         
-        
-
-        // console.log(thumb_file);
-        // window.formDataF = formData;
-        // window.thumbf = thumb_file;
-        // // submit props
-        // let info = {
-        //     name: this.state.name,
-        //     privacy:this.state.privacy,
-        //     activity:this.state.activity,
-        //     description: this.state.description,
-        //     pin_infos: pin_infomation,
-        //     distance: distanceSum,
-
-        // } 
-        // this.props.submit(formData);
-        
-        // this.props.navigate(`/routes/${routeId}`)
-
     }
 
     render(){
