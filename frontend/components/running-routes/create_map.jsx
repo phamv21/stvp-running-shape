@@ -30,7 +30,7 @@ class CreateMap extends React.Component {
     componentDidMount() {
         // set the map to show SF
         const mapOptions = {
-            center: { lat: 37.7758, lng: -122.435 }, // this is SF
+            center: this.props.lastLocation, //{ lat: 37.7758, lng: -122.435 }, // this is SF
             zoom: 16
         };
 
@@ -113,15 +113,26 @@ class CreateMap extends React.Component {
         const pin_nodes = this.MarkerManager.nodes;
         let pin_infomation = [];
         pin_nodes.forEach(el=>{pin_infomation.push({lat:el.location.lat,lng:el.location.lng,description:el.description})});
-        // let thumb_file = (<img src="this.MarkerManager.getPreviewURL()" ></img>);
+        
 
+        //get name_area
+        let area_name = this.MarkerManager.route_steps[0].start_address;
+        area_name = area_name.match(/\b[^,]+[\b,\b\w]/ig).slice(-2).join('');
+        console.log(this.MarkerManager.getPreviewURL());
+        console.log(area_name);
         getStaticMap(this.MarkerManager.getPreviewURL()).then(res => {
-        let image = new File([res],'map_thumb',{type:'image/png'});
-
+            let image = null
+            if(res != 'error'){
+                image = new File([res],area_name,{type:'image/png'});
+            }
+    
 
         let formData = new FormData();
         formData.append('route[name]',this.state.name);
-        formData.append('route[thumb]',image);
+            if(image != null){
+                formData.append('route[thumb]',image);
+            }
+        formData.append('route[area_name]',area_name);
         formData.append('route[privacy]',this.state.privacy);
         formData.append('route[activity]',this.state.activity);
         formData.append('route[description]',this.state.description);

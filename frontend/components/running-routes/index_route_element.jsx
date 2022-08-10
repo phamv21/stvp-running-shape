@@ -7,6 +7,7 @@ const IndexRouteElement = ({route}) => {
             <td scope='row'>
                 <Link to={"/routes/"+route.id} >
                     {route.name}
+                    <img className="img-thumbnail route-thumb" src={route.thumb} />
                 </Link>
                 
             </td>
@@ -14,7 +15,7 @@ const IndexRouteElement = ({route}) => {
                 {route.distance}
             </td>
             <td>
-                {route.lat}
+                {route.area_name}
             </td>
             <td>
                 {route.created_at != null ? route.created_at.slice(0,10) : null}

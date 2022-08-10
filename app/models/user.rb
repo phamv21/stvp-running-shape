@@ -14,8 +14,16 @@ class User < ApplicationRecord
     
 
     has_many :routes, dependent: :destroy, inverse_of: :user
+    has_many :pins, through: :routes
     # add the validation of age
-    
+    def last_route_location
+        location = self.pins.last
+        unless location.nil?
+            return {lat:location.lat,lng:location.lng};
+        end
+        #return the location of SF if there is no last location
+            return { lat: 37.7758, lng: -122.435 }
+    end
 
     def self.login_by_credentials(user,pass)
         find_user = User.find_by(username:user)

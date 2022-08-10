@@ -5,7 +5,9 @@ import { createRoute } from "../../actions/route_actions";
 const mapStateToProps = state => (
     {
         newRouteId: state.ui.newRouteId,
-        loading: state.ui.loading
+        loading: state.ui.loading,
+        lastLocation: state.entities.users[state.session.currentUserId].last_route_location
+
     }
 )
 

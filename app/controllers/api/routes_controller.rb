@@ -39,7 +39,7 @@ class Api::RoutesController < ApplicationController
 
     private
     def route_params
-        params.require(:route).permit(:name,:description,:privacy,:activity,:distance,:thumb,:pin_infos=>[])#[:lat,:lng,:description]
+        params.require(:route).permit(:name,:area_name,:description,:privacy,:activity,:distance,:thumb,:pin_infos=>[])#[:lat,:lng,:description]
     end
 
 end

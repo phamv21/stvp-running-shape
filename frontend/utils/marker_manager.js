@@ -39,9 +39,8 @@ export default class MarkerManager{
     }
     getPreviewURL(){
         if (this.response != null){
-        let path = this.response.routes[0].overview_path;
-        let encodedPath = google.maps.geometry.encoding.encodePath(path);
-        let url = `https://maps.googleapis.com/maps/api/staticmap?size=400x400&path=weight:3%7Ccolor:red%7Cenc:${encodedPath}&key=${keys.map}`
+        let encodedPath = this.response.routes[0].overview_polyline
+        let url = `https://maps.googleapis.com/maps/api/staticmap?size=100x100&path=weight:3%7Ccolor:red%7Cenc:${encodedPath}&key=${keys.map}`
         return url;
         }else{
             return null;
@@ -114,6 +113,7 @@ export default class MarkerManager{
                 icon: customIcon,
                 map: this.map,
             })
+            
         }
         else{
             //now we can draw map with these data
@@ -145,6 +145,7 @@ export default class MarkerManager{
                     
                      this.route_steps = response.routes[0].legs;
                      this.response = response;
+    
                     // headTail.forEach((el,idx) => this.createMarker(el.location,customIcon,`ht-${idx}`))
                     // betweens.forEach((el,idx) => this.createMarker(el.location,customIconRed,`b-${idx}`))
                     this.nodes.forEach((el,idx)=>{
@@ -154,6 +155,8 @@ export default class MarkerManager{
                             this.createMarker(el.location,customIcon,'between',idx,el.description);
                         }
                     })
+                    
+                    
                     // this.directionsRenderer.setDirections(response);
                     // let steps = response.routes
                     // console.log('map respond',response.routes)
