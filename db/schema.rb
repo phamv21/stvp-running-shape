@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_10_064440) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_10_081430) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -42,13 +42,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_10_064440) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "followings", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "friend_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "pins", force: :cascade do |t|
     t.string "description"
     t.float "lat", null: false
@@ -70,6 +63,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_10_064440) do
     t.float "distance"
     t.string "area_name"
     t.index ["user_id"], name: "index_routes_on_user_id"
+  end
+
+  create_table "user_relationships", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "other_user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "relationship_type", default: "Pending"
+    t.index ["other_user_id"], name: "index_user_relationships_on_other_user_id"
+    t.index ["user_id"], name: "index_user_relationships_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

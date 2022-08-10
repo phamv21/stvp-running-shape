@@ -15,9 +15,33 @@ class User < ApplicationRecord
 
     has_many :routes, dependent: :destroy, inverse_of: :user
     has_many :pins, through: :routes
-    has_many :followings, dependent: :destroy
-    has_many :friends, through: :followings
-    # add the validation of age
+    has_many :user_relationships, dependent: :destroy
+    has_many :other_users, through: :user_relationships
+    
+    #show the people who we are requesting friend and not yet accept
+    def requested_friends
+        self.other_users.where('user_relationships.relationship_type=?','Pending')
+    end
+
+    #show the people that are friend 
+    def friends
+        self.other_users.where('user_relationships.relationship_type=?','Friend')
+
+    end
+    #show pending requests from other user
+    def pending_requests
+        UserRelationship.where(other_user_id:self.id).where('user_relationships.relationship_type=?','Pending').includes(:user)
+        # User.joins('INNER JOIN user_relationships ON users.id = user_relationships.user_id').where('user_relationships.relationship_type = ?','Pending').where('user_relationships.other_user_id =?',self.id)
+    end
+    #show available poeple who not yet have the request
+    def available_people(username)
+        exclude_ids = UserRelationship.where(user_id:self.id).map{|el| el.other_user_id}
+        User.where('users.username LIKE ?',username + '%').where.not('users.id IN (?)',exclude_ids)
+
+    end
+  
+
+
     def last_route_location
         location = self.pins.last
         unless location.nil?
@@ -76,6 +100,7 @@ class User < ApplicationRecord
     def ensure_session_token
         self.session_token ||= generate_session_token
     end
+    # add the validation of age
     def should_older_than_fourteen
         unless self.age > 14  
             errors.add(:too_young, 'Only for people over 14')
