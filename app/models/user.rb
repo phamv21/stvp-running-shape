@@ -15,6 +15,8 @@ class User < ApplicationRecord
 
     has_many :routes, dependent: :destroy, inverse_of: :user
     has_many :pins, through: :routes
+    has_many :followings, dependent: :destroy
+    has_many :friends, through: :followings
     # add the validation of age
     def last_route_location
         location = self.pins.last
