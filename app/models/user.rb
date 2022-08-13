@@ -25,17 +25,19 @@ class User < ApplicationRecord
 
     #show the people that are friend 
     def friends
-        self.other_users.where('user_relationships.relationship_type=?','Friend')
-
+        set1 = self.other_users.where('user_relationships.relationship_type=?','Friend');
+        set2 = User.joins('INNER JOIN user_relationships ON users.id = user_relationships.other_user_id').where('user_relationships.relationship_type = ?','Friend').where('user_relationships.other_user_id =?',self.id).where.not('users.id=?',self.id);
+        return (set1+set2)
     end
-    #show pending requests from other user
+    #show user who make pending requests from other user
     def pending_requests
-        UserRelationship.where(other_user_id:self.id).where('user_relationships.relationship_type=?','Pending').includes(:user)
-        # User.joins('INNER JOIN user_relationships ON users.id = user_relationships.user_id').where('user_relationships.relationship_type = ?','Pending').where('user_relationships.other_user_id =?',self.id)
+    #    requests =  UserRelationship.where(other_user_id:self.id).where('user_relationships.relationship_type=?','Pending').includes(:user)
+        User.joins('INNER JOIN user_relationships ON users.id = user_relationships.user_id').where('user_relationships.relationship_type = ?','Pending').where('user_relationships.other_user_id =?',self.id)
     end
     #show available poeple who not yet have the request
     def available_people(username)
         exclude_ids = UserRelationship.where(user_id:self.id).map{|el| el.other_user_id}
+        exclude_ids << self.id
         User.where('users.username LIKE ?',username + '%').where.not('users.id IN (?)',exclude_ids)
 
     end

@@ -8,11 +8,13 @@ Rails.application.routes.draw do
       resource :session, only:[:create,:destroy]
       resources :users, only:[:create,:destroy,:show,:update]
       resources :routes, only:[:index,:show,:create,:destroy]
-      resources :user_relationships, only:[:create,:update,:destroy]
+      resources :user_relationships, only:[:create]
       post 'relationship/find', to:"user_relationships#find"
       post 'relationship/respond', to:"user_relationships#respond"
+      delete 'relationship/undo', to:"user_relationships#undo"
       get 'relationship/friends', to:"user_relationships#friends"
-      get 'relationship/requested', to:"user_relationships#requested"
+      get 'relationship/requested_friends', to:"user_relationships#requested_friends"
+      get 'relationship/pending_requests', to:"user_relationships#pending_requests"
       
     end
 end

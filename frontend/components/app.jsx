@@ -8,6 +8,8 @@ import CreateMapContainer from "./running-routes/create_map_container";
 import ShowMapContainer from "./running-routes/show_map_container";
 import IndexRoutesContainer from "./running-routes/index_routes_container";
 import ErrorsShowContainer from "./errors/errors_show_container";
+
+import CommunityContainer from "./community/community_container";
 export default function App(){
     return(
         <>
@@ -27,25 +29,29 @@ export default function App(){
                     <SignupFormContainer/>
                 </AuthRoute>
             }/>
-            <Route path='map' element={
+            <Route path='/map' element={
                 <ProtectedRoute>
                     <CreateMapContainer/>
                 </ProtectedRoute>
             }/>
-            <Route path='routes' element={
+            <Route path='/routes' element={
                     <ProtectedRoute>
                         <IndexRoutesContainer/>
                     </ProtectedRoute>
                 }>
 
             </Route>
-            <Route path='routes'>
+            <Route path='/routes'>
                 <Route path=":id" element={
                 <ProtectedRoute>
                     <ShowMapContainer/>
                 </ProtectedRoute>
                 } />
             </Route>
+            <Route path="/community/*" element={<CommunityContainer/>}>
+            
+            </Route>
+
             
         </Routes>
         </>

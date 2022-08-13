@@ -24,7 +24,7 @@ export default function StaticNav(){
                 </ul>
             </li>
             <li className="nav-item">
-                <a className="nav-link" href="#">Communities</a>
+                <Link className="nav-link" to="/community">Communities</Link>
             </li>
         </ul>
         
