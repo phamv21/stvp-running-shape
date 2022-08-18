@@ -9,7 +9,9 @@ class Route < ApplicationRecord
 
     belongs_to :user 
     has_many   :pins, dependent: :destroy, inverse_of: :route
+    has_many :activities
     has_one_attached :thumb
+    #func to validate the visibility of a map - whether it can be seen by others
     def can_show?(user_id)
         if self.privacy == 'Public'
             return true
@@ -28,7 +30,7 @@ class Route < ApplicationRecord
         end
         
     end
-
+    #use this func to crete pin during the creatation of a map
     def pin_infos=(infos) #infors is the array of infor
         result = []
         infos.each do |info|
@@ -44,6 +46,7 @@ class Route < ApplicationRecord
         self.pins = result
     end
     private
+    #to validate the route with more than two point (start-midways-finish)
     def should_have_more_than_two_points
         unless self.pins.length > 1
             errors.add(:points,'You should have at least two points to have a route! ') 

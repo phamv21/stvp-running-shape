@@ -17,6 +17,7 @@ class User < ApplicationRecord
     has_many :pins, through: :routes
     has_many :user_relationships, dependent: :destroy
     has_many :other_users, through: :user_relationships
+    has_many :activities, dependent: :destroy
     
     #show the people who we are requesting friend and not yet accept
     def requested_friends
@@ -25,9 +26,20 @@ class User < ApplicationRecord
 
     #show the people that are friend 
     def friends
-        set1 = self.other_users.where('user_relationships.relationship_type=?','Friend');
-        set2 = User.joins('INNER JOIN user_relationships ON users.id = user_relationships.other_user_id').where('user_relationships.relationship_type = ?','Friend').where('user_relationships.other_user_id =?',self.id).where.not('users.id=?',self.id);
-        return (set1+set2)
+        # set1 = (self.other_users.where('user_relationships.relationship_type=?','Friend'))
+        # set2 = (User.joins('INNER JOIN user_relationships ON users.id = user_relationships.other_user_id').where('user_relationships.relationship_type = ?','Friend').where('user_relationships.other_user_id =?',self.id).where.not('users.id=?',self.id))
+        # return (set1+set2)
+
+        # we find the friend ids
+        tmp = Hash.new(0)
+        #set1 is the select id of user who make the request to self
+        set1 = UserRelationship.select(:user_id).distinct.where('user_relationships.other_user_id =?',14).where('user_relationships.relationship_type =?','Friend')
+        #set2 is the id of user who self make request to 
+        set2 = UserRelationship.select(:other_user_id).distinct.where('user_relationships.user_id =?',14).where('user_relationships.relationship_type =?','Friend')
+        set1.each{|el| tmp[el.user_id] +=1}
+        set2.each{|el| tmp[el.other_user_id] +=1}
+        @friend_id_arr = tmp.keys
+        User.where('id IN (?)',@friend_id_arr)
     end
     #show user who make pending requests from other user
     def pending_requests
@@ -41,9 +53,26 @@ class User < ApplicationRecord
         User.where('users.username LIKE ?',username + '%').where.not('users.id IN (?)',exclude_ids)
 
     end
-  
+
+    #feed is the activities of the friend in public or friend mode    
+    def feed
+        friends = self.friends
+
+        activity_feed = Activity.joins('INNER JOIN users ON activities.user_id = users.id')
+        .where('users.id in (?)',@friend_id_arr)
+        .where.not('activities.privacy =?','Private')
+        # activity_feed = []
+        # friends.each do |el|
+        #     activity_feed.concat(el.activities.where.not('activities.privacy =?','Private'))
+        # end
+        # activity_feed
+
+        # self.friends.map{|el| el.shared_activities}
+        
+    end
 
 
+    #use to render the map to the last place that a user create -
     def last_route_location
         location = self.pins.last
         unless location.nil?
