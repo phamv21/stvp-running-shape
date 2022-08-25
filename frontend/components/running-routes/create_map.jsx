@@ -180,7 +180,7 @@ class CreateMap extends React.Component {
                     ))}
                 </select>
 
-                <label htmlFor="activity"> Activity</label>
+                <label htmlFor="activity"> Activity Type:</label>
                 <select className="form-floating form-control-sm" name="activity" id="activity" value={this.state.activity} onChange={this.handleActivity.bind(this)}>
                     {ACTIVITIES.map((el,idx)=>(
                         <option key={idx} value={el}>{el} </option>

@@ -10,6 +10,9 @@ import IndexRoutesContainer from "./running-routes/index_routes_container";
 import ErrorsShowContainer from "./errors/errors_show_container";
 
 import CommunityContainer from "./community/community_container";
+import DashboardContainter from "./dashboard/dashboard_containter";
+import ActivityFormContainer from "./dashboard/activity_form_container";
+
 export default function App(){
     return(
         <>
@@ -34,6 +37,18 @@ export default function App(){
                     <CreateMapContainer/>
                 </ProtectedRoute>
             }/>
+
+            <Route exact path="activities/create" element={
+                <ProtectedRoute>
+                    <ActivityFormContainer/>
+                </ProtectedRoute>
+            }/>
+            <Route exact path="activities" element={
+                <ProtectedRoute>
+                    <DashboardContainter/>
+                </ProtectedRoute>
+            }/>
+
             <Route path='/routes' element={
                     <ProtectedRoute>
                         <IndexRoutesContainer/>

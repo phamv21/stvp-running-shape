@@ -7,7 +7,7 @@ class Api::ActivitiesController < ApplicationController
 
     def feed #use to show the activities of friends
         @activities = current_user.feed
-        render :feed
+        render 'api/activities/index'
     end
 
     def show

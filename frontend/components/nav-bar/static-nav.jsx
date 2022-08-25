@@ -12,6 +12,19 @@ export default function StaticNav(){
     // let routesChildClass = isrouteActive ? 'routes-child active' : 'routes-child'
     return(
         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            {/* add dashboard */}
+            <li id="nav-item dropdown" > 
+                <a className="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Dashboard</a>
+                <ul className='dropdown-menu'>
+                    <li>
+                        <Link to='/activities' className="dropdown-item"> My Activities</Link>
+                    </li>
+                    <li>
+                        <Link to='/activities/create' className="dropdown-item">Create Activity </Link>
+                    </li>
+                </ul>
+            </li>
+
             <li id="nav-item dropdown" > 
                 <a className="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Routes</a>
                 <ul className='dropdown-menu'>
@@ -24,7 +37,7 @@ export default function StaticNav(){
                 </ul>
             </li>
             <li className="nav-item">
-                <Link className="nav-link" to="/community">Communities</Link>
+                <Link className="nav-link" to="/community/friends">Communities</Link>
             </li>
         </ul>
         

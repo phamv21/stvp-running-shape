@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_18_094532) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_19_185018) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -46,12 +46,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_18_094532) do
     t.integer "user_id", null: false
     t.integer "route_id"
     t.string "title", null: false
-    t.time "starting_time", null: false
     t.string "note"
     t.integer "duration", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "privacy", default: "Friend", null: false
+    t.date "starting_time", null: false
     t.index ["route_id"], name: "index_activities_on_route_id"
     t.index ["user_id"], name: "index_activities_on_user_id"
   end
