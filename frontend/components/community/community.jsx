@@ -19,13 +19,13 @@ export default function Community(props){
             <Routes>
             <Route exact path="/friends" element={
                 <ProtectedRoute>
-                    <Friends props={props}/>
                     <PendingRequest props={props}/>
+                    <Friends props={props}/>
                 </ProtectedRoute>
             }/>
             <Route exact path="/find-friends" element={
                  <ProtectedRoute>
-                     <FindPeople props={props}/>
+                    <FindPeople props={props}/>
                     < SendedRequest props={props}/>
                 </ProtectedRoute>
             }/>

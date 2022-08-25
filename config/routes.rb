@@ -16,6 +16,6 @@ Rails.application.routes.draw do
       get 'relationship/requested_friends', to:"user_relationships#requested_friends"
       get 'relationship/pending_requests', to:"user_relationships#pending_requests"
       resources :activities, only:[:create,:index,:show,:destroy,:update]
-      get 'activities/feed', to: "activities#feed"
+      get 'activities_feed', to: "activities#feed"
     end
 end

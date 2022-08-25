@@ -7,11 +7,11 @@ class Api::ActivitiesController < ApplicationController
 
     def feed #use to show the activities of friends
         @activities = current_user.feed
-        render 'api/activities/index'
+        render :feed
     end
 
     def show
-        @activity = Activitiy.find(params[:id])
+        @activity = Activity.find(params[:id])
         if @activity.nil? || @activity.user != current_user
             render json: ['wrong activity id'], status: 401
         else

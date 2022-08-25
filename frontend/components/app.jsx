@@ -12,6 +12,7 @@ import ErrorsShowContainer from "./errors/errors_show_container";
 import CommunityContainer from "./community/community_container";
 import DashboardContainter from "./dashboard/dashboard_containter";
 import ActivityFormContainer from "./dashboard/activity_form_container";
+import FeedContainer from "./community/feed_container";
 
 export default function App(){
     return(
@@ -48,6 +49,13 @@ export default function App(){
                     <DashboardContainter/>
                 </ProtectedRoute>
             }/>
+
+            <Route exact path="/community/feed" element={
+                <ProtectedRoute>
+                    <FeedContainer/>
+                </ProtectedRoute>
+            }/>
+
 
             <Route path='/routes' element={
                     <ProtectedRoute>

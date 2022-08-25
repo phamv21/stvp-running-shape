@@ -14,7 +14,7 @@ export const findActivity = id =>{
 
 export const fetchFeed = () => {
     return $.ajax({
-        url:'api/activities/feed',
+        url:'api/activities_feed',
         method:'GET',
     })
 }

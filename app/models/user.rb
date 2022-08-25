@@ -26,20 +26,13 @@ class User < ApplicationRecord
 
     #show the people that are friend 
     def friends
-        # set1 = (self.other_users.where('user_relationships.relationship_type=?','Friend'))
-        # set2 = (User.joins('INNER JOIN user_relationships ON users.id = user_relationships.other_user_id').where('user_relationships.relationship_type = ?','Friend').where('user_relationships.other_user_id =?',self.id).where.not('users.id=?',self.id))
-        # return (set1+set2)
+        User.where.not(id:self.id)
+        .where('EXISTS (:u1) OR EXISTS (:u2)',u1:UserRelationship.where('users.id = user_relationships.other_user_id')
+        .where('user_relationships.user_id=?',self.id)
+        .where('user_relationships.relationship_type =?','Friend'),u2:UserRelationship.where('users.id = user_relationships.user_id')
+        .where('user_relationships.other_user_id = ?',self.id)
+        .where('user_relationships.relationship_type=?','Friend'))
 
-        # we find the friend ids
-        tmp = Hash.new(0)
-        #set1 is the select id of user who make the request to self
-        set1 = UserRelationship.select(:user_id).distinct.where('user_relationships.other_user_id =?',14).where('user_relationships.relationship_type =?','Friend')
-        #set2 is the id of user who self make request to 
-        set2 = UserRelationship.select(:other_user_id).distinct.where('user_relationships.user_id =?',14).where('user_relationships.relationship_type =?','Friend')
-        set1.each{|el| tmp[el.user_id] +=1}
-        set2.each{|el| tmp[el.other_user_id] +=1}
-        @friend_id_arr = tmp.keys
-        User.where('id IN (?)',@friend_id_arr)
     end
     #show user who make pending requests from other user
     def pending_requests
@@ -47,28 +40,33 @@ class User < ApplicationRecord
         User.joins('INNER JOIN user_relationships ON users.id = user_relationships.user_id').where('user_relationships.relationship_type = ?','Pending').where('user_relationships.other_user_id =?',self.id)
     end
     #show available poeple who not yet have the request
-    def available_people(username)
-        exclude_ids = UserRelationship.where(user_id:self.id).map{|el| el.other_user_id}
-        exclude_ids << self.id
-        User.where('users.username LIKE ?',username + '%').where.not('users.id IN (?)',exclude_ids)
+    def available_people(query)
+        User.where('users.username LIKE ?',query + '%')
+        .where.not(id:self.id)
+        .where('NOT EXISTS (:u1) AND NOT EXISTS (:u2)',u1:UserRelationship
+        .where('user_relationships.user_id=?',self.id)
+        .where('users.id = user_relationships.other_user_id'),u2:UserRelationship
+        .where('user_relationships.other_user_id = ?',self.id)
+        .where('users.id = user_relationships.user_id'))
+
+        # .where('user_relationships.relationship_type=?','Friend'))
+        
 
     end
 
     #feed is the activities of the friend in public or friend mode    
     def feed
-        friends = self.friends
-
-        activity_feed = Activity.joins('INNER JOIN users ON activities.user_id = users.id')
-        .where('users.id in (?)',@friend_id_arr)
-        .where.not('activities.privacy =?','Private')
-        # activity_feed = []
-        # friends.each do |el|
-        #     activity_feed.concat(el.activities.where.not('activities.privacy =?','Private'))
-        # end
-        # activity_feed
-
-        # self.friends.map{|el| el.shared_activities}
         
+        my_activities = Activity.where(user_id:self.id)
+        friend_activities = Activity.where.not('activities.privacy =?','Private')
+        .where('EXISTS (:u)',u:User.where('EXISTS (:u1) OR EXISTS (:u2)',u1:UserRelationship.where('users.id = user_relationships.other_user_id')
+        .where('user_relationships.user_id=?',self.id)
+        .where('user_relationships.relationship_type =?','Friend'),u2:UserRelationship.where('users.id = user_relationships.user_id')
+        .where('user_relationships.other_user_id = ?',self.id)
+        .where('user_relationships.relationship_type=?','Friend')).where('users.id = activities.user_id'))
+        
+        return my_activities + friend_activities
+
     end
 
 

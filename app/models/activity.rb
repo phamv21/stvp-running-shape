@@ -24,4 +24,16 @@ class Activity < ApplicationRecord
     time_string = [h_p,' Hours, ',m_p,' Minutes, ',s_p,' Seconds']
     time_string.join('')
     end
+    def starting_time_text
+        diff_seconds = Time.now  - Time.parse(self[:starting_time].to_s)
+        parts = ActiveSupport::Duration.build(diff_seconds).parts.to_a[0,2]
+        time_string = ''
+        if parts.length > 1 
+            time_string += parts[0][1].to_s + ' ' + parts[0][0].to_s.capitalize
+            time_string += parts[1][1].to_s + ' ' + parts[1][0].to_s.capitalize
+        else
+            time_string += parts[0][1].to_s + ' ' + parts[0][0].to_s.capitalize
+        end
+        time_string
+    end
 end
