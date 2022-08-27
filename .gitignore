@@ -36,3 +36,6 @@ bundle.js
 bundle.js.map
 # Ignore application configuration
 /config/application.yml
+
+#system_file
+*.DS_Store
