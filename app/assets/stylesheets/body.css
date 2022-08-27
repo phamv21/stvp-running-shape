@@ -53,3 +53,30 @@ body {
 .form-signin .btn-primary{
     margin-bottom: 10px;
 }
+/* show drop down menu */
+/* .show>.dropdown-menu {
+    display: block;
+    position: absolute;
+} */
+.route-dropdown{
+    max-height: 30vh;
+    overflow: auto;
+}
+.route-select-btn{
+    min-width: 30vw;
+}
+.super-small-img{
+    width: 50px;
+    height: 50px;
+}
+.feed-thumb{
+    width: 200px;
+    height: 200px;
+}
+.hidden{
+    display: none;
+}
+.datePicker{
+    margin:0;
+    offset: 0;
+}

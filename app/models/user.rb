@@ -57,8 +57,8 @@ class User < ApplicationRecord
     #feed is the activities of the friend in public or friend mode    
     def feed
         
-        my_activities = Activity.where(user_id:self.id)
-        friend_activities = Activity.where.not('activities.privacy =?','Private')
+        my_activities = Activity.includes(route:[thumb_attachment: :blob]).where(user_id:self.id)
+        friend_activities = Activity.includes(route:[thumb_attachment: :blob]).where.not('activities.privacy =?','Private')
         .where('EXISTS (:u)',u:User.where('EXISTS (:u1) OR EXISTS (:u2)',u1:UserRelationship.where('users.id = user_relationships.other_user_id')
         .where('user_relationships.user_id=?',self.id)
         .where('user_relationships.relationship_type =?','Friend'),u2:UserRelationship.where('users.id = user_relationships.user_id')

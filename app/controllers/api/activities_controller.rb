@@ -1,7 +1,7 @@
 class Api::ActivitiesController < ApplicationController
     before_action :ensure_current_user!
     def index
-        @activities = current_user.activities
+        @activities = current_user.activities.includes(:route)
         render :index
     end
 
@@ -11,7 +11,7 @@ class Api::ActivitiesController < ApplicationController
     end
 
     def show
-        @activity = Activity.find(params[:id])
+        @activity = Activity.includes(:route).find(params[:id])
         if @activity.nil? || @activity.user != current_user
             render json: ['wrong activity id'], status: 401
         else

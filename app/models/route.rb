@@ -10,7 +10,7 @@ class Route < ApplicationRecord
     belongs_to :user 
     has_many   :pins, dependent: :destroy, inverse_of: :route
     has_many :activities
-    has_one_attached :thumb
+    has_one_attached :thumb, dependent: :destroy
     #func to validate the visibility of a map - whether it can be seen by others
     def can_show?(user_id)
         if self.privacy == 'Public'

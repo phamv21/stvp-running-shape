@@ -5,7 +5,7 @@ class Api::RoutesController < ApplicationController
         #it may show my run
         #it my show the result of the friend route or the public route in the area
         sleep 2
-        @routes = current_user.routes #should apply filter later
+        @routes = current_user.routes.with_attached_thumb #should apply filter later
         render :index
 
     end

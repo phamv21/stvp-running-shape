@@ -3,17 +3,27 @@ import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 export default function FindPeople(val){
     const props = val.props
-    const [query,setQuery] = useState('')
+
+    const [query,setQuery] = useState('');
+    const [validateSearch, setValidateSearch] = useState('hidden');
+    const [submitted,setSubmitted] = useState(false);
   
     function handleQuery(e){
         e.preventDefault();
-        setQuery(e.target.value)
+        setSubmitted(false);
+        setQuery(e.target.value);
         
     }
 
     function handleSubmit(e){
         e.preventDefault();
-        props.findPeople(query);
+        if(query == ''){
+            setValidateSearch('text-danger');
+        }else{
+            setSubmitted(true);
+            props.findPeople(query);
+        }
+        
     }
 
     function handleMakeFriend(id){
@@ -21,7 +31,8 @@ export default function FindPeople(val){
     }
 
 
-    const searchResult = props.nonRelationship.map((el,idx) => {
+    const searchResult = props.nonRelationship.length == 0 && submitted ? (<p className="text-secondary">No Result</p>) : 
+    props.nonRelationship.map((el,idx) => {
         if(el != null){
             return(
                 <li key={idx}>
@@ -32,12 +43,16 @@ export default function FindPeople(val){
         }
         
     })
+    let searchValidate = query == '' ? (<span className={validateSearch}>You can not leave search field empty!</span>) : null
         return (
 
         <div>
         <form >
-            <input type="text" value={query} onChange={handleQuery} />
-            <button onClick={handleSubmit} >Search</button>
+            <div className="form-inline">
+            <input className="form-control mr-sm-2" id="search-friend-field" type="search" value={query} onChange={handleQuery} placeholder='Search'/>
+            {searchValidate}
+            </div>
+            <button className="btn btn-outline-success my-2 my-sm-0" onClick={handleSubmit} >Search</button>
         </form>
         <ul>
             {searchResult}

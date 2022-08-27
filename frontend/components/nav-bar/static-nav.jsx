@@ -18,7 +18,7 @@ export default function StaticNav(){
                 </ul>
             </li>
 
-            <li className="nav-item dropdown"   > 
+            <li className="nav-item dropdown" > 
                 <a className="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Routes</a>
                 <ul className='dropdown-menu'>
                     <li>
@@ -34,7 +34,7 @@ export default function StaticNav(){
                 <a className="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Community</a>
                 <ul className='dropdown-menu'>
                     <li>
-                        <Link to='/community/feed' className="dropdown-item">Feeds </Link>
+                        <Link to='/community/feed' className="dropdown-item">Feed </Link>
                     </li>
 
                     <li>

@@ -9,7 +9,7 @@ export default function FeedElement({props}){
   <div className="card-body">
     <blockquote className="blockquote mb-0">
       <p>{props.note}</p>
-      <img src={props.thumb} className="img-thumbnail rounded float-right" alt="route"/>
+      <img src={props.thumb} className="img-thumbnail rounded float-right feed-thumb" alt="route"/>
       <footer className="blockquote-footer">About {props.starting_time_text} ago <cite title="Source Title">by author</cite></footer>
     </blockquote>
   </div>

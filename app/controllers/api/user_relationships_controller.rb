@@ -2,8 +2,13 @@ class Api::UserRelationshipsController < ApplicationController
     before_action :ensure_current_user!
 
     def find #show all people that is not my friend(available) 
-        @users = current_user.available_people(params[:search])
-        render :find
+        if params[:search] == ''
+            render json: ["The search's query can not be empty"], status: 401
+        else
+            @users = current_user.available_people(params[:search])
+            render :find
+        end
+        
     end
     
     def friends #show all my friends (following)
