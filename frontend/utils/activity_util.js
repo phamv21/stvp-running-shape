@@ -19,6 +19,13 @@ export const fetchFeed = () => {
     })
 }
 
+export const fetchUserFeed = (user_id) =>{
+    return $.ajax({
+        url:`api/profile/${user_id}/activity_feed`,
+        method: 'GET',
+    })
+}
+
 export const createActivity = rawData =>{
    let data = {activity:rawData}
     return $.ajax({

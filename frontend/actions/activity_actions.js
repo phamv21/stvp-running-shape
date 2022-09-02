@@ -5,12 +5,18 @@ export const RECEIVE_ACTIVITIES = 'RECEIVE_ACTIVITIES';
 export const RECEIVE_ACTIVITY = 'RECEIVE_ACTIVITY';
 export const RECEIVE_MY_ACTIVITIES = 'RECEIVE_MY_ACTIVITIES';
 export const RECEIVE_NEW_ACTIVITY = 'RECEIVE_NEW_ACTIVITY';
-
+export const RECEIVE_USER_ACTIVITIES = 'RECEIVE_USER_ACTIVITIES';
 
 
 export const receiveActivities = (activities) => ({
     type:RECEIVE_ACTIVITIES,
     activities
+});
+
+export const receiveUserActivities = (activities,user_id) => ({
+    type:RECEIVE_USER_ACTIVITIES,
+    activities,
+    user_id
 });
 
 export const receiveMyActivities = (activities) => ({
@@ -43,6 +49,16 @@ export const fetchFeed=  () => dispatch  => {
             errors => dispatch(receiveErrors(errors.responseJSON))
         )
 }
+
+export const fetchUserFeed =  user_id => dispatch  => {
+        dispatch(receiveLoading());
+        API.fetchUserFeed(user_id).then(
+            activities => dispatch(receiveUserActivities(activities,user_id)),
+            errors => dispatch(receiveErrors(errors.responseJSON))
+        )
+}
+
+
 
 export const findActivity =  id => dispatch  => {
         dispatch(receiveLoading());

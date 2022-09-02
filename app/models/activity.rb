@@ -7,6 +7,30 @@ class Activity < ApplicationRecord
     belongs_to :user
     belongs_to :route
 
+    has_many :comments, dependent: :destroy
+    has_many :recent_comments, ->{order('created_at desc').limit(2)}, class_name: 'Comment'
+    
+
+    #comments count
+    def self.comment_count(activity_ids)
+        q = Activity.select('activities.id, COUNT(comments.*) AS cc').joins('LEFT OUTER JOIN comments ON activities.id = comments.activity_id').group('activities.id').where('activities.id IN (?)',activity_ids)
+        result = {}
+        q.each do |el|
+            result[el.id] = el.cc
+        end
+        result
+    end
+    
+    #check the the comment 
+    def allow_to_comment?(other_user_id)
+        return true if self.privacy == 'Private' && other_user_id == self.id
+        return true if UserRelationship.friend?(self.user_id,other_user_id) && self.privacy != 'Private'
+        return true if self.privacy == 'Public'
+        false
+    end
+
+    
+
     #get the infomation of the route
     def distance
         @route ||= self.route
@@ -17,12 +41,12 @@ class Activity < ApplicationRecord
         @route.thumb.url
     end
     def duration_text
-    parts = ActiveSupport::Duration.build(self[:duration].to_i).parts
-    h_p = parts[:hours] || 0
-    m_p = parts[:minutes] || 0
-    s_p = parts[:seconds] || 0
-    time_string = [h_p,' Hours, ',m_p,' Minutes, ',s_p,' Seconds']
-    time_string.join('')
+        parts = ActiveSupport::Duration.build(self[:duration].to_i).parts
+        h_p = parts[:hours] || 0
+        m_p = parts[:minutes] || 0
+        s_p = parts[:seconds] || 0
+        time_string = [h_p,' Hours, ',m_p,' Minutes, ',s_p,' Seconds']
+        time_string.join('')
     end
     def starting_time_text
         diff_seconds = Time.now  - Time.parse(self[:starting_time].to_s)

@@ -20,7 +20,7 @@ export default function ProfileControl({loggedIn,userInfo,logout}){
         showEl = (<Link to='/login' className="nav-item">Login</Link>)
     }else{
         showEl = (
-            <li className="nav-item dropdown">
+            <li className="nav-item dropdown ">
                 <a className="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false"><i className="fa-solid fa-user"></i> </a>
                 <ul className='dropdown-menu' >
                     <li>

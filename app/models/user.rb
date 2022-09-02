@@ -18,7 +18,7 @@ class User < ApplicationRecord
     has_many :user_relationships, dependent: :destroy
     has_many :other_users, through: :user_relationships
     has_many :activities, dependent: :destroy
-    
+    has_many :comments, dependent: :destroy
     #show the people who we are requesting friend and not yet accept
     def requested_friends
         self.other_users.where('user_relationships.relationship_type=?','Pending')
@@ -56,9 +56,8 @@ class User < ApplicationRecord
 
     #feed is the activities of the friend in public or friend mode    
     def feed
-        
-        my_activities = Activity.includes(route:[thumb_attachment: :blob]).where(user_id:self.id)
-        friend_activities = Activity.includes(route:[thumb_attachment: :blob]).where.not('activities.privacy =?','Private')
+        my_activities = Activity.includes(:user,recent_comments:[:user], route:[thumb_attachment: :blob]).where(user_id:self.id)
+        friend_activities = Activity.includes(:user,recent_comments:[:user], route:[thumb_attachment: :blob]).where.not('activities.privacy =?','Private')
         .where('EXISTS (:u)',u:User.where('EXISTS (:u1) OR EXISTS (:u2)',u1:UserRelationship.where('users.id = user_relationships.other_user_id')
         .where('user_relationships.user_id=?',self.id)
         .where('user_relationships.relationship_type =?','Friend'),u2:UserRelationship.where('users.id = user_relationships.user_id')
@@ -66,6 +65,17 @@ class User < ApplicationRecord
         .where('user_relationships.relationship_type=?','Friend')).where('users.id = activities.user_id'))
         
         return my_activities + friend_activities
+
+    end
+    #the personal feed
+    def personal_feed(other_user_id)
+        if self.id == other_user_id
+            return Activity.includes(:user,recent_comments:[:user], route:[thumb_attachment: :blob]).where(user_id:self.id)
+        elsif UserRelationship.friend?(self.id,other_user_id)
+            return Activity.includes(:user,recent_comments:[:user], route:[thumb_attachment: :blob]).where(user_id:self.id).where.not('activities.privacy =?','Private')
+        else
+            return Activity.includes(:user,recent_comments:[:user], route:[thumb_attachment: :blob]).where(user_id:self.id).where('activities.privacy =?','Public')
+        end
 
     end
 

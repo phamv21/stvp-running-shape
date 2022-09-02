@@ -1,20 +1,21 @@
 import { connect } from "react-redux";
-import { fetchFeed } from "../../actions/activity_actions";
+import { fetchUserFeed } from "../../actions/activity_actions";
 import { fetchComments,fetchCommentsFeed, createComment } from "../../actions/comment_action";
-import Feed from "./feed";
+import { showUserFeed } from "../../utils/filter_util";
+import UserFeed from "./user_feed";
 
 
 const mapStateToProps = state => ({
-    activities: Object.values(state.entities.activities),
+    activities: showUserFeed(state),
     comments: state.entities.comments,
 })
 
 const mapDispatchToProps = dispatch =>({
-    fetchFeed: () => dispatch(fetchFeed()),
+    fetchFeed: user_id => dispatch(fetchUserFeed(user_id)),
     fetchComments: activity_id => dispatch(fetchComments(activity_id)),
     fetchCommentsFeed: () => dispatch(fetchCommentsFeed()),
     createComment: raw_data => dispatch(createComment(raw_data)),
 
 })
 
-export default connect(mapStateToProps,mapDispatchToProps)(Feed)
+export default connect(mapStateToProps,mapDispatchToProps)(UserFeed)

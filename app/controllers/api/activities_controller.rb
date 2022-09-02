@@ -6,8 +6,22 @@ class Api::ActivitiesController < ApplicationController
     end
 
     def feed #use to show the activities of friends
-        @activities = current_user.feed
+        @activity_feed = current_user.feed
+        activity_ids = @activity_feed.map{|el| el.id}
+        @comment_count = Activity.comment_count(activity_ids)
         render :feed
+    end
+    def user_feed
+        @user = User.find_by(id:params[:id])
+        if @user.nil?
+            render json: ['invalid User'], status: 401
+        else
+            @activity_feed = @user.personal_feed(current_user.id)
+            activity_ids = @activity_feed.map{|el| el.id}
+            @comment_count = Activity.comment_count(activity_ids)
+            render 'api/activities/feed'
+        end
+        
     end
 
     def show

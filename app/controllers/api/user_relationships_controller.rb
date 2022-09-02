@@ -41,7 +41,6 @@ class Api::UserRelationshipsController < ApplicationController
     #use to respond to the request- accept or block
     def respond
         #it has reject and block accordingly
-        puts params;
         @request = UserRelationship.find_by(other_user_id:current_user.id,user_id:params[:other_user_id])
         if @request.nil? || @request.relationship_type != 'Pending'
             render json: ['Invalid request'], status:401

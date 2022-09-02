@@ -14,7 +14,7 @@ import DashboardContainter from "./dashboard/dashboard_containter";
 import ActivityFormContainer from "./dashboard/activity_form_container";
 import FeedContainer from "./community/feed_container";
 import ActivityShowContainer from "./dashboard/activity_show_container";
-
+import UserFeedContainer from "./community/user_feed_container";
 export default function App(){
     return(
         <>
@@ -58,6 +58,15 @@ export default function App(){
                 </ProtectedRoute>
                 } />
             </Route>
+
+                <Route path='/profile'>
+                <Route path=":user_id/activity_feed" element={
+                <ProtectedRoute>
+                    <UserFeedContainer/>
+                </ProtectedRoute>
+                } />
+            </Route>
+
 
             <Route exact path="/community/feed" element={
                 <ProtectedRoute>
