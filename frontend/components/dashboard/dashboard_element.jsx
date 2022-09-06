@@ -2,23 +2,25 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export default function DashboardElement({info}){
-    return(
-        <tr>
-
-        <th>
+    const content = info == null ? null :( 
+    <tr>
+        <td>
             <Link to={'/activities/'+info.id}>{info.title}</Link>
-        </th>
-        <th>
+        </td>
+        <td>
             {info.starting_time}
-        </th>
-        <th>
+        </td>
+        <td>
             {info.duration}
-        </th>
-        <th>
+        </td>
+        <td>
             {info.distance}
-        </th>
+        </td>
 
-        </tr>
-        
+    </tr>)
+    return(
+        <>
+        {content}
+        </>       
     )
 }

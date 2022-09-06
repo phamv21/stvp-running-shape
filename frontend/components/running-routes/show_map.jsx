@@ -14,28 +14,30 @@ class Show extends React.Component{
     componentDidMount() {
         //fetch data
         this.props.getRoute(this.props.id)
-        
-
         // wrap this.mapNode in a Google Map
-        
-
     }
     componentDidUpdate(prevProps,prevState){
         if(prevProps.routes != this.props.routes){
+            // render only when have pin
+            
             this.directionsService = new google.maps.DirectionsService();
-        this.directionsRenderer = new google.maps.DirectionsRenderer();
-        this.route = this.props.routes[this.props.id]
-        this.pins = this.route.pins;
-        const mapOptions = {
-            center: { lat: this.pins[0].lat, lng: this.pins[0].lng }, // this is SF
-            zoom: 13
-        };
-        this.map = new google.maps.Map(this.mapNode, mapOptions);
-        this.directionsRenderer.setMap(this.map);
-        this.MarkerManager = new MarkerManager(this.map,this.directionsService,this.directionsRenderer);
-        this.pins.forEach(pin =>{ this.MarkerManager.updateMarker({lat:pin.lat,lng:pin.lng},pin.description)});
-        this.MarkerManager.renderRoute();
+            this.directionsRenderer = new google.maps.DirectionsRenderer();
+            this.route = this.props.routes[this.props.id]
+            this.pins = this.route.pins;
+
+            if(this.pins){
+                const mapOptions = {
+                    center: { lat: this.pins[0].lat, lng: this.pins[0].lng }, // this is SF
+                    zoom: 13
+                };
+                this.map = new google.maps.Map(this.mapNode, mapOptions);
+                this.directionsRenderer.setMap(this.map);
+                this.MarkerManager = new MarkerManager(this.map,this.directionsService,this.directionsRenderer);
+                this.pins.forEach(pin =>{ this.MarkerManager.updateMarker({lat:pin.lat,lng:pin.lng},pin.description)});
+                this.MarkerManager.renderRoute();
+            }
         }
+
     }
     
     render(){

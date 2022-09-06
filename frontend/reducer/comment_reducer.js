@@ -1,5 +1,5 @@
 import { RECEIVE_COMMENT, RECEIVE_COMMENTS } from "../actions/comment_action";
-
+import { LOGOUT_CURRENT_USER } from "../actions/session_actions";
 // the state of comment will be activity_id => {comment_id=>{comment_data}}
 const commentReducer = (state = {}, action) =>{
     Object.freeze(state);
@@ -12,6 +12,8 @@ const commentReducer = (state = {}, action) =>{
             let newStateEl = {};
             newStateEl[action_id] = Object.assign({},oldStateEl,action.comment[action_id]);
             return Object.assign({},state,newStateEl);
+        case LOGOUT_CURRENT_USER:
+            return {}
         default:
             return state;
 

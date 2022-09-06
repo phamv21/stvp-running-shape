@@ -80,3 +80,13 @@ body {
     margin:0;
     offset: 0;
 }
+.feed-card{
+    width: 540px;
+    margin: auto;
+}
+.red{
+    color: red;
+}
+.border-none{
+    border: none;
+}

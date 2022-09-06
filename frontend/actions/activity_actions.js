@@ -1,6 +1,10 @@
 import { receiveErrors } from "./session_actions";
 import { receiveLoading, stopLoading } from "./loading_actions";
 import * as API from '../utils/activity_util'
+import * as CommentAPI from '../utils/comment_util'
+import { receiveComments } from "./comment_action";
+import { receiveLikes } from "./like_action";
+import * as LikeAPI from '../utils/like_util'
 export const RECEIVE_ACTIVITIES = 'RECEIVE_ACTIVITIES';
 export const RECEIVE_ACTIVITY = 'RECEIVE_ACTIVITY';
 export const RECEIVE_MY_ACTIVITIES = 'RECEIVE_MY_ACTIVITIES';
@@ -49,13 +53,33 @@ export const fetchFeed=  () => dispatch  => {
             errors => dispatch(receiveErrors(errors.responseJSON))
         )
 }
+export const initialFeed = () => async(dispatch) =>{
+    dispatch(receiveLoading());
+    try {
+        const activities = await API.fetchFeed();
+        const comments = await CommentAPI.fetchCommentsFeed();
+        const likes = await LikeAPI.fetchLike();
+        dispatch(receiveActivities(activities));
+        dispatch(receiveComments(comments));
+        dispatch(receiveLikes(likes));
+    } catch (errors) {
+    dispatch(receiveErrors(errors.responseJSON)) 
+    }
+    
+}
 
-export const fetchUserFeed =  user_id => dispatch  => {
+export const fetchUserFeed =  user_id => async(dispatch)  => {
         dispatch(receiveLoading());
-        API.fetchUserFeed(user_id).then(
-            activities => dispatch(receiveUserActivities(activities,user_id)),
-            errors => dispatch(receiveErrors(errors.responseJSON))
-        )
+        try {
+        const activities = await API.fetchUserFeed(user_id);
+        const comments = await CommentAPI.fetchCommentsFeed();
+        const likes = await LikeAPI.fetchLike();
+        dispatch(receiveUserActivities(activities,user_id));
+        dispatch(receiveComments(comments));
+        dispatch(receiveLikes(likes));
+    } catch (errors) {
+    dispatch(receiveErrors(errors.responseJSON)) 
+    }
 }
 
 

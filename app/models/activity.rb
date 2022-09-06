@@ -8,15 +8,37 @@ class Activity < ApplicationRecord
     belongs_to :route
 
     has_many :comments, dependent: :destroy
-    has_many :recent_comments, ->{order('created_at desc').limit(2)}, class_name: 'Comment'
+    has_many :recent_comments, -> {order('created_at desc').limit(2)}, class_name: 'Comment'
+    has_many :likes, dependent: :destroy
     
+    # check showability of a activity
+    def can_show?(user_id)
+        return true if self.privacy == 'Public'
+        return true if self.user_id == user_id
+        if self.privacy == 'Private'
+            return false
+        elsif UserRelationship.friend?(self.user_id, user_id)
+            return true
+        else
+            return false
+        end        
 
+    end
     #comments count
     def self.comment_count(activity_ids)
         q = Activity.select('activities.id, COUNT(comments.*) AS cc').joins('LEFT OUTER JOIN comments ON activities.id = comments.activity_id').group('activities.id').where('activities.id IN (?)',activity_ids)
         result = {}
         q.each do |el|
             result[el.id] = el.cc
+        end
+        result
+    end
+    #likes count
+    def self.like_count(activity_ids)
+        q = Activity.select('activities.id, COUNT(likes.*) AS lc').joins('LEFT OUTER JOIN likes ON activities.id = likes.activity_id').group('activities.id').where('activities.id IN (?)',activity_ids)
+        result = {}
+        q.each do |el|
+            result[el.id] = el.lc
         end
         result
     end
@@ -53,7 +75,7 @@ class Activity < ApplicationRecord
         parts = ActiveSupport::Duration.build(diff_seconds).parts.to_a[0,2]
         time_string = ''
         if parts.length > 1 
-            time_string += parts[0][1].to_s + ' ' + parts[0][0].to_s.capitalize
+            time_string += parts[0][1].to_s + ' ' + parts[0][0].to_s.capitalize + ' '
             time_string += parts[1][1].to_s + ' ' + parts[1][0].to_s.capitalize
         else
             time_string += parts[0][1].to_s + ' ' + parts[0][0].to_s.capitalize

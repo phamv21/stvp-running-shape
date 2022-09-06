@@ -4,124 +4,114 @@ import IndexRouteElement from "./index_route_element";
 export default class IndexRoutes extends React.Component{
     constructor(props){
         super(props)
-
-
     }
 
     componentDidMount(){
         this.props.fetchRoutes();
     }
+
+    
+
+
     render(){
+      
+      const loadingContent =(
+        <>
+            <tr>
+                <td className="placeholder-glow col-3">
+                    <span className="placeholder col-12"></span>
+                </td>
+                <td className="placeholder-glow col-2">
+                    <span className="placeholder col-12"></span>
+                </td >
+                <td className="placeholder-glow col-3">
+                    <span className="placeholder col-12"></span>
+                </td>
+                <td className="placeholder-glow col-3">
+                    <span className="placeholder col-12"></span>
+                </td>
+                <td className="placeholder-glow col-2">
+                    <span className="placeholder col-12"></span>
+                </td>
+                <td className="placeholder-glow col-1">
+                    <span className="placeholder col-12"></span>
+                </td>
+            </tr>
+            <tr>
+                <td className="placeholder-glow col-3">
+                    <span className="placeholder col-12"></span>
+                </td>
+                <td className="placeholder-glow col-2">
+                    <span className="placeholder col-12"></span>
+                </td >
+                <td className="placeholder-glow col-3">
+                    <span className="placeholder col-12"></span>
+                </td>
+                <td className="placeholder-glow col-3">
+                    <span className="placeholder col-12"></span>
+                </td>
+                 <td className="placeholder-glow col-2">
+                    <span className="placeholder col-12"></span>
+                </td>
+                <td className="placeholder-glow col-1">
+                    <span className="placeholder col-12"></span>
+                </td>
+            </tr>
+            <tr>
+                <td className="placeholder-glow col-3">
+                    <span className="placeholder col-12"></span>
+                </td>
+                <td className="placeholder-glow col-2">
+                    <span className="placeholder col-12"></span>
+                </td >
+                <td className="placeholder-glow col-3">
+                    <span className="placeholder col-12"></span>
+                </td>
+                <td className="placeholder-glow col-3">
+                    <span className="placeholder col-12"></span>
+                </td>
+                 <td className="placeholder-glow col-2">
+                    <span className="placeholder col-12"></span>
+                </td>
+                <td className="placeholder-glow col-1">
+                    <span className="placeholder col-12"></span>
+                </td>
+            </tr>
+            <tr>
+                <td className="placeholder-glow col-3">
+                    <span className="placeholder col-12"></span>
+                </td>
+                <td className="placeholder-glow col-2">
+                    <span className="placeholder col-12"></span>
+                </td >
+                <td className="placeholder-glow col-3">
+                    <span className="placeholder col-12"></span>
+                </td>
+                <td className="placeholder-glow col-3">
+                    <span className="placeholder col-12"></span>
+                </td>
+                 <td className="placeholder-glow col-2">
+                    <span className="placeholder col-12"></span>
+                </td>
+                <td className="placeholder-glow col-1">
+                    <span className="placeholder col-12"></span>
+                </td>
+            </tr>
+        </>     
+    )
+
         let routes = this.props.routes;
         // console.log(routes);
         let routeEl = routes.map((el,idx) => <IndexRouteElement key={idx} route={el}/> )
 
-        let showEl = this.props.loading ? (
-    <tbody>
-      <tr >
-          <td>
-            <div className="spinner-border" role="status">
-                <span className="sr-only">Loading...</span>
-              </div>
-          </td>
-          <td>
-            <div className="spinner-border" role="status">
-                <span className="sr-only">Loading...</span>
-              </div>
-          </td>
-          <td>
-            <div className="spinner-border" role="status">
-                <span className="sr-only">Loading...</span>
-              </div>
-          </td>
-          <td>
-            <div className="spinner-border" role="status">
-                <span className="sr-only">Loading...</span>
-              </div>
-          </td>
-          <td>
-            <div className="spinner-border" role="status">
-                <span className="sr-only">Loading...</span>
-              </div>
-          </td>
-          <td>
-            <div className="spinner-border" role="status">
-                <span className="sr-only">Loading...</span>
-              </div>
-          </td>
-      </tr>
-      <tr >
-          <td>
-            <div className="spinner-border" role="status">
-                <span className="sr-only">Loading...</span>
-              </div>
-          </td>
-          <td>
-            <div className="spinner-border" role="status">
-                <span className="sr-only">Loading...</span>
-              </div>
-          </td>
-          <td>
-            <div className="spinner-border" role="status">
-                <span className="sr-only">Loading...</span>
-              </div>
-          </td>
-          <td>
-            <div className="spinner-border" role="status">
-                <span className="sr-only">Loading...</span>
-              </div>
-          </td>
-          <td>
-            <div className="spinner-border" role="status">
-                <span className="sr-only">Loading...</span>
-              </div>
-          </td>
-          <td>
-            <div className="spinner-border" role="status">
-                <span className="sr-only">Loading...</span>
-              </div>
-          </td>
-      </tr>
-      <tr >
-          <td>
-            <div className="spinner-border" role="status">
-                <span className="sr-only">Loading...</span>
-              </div>
-          </td>
-          <td>
-            <div className="spinner-border" role="status">
-                <span className="sr-only">Loading...</span>
-              </div>
-          </td>
-          <td>
-            <div className="spinner-border" role="status">
-                <span className="sr-only">Loading...</span>
-              </div>
-          </td>
-          <td>
-            <div className="spinner-border" role="status">
-                <span className="sr-only">Loading...</span>
-              </div>
-          </td>
-          <td>
-            <div className="spinner-border" role="status">
-                <span className="sr-only">Loading...</span>
-              </div>
-          </td>
-          <td>
-            <div className="spinner-border" role="status">
-                <span className="sr-only">Loading...</span>
-              </div>
-          </td>
-      </tr>
-    </tbody>
+        let showEl = this.props.loading && routes.length == 0 ? (loadingContent
     ) : ( 
-        <tbody>{routeEl}</tbody>
+        <>{routeEl}</>
         )
 
     return(   
-       <table className="table" >
-        <thead className="thead-dark">
+       <table className="table table-hover" >
+        <thead>
             <tr>
                 <th scope="col">
                     Route Name
@@ -143,7 +133,9 @@ export default class IndexRoutes extends React.Component{
                 </th>
             </tr>
         </thead>
-        {showEl}
+        <tbody>
+          {showEl}
+        </tbody>
         </table>
        
 

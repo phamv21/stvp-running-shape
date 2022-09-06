@@ -15,6 +15,7 @@ import ActivityFormContainer from "./dashboard/activity_form_container";
 import FeedContainer from "./community/feed_container";
 import ActivityShowContainer from "./dashboard/activity_show_container";
 import UserFeedContainer from "./community/user_feed_container";
+import NotFound from "./404/404";
 export default function App(){
     return(
         <>
@@ -34,6 +35,17 @@ export default function App(){
                     <SignupFormContainer/>
                 </AuthRoute>
             }/>
+            <Route exact path='/' element={
+                <ProtectedRoute>
+                    <DashboardContainter/>
+                </ProtectedRoute>
+            }/>
+
+            <Route  path='*' element={
+                    <NotFound/>
+            }/>
+
+
             <Route path='/map' element={
                 <ProtectedRoute>
                     <CreateMapContainer/>

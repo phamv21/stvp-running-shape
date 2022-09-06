@@ -2,6 +2,7 @@ class Api::CommentsController < ApplicationController
     before_action :ensure_current_user!
     #Show all the comment in the activity
     def index
+        sleep 1
         #stop the user to fetch the private comment 
         @activity = Activity.includes(comments:[:user]).find_by(id:params[:activity_id])
         if @activity.nil? #|| @activity.allow_to_comment?(current_user.id)
@@ -13,8 +14,13 @@ class Api::CommentsController < ApplicationController
         
     end
     def feed
-        @activity_feed ||= current_user.feed
-        @comments = @activity_feed.map{|el| el.recent_comments}
+        sleep 1
+        activity_ids ||= get_activities.map{|el| el.id}
+        if activity_ids.empty?
+            @comments = []
+        else
+            @comments = Comment.feed_recent_comments(activity_ids)
+        end
         render :feed
     end
     

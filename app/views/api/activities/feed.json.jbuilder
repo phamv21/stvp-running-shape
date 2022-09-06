@@ -4,6 +4,7 @@
         #we will build the func to parse second to time later
         json.duration activity.duration_text
         json.comment_count  @comment_count[activity.id]
+        json.like_count  @like_count[activity.id]
         json.author activity.user.username
     end
 end

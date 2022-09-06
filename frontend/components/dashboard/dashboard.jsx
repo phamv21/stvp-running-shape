@@ -8,13 +8,62 @@ export default function Dashboard(props){
     useEffect(()=>{
         props.fetchActivities();
     },[])
-    
-    const activity_el = props.activities.map((el,idx)=>(
+    const activity_el = props.activities.length != 0 ? props.activities.map((el,idx)=>(
         <DashboardElement info={el} key={idx}/>
-    ))
+    )):(<tr>
+        <td>
+            You have not created any activity
+        </td>
+        </tr> )
 
+    const loadingContent =(
+        <>
+            <tr>
+                <td className="placeholder-glow col-3">
+                    <span className="placeholder col-12"></span>
+                </td>
+                <td className="placeholder-glow col-2">
+                    <span className="placeholder col-12"></span>
+                </td >
+                <td className="placeholder-glow col-3">
+                    <span className="placeholder col-12"></span>
+                </td>
+                <td className="placeholder-glow col-3">
+                    <span className="placeholder col-12"></span>
+                </td>
+            </tr>
+            <tr>
+                <td className="placeholder-glow col-3">
+                    <span className="placeholder col-12"></span>
+                </td>
+                <td className="placeholder-glow col-2">
+                    <span className="placeholder col-12"></span>
+                </td >
+                <td className="placeholder-glow col-3">
+                    <span className="placeholder col-12"></span>
+                </td>
+                <td className="placeholder-glow col-3">
+                    <span className="placeholder col-12"></span>
+                </td>
+            </tr>
+            <tr>
+                <td className="placeholder-glow col-3">
+                    <span className="placeholder col-12"></span>
+                </td>
+                <td className="placeholder-glow col-2">
+                    <span className="placeholder col-12"></span>
+                </td >
+                <td className="placeholder-glow col-3">
+                    <span className="placeholder col-12"></span>
+                </td>
+                <td className="placeholder-glow col-3">
+                    <span className="placeholder col-12"></span>
+                </td>
+            </tr>
+        </>     
+    )
     return(
-        <table className="table">
+        <table className="table table-hover">
             <thead>
                 <tr>
                     <th>
@@ -32,9 +81,15 @@ export default function Dashboard(props){
                 </tr>
             </thead>
             <tbody>
-                {activity_el}
+            {props.loading && props.activities.length == 0  ? loadingContent : 
+            (
+            activity_el
+            )}
             </tbody>
+        
         </table>
+         
+
     )
 
 }

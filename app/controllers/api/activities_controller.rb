@@ -6,29 +6,37 @@ class Api::ActivitiesController < ApplicationController
     end
 
     def feed #use to show the activities of friends
+        sleep 1
         @activity_feed = current_user.feed
-        activity_ids = @activity_feed.map{|el| el.id}
-        @comment_count = Activity.comment_count(activity_ids)
+        store_activities(@activity_feed)
+        @activity_ids = @activity_feed.map{|el| el.id}
+        @comment_count = Activity.comment_count(@activity_ids)
+        @like_count = Activity.like_count(@activity_ids)
         render :feed
     end
     def user_feed
+        sleep 1
         @user = User.find_by(id:params[:id])
         if @user.nil?
             render json: ['invalid User'], status: 401
         else
             @activity_feed = @user.personal_feed(current_user.id)
-            activity_ids = @activity_feed.map{|el| el.id}
-            @comment_count = Activity.comment_count(activity_ids)
+            store_activities(@activity_feed)
+            @activity_ids = @activity_feed.map{|el| el.id}
+            @comment_count = Activity.comment_count(@activity_ids)
+            @like_count = Activity.like_count(@activity_ids)
             render 'api/activities/feed'
         end
         
     end
 
     def show
-        @activity = Activity.includes(:route).find(params[:id])
-        if @activity.nil? || @activity.user != current_user
-            render json: ['wrong activity id'], status: 401
+        @activity = Activity.includes(:user,:route).find_by(id:params[:id])
+        if @activity.nil? || !@activity.can_show?(current_user.id)
+            render json: ['wrong activity id or private route'], status: 401
         else
+            @comment_count = Activity.comment_count([params[:id]])
+            @like_count = Activity.like_count([params[:id]])
             render :show
         end
         

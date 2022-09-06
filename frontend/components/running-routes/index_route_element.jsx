@@ -4,11 +4,13 @@ const IndexRouteElement = ({route}) => {
     return(
         
             <tr>
-            <td scope='row'>
-                <Link to={"/routes/"+route.id} >
-                    {route.name}
-                    <img className="img-thumbnail route-thumb" src={route.thumb} />
-                </Link>
+            <td className="d-flex justify-content-center">
+            <Link to={"/routes/"+route.id} className="card" >
+                <img className="card-img-top route-thumb" src={route.thumb} />
+                <div className="card-body">
+                    <h5 className="card-title">{route.name}</h5>
+                </div>
+            </Link>
                 
             </td>
             <td>

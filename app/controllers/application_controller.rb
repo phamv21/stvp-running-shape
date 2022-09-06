@@ -1,22 +1,23 @@
 class ApplicationController < ActionController::Base
     helper_method :current_user, :logged_in?, :ensure_current_user!
     def login!(user)
-        @current_user = user
-        session[:session_token] = @current_user.session_token  
+        @@current_user = user
+        @@store_activities = nil
+        session[:session_token] = @@current_user.session_token  
 
     end
 
     def logout!
-        @current_user.try(:reset_session_token!)
+        current_user.try(:reset_session_token!)
         session[:session_token] = nil
-        @current_user = nil
+        @@current_user = nil
     end
 
     def current_user
          if session[:session_token].nil?
             return nil
          else
-           return @current_user ||= User.find_by(session_token:session[:session_token])
+           return @@current_user ||= User.find_by(session_token:session[:session_token])
          end
      
     end
@@ -28,4 +29,13 @@ class ApplicationController < ActionController::Base
     def ensure_current_user!
         redirect_to '/' unless current_user
     end
+
+    def store_activities(activities)
+      @@storage_activities = activities unless activities.nil?
+    end
+    
+    def get_activities
+      @@storage_activities
+    end
+
 end

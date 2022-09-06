@@ -72,6 +72,12 @@ class Show extends React.Component{
                     <li className="list-group-item">
                         <span>Start Time: {this.currentActivity.starting_time} </span>
                     </li>
+                    <li className="list-group-item">
+                        <span>Total Like: {this.currentActivity.like_count} </span>
+                    </li>
+                    <li className="list-group-item">
+                        <span>Total Comment: {this.currentActivity.comment_count} </span>
+                    </li>
                 </ul>
                 </div>
                 </div>
