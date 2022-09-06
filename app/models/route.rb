@@ -11,6 +11,27 @@ class Route < ApplicationRecord
     has_many   :pins, dependent: :destroy, inverse_of: :route
     has_many :activities
     has_one_attached :thumb, dependent: :destroy
+    #show the route that in the, at up now using bounds in filters first
+    def self.with_filters(filters,user_id)
+         # google map bounds will be in the following format:
+        # {
+        #   "northEast"=> {"lat"=>"37.80971", "lng"=>"-122.39208"},
+        #   "southWest"=> {"lat"=>"37.74187", "lng"=>"-122.47791"}
+        # }
+        #... query logic goes here
+        lat_range = (filters['bounds']['southWest']["lat"].to_r..filters['bounds']['northEast']["lat"].to_r)
+        lng_range = (filters['bounds']['southWest']["lng"].to_r..filters['bounds']['northEast']["lng"].to_r)
+        Route.where('EXISTS (:p)',p:Pin.where(lat:lat_range)
+        .where(lng:lng_range)
+        .where('pins.route_id = routes.id'))
+        .where('routes.privacy = (:p) OR EXISTS (:r)',p:'Public',r:UserRelationship.where('EXISTS (:u1) OR EXISTS (:u2)',u1:UserRelationship.where(user_id:user_id)
+        .where('routes.user_id = user_relationships.other_user_id').where('routes.privacy=?','Friend').where('user_relationships.relationship_type= ?','Friend'),u2:UserRelationship.where('routes.user_id = user_relationships.user_id')
+        .where(other_user_id:user_id).where('routes.privacy=?','Friend').where('user_relationships.relationship_type= ?','Friend')))
+
+        
+
+
+    end
     #func to validate the visibility of a map - whether it can be seen by others
     def can_show?(user_id)
         if self.privacy == 'Public'

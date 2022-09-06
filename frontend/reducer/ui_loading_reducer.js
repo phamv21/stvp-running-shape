@@ -5,8 +5,8 @@ const uiLoadingReducer = (state = false,action) => {
     switch(action.type){
         case RECEIVE_LOADING:
             return true;
-        case STOP_LOADING:
-            return false;
+        // case STOP_LOADING:
+        //     return false;
         default:
             return false;
     }

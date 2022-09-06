@@ -4,12 +4,17 @@ import { receiveLoading,stopLoading } from './loading_actions';
 export const RECEIVE_CURRENT_ROUTE = 'RECEIVE_CURRENT_ROUTE';
 export const RECEIVE_NEW_ROUTE = 'RECEIVE_NEW_ROUTE';
 export const RECEIVE_CURRENT_ROUTES = 'RECEIVE_CURRENT_ROUTES';
+export const RECEIVE_SEARCHED_ROUTES = 'RECEIVE_SEARCHED_ROUTES';
 
 export const receiveCurrentRoutes = routes => ({
     type: RECEIVE_CURRENT_ROUTES,
     routes
 })
 
+export const receiveSearchedRoutes = routes => ({
+    type: RECEIVE_SEARCHED_ROUTES,
+    routes
+})
 
 export const receiveCurrentRoute = route => (
     {
@@ -35,6 +40,14 @@ export const fetchRoutes = () => dispatch => {
             dispatch(stopLoading());
             dispatch(receiveErrors(errors.responseJSON));
         }
+    )
+}
+
+export const searchRoutes = filters => dispatch => {
+    dispatch(receiveLoading());
+    API.searchRoutes(filters).then(
+        routes => dispatch(receiveSearchedRoutes(routes)),
+        errors => dispatch(receiveErrors(errors.responseJSON))
     )
 }
 

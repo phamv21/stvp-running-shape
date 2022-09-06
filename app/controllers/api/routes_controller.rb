@@ -9,6 +9,12 @@ class Api::RoutesController < ApplicationController
         render :index
 
     end
+    #serch here using the bounds to show the result 
+    def search
+        filters = params[:filters]
+        @routes = Route.with_filters(filters,current_user.id)
+        render 'api/routes/index'
+    end
 
     def show
         @route = Route.find_by(id:params[:id])

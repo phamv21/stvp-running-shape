@@ -5,6 +5,14 @@ export const fetchRoutes = () =>{
         method: 'GET',
     })
 }
+export const searchRoutes = (filters) =>{
+    let data ={filters:filters}
+    return $.ajax({
+        url:'api/routes/search',
+        method: 'POST',
+        data:data,
+    })
+}
 
 export const getRoute = (routeId) => {
     return $.ajax({

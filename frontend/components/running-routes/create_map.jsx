@@ -45,6 +45,7 @@ class CreateMap extends React.Component {
             let northEast = this.map.getBounds().getNorthEast();
             let southWest = this.map.getBounds().getSouthWest();
             this.setState({bounds:{northEast:{lat:northEast.lat(),lng:northEast.lng()},southWest:{lat:southWest.lat(),lng:southWest.lng()}}});
+            console.log(this.state.bounds)
         })
 
         //add the seach box for place in the map

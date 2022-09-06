@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       resource :session, only:[:create,:destroy]
       resources :users, only:[:create,:destroy,:show,:update]
       resources :routes, only:[:index,:show,:create,:destroy]
+        post '/routes/search', to:'routes#search'
       resources :user_relationships, only:[:create]
         post 'relationship/find', to:"user_relationships#find"
         post 'relationship/respond', to:"user_relationships#respond"

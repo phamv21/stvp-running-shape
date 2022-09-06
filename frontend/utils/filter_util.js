@@ -17,3 +17,15 @@ export const showUserFeed = state => user_id => {
         return [];
     }
 }
+
+
+export const seachedRoutes = state => {
+    let routeIds = state.filters.searchedRouteResults
+    if(routeIds != null){
+        let routes = routeIds.map(id => state.entities.routes[id])
+        return routes;
+    }else{
+        return [];
+    }
+    
+}

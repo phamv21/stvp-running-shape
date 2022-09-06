@@ -16,6 +16,7 @@ import FeedContainer from "./community/feed_container";
 import ActivityShowContainer from "./dashboard/activity_show_container";
 import UserFeedContainer from "./community/user_feed_container";
 import NotFound from "./404/404";
+import SearchRouteContainer from "./running-routes/search_route_container";
 export default function App(){
     return(
         <>
@@ -38,6 +39,12 @@ export default function App(){
             <Route exact path='/' element={
                 <ProtectedRoute>
                     <DashboardContainter/>
+                </ProtectedRoute>
+            }/>
+
+            <Route exact path='/test' element={
+                <ProtectedRoute>
+                    <SearchRouteContainer/>
                 </ProtectedRoute>
             }/>
 
