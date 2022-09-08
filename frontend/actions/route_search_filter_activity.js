@@ -7,7 +7,7 @@ export const updateSearchFilter = (filter,value) => ({
     filter,
     value
 })
-
+//use to automatically trigger serach when changing the filter
 export const updateFilterAndSearch = (filter,value) => (dispatch,getState)=>{
     dispatch(updateSearchFilter(filter,value));
     searchRoutes(getState().filters.searchRouteFilters)(dispatch)

@@ -21,7 +21,7 @@ class Route < ApplicationRecord
         #... query logic goes here
         lat_range = (filters['bounds']['southWest']["lat"].to_r..filters['bounds']['northEast']["lat"].to_r)
         lng_range = (filters['bounds']['southWest']["lng"].to_r..filters['bounds']['northEast']["lng"].to_r)
-        Route.where('EXISTS (:p)',p:Pin.where(lat:lat_range)
+        Route.includes(:pins).where('EXISTS (:p)',p:Pin.where(lat:lat_range)
         .where(lng:lng_range)
         .where('pins.route_id = routes.id'))
         .where('routes.privacy = (:p) OR EXISTS (:r)',p:'Public',r:UserRelationship.where('EXISTS (:u1) OR EXISTS (:u2)',u1:UserRelationship.where(user_id:user_id)

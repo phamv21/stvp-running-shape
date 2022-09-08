@@ -28,7 +28,8 @@ class Show extends React.Component{
             if(this.pins){
                 const mapOptions = {
                     center: { lat: this.pins[0].lat, lng: this.pins[0].lng }, // this is SF
-                    zoom: 13
+                    zoom: 13,
+                    mapId:'IDb9270ddec3f692ae',
                 };
                 this.map = new google.maps.Map(this.mapNode, mapOptions);
                 this.directionsRenderer.setMap(this.map);

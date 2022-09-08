@@ -13,11 +13,11 @@ class Api::RoutesController < ApplicationController
     def search
         filters = params[:filters]
         @routes = Route.with_filters(filters,current_user.id)
-        render 'api/routes/index'
+        render :search
     end
 
     def show
-        @route = Route.find_by(id:params[:id])
+        @route = Route.includes(:pins).find_by(id:params[:id])
         if @route.try(:can_show?,current_user.id) 
             render :show
         else

@@ -13,21 +13,71 @@ export default class MarkerManager{
         this.callFormListener = false;
         this.isShowOnly = isShowOnly;
         this.response = null;
+        this.searchMarkers = {};
+        this.currentHighlightRoute = null;
+
+    }
+    // function relate to the search marker 
+    updateSearchMarker(coords={}){
+        
+    //{route_id => headcoords} array
+    //[1,2,3] => [1,4,5]
+    // delete the old marker first
+    let oldRouteMarkers = Object.keys(this.searchMarkers)
+
+    oldRouteMarkers.forEach(r_id =>{
+        if(coords[r_id]==null){
+            this.searchMarkers[r_id].setMap(null)
+        }
+    })
+
+    let newRouteMarkers = Object.keys(coords);
+    newRouteMarkers.forEach(rid => {
+        if(this.searchMarkers[rid] == null ){
+            this.createSearchMarker(coords[rid],rid)
+        }
+    })
+    
+    
+    }
+    createSearchMarker(coord,route_id){
+        if (coord != null){
+            let newLatLng = {lat:coord.lat,lng:coord.lng};
+            let newEl = new google.maps.Marker({
+                position: newLatLng,
+                icon: {
+                    url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
+                },
+                map: this.map
+            })
+            this.searchMarkers[route_id] = newEl
+            
+        }
     }
 
+    highlightSearchMarker(route_id){
+    //
+    if (route_id == null){
+            if (this.currentHighlightRoute != null){
+                this.searchMarkers[this.currentHighlightRoute].setIcon("http://maps.google.com/mapfiles/ms/icons/red-dot.png")    
+            }
+        }
+        if (route_id != null){
+            this.currentHighlightRoute = route_id
+            this.searchMarkers[route_id].setIcon("http://maps.google.com/mapfiles/ms/icons/blue-dot.png")
+        }
+    //
+    }
+    clearSearchMarkers(){
+        let markers = Object.values(this.searchMarkers);
+        markers.forEach(marker => marker.setMap(null));
+        this.searchMarkers = {};
+        this.currentHighlightRoute = null;
+    }
+    //
+    //this is the function to update the infowindow of the marker
     updateMarker(coords,desc =''){
-        // if (this.headTail.length < 2){
-        //     this.headTail.push({
-        //     location: coords,
-        // })        
-        // }else{
-        //     let tmp = this.headTail.pop();
-        //     tmp['stopover'] = true
-        //     this.headTail.push({
-        //     location: coords,
-        //     });
-        //     this.betweens.push(tmp);
-        // }
+       
         this.nodes.push({
             location:coords,
             description: desc||'No description'
@@ -89,7 +139,19 @@ export default class MarkerManager{
     });
     this.infoNodes.push(marker)
     }
+    clearRoute(){
+        this.directionsRenderer.setMap(null);
+        
+        //reset the renderer 
+        this.directionsRenderer = new google.maps.DirectionsRenderer()
+        this.directionsRenderer.setMap(this.map)
 
+        this.infoNodes.forEach(el => el.setMap(null))
+        this.infoNodes =[]
+        // this.directionsService.route({});
+        // console.log(this.directionsService)
+        this.nodes = [];
+    }
     renderRoute(){
         let customIcon ={
             path: "M 0 -2 C -2 -2 -2 1 0 1 S 2 -2 0 -2",

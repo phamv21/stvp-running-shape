@@ -11,6 +11,9 @@ export default class SearchRoute extends React.Component {
         this.state = {
             bounds: {},
             hightlightRouteId:null,
+            mapCenter: {},
+            mapZoom: 16,
+            showRoute: false,
 
         }
 
@@ -27,12 +30,14 @@ export default class SearchRoute extends React.Component {
         // set the map to show SF
         const mapOptions = {
             center:{ lat: 10.78058, lng: 106.694385 }, // this is HCM
-            zoom: 16
+            zoom: 16,
+            mapId: 'b9270ddec3f692ae'
         };
 
         // wrap this.mapNode in a Google Map
 
         this.map = new google.maps.Map(this.mapNode, mapOptions);
+        window.gmap = this.map;
         this.directionsRenderer.setMap(this.map);
         this.MarkerManager = new MarkerManager(this.map,this.directionsService,this.directionsRenderer,false);
 
@@ -55,12 +60,17 @@ export default class SearchRoute extends React.Component {
     }
 
     componentDidUpdate(prevProps,prevState){
-    //     if(prevProps.benches != this.props.benches){
-    //      this.MarkerManager.updateMarker(this.props.benches);
-    //     }
-        if(prevState.bounds != this.state.bounds){
-            this.props.updateFilterAndSearch("bounds",this.state.bounds)
+        if(prevProps.searchResults != this.props.searchResults){
+            let coords = {};
+            this.props.searchResults.forEach(route =>{
+                coords[route.id] = route.pins[0]
+            })
+         this.MarkerManager.updateSearchMarker(coords);
         }
+        if(prevState.bounds != this.state.bounds){
+            this.props.updateFilter("bounds",this.state.bounds)
+        }
+
     //     if (prevProps.highlightId != this.props.highlightId){
     //         this.MarkerManager.markerHightlight(this.props.highlightId)
     //     }
@@ -83,16 +93,38 @@ export default class SearchRoute extends React.Component {
         
         
     }
-    handleHighlight(id){
-        this.setState({hightlightRouteId:id})
-        console.log(this.state.hightlightRouteId)
+    handleHighlight(route_id){
+        if(!this.state.showRoute){
+        this.MarkerManager.highlightSearchMarker(route_id)
+        }
+    }
+    handleRouteRender(route_id){
+        let pins = this.props.routes[route_id].pins
+        pins.forEach(pin =>{ this.MarkerManager.updateMarker({lat:pin.lat,lng:pin.lng},pin.description)});
+        this.MarkerManager.renderRoute();
+        this.setState({showRoute:true});
+    }
+    handleSearch(e){
+        e.preventDefault();
+        this.props.searchRoutes(this.props.filters);
+        let latCenter = this.map.getCenter().lat();
+        let lngCenter = this.map.getCenter().lng();
+        this.setState({mapCenter:{lat:latCenter,lng:lngCenter},mapZoom:this.map.getZoom()})
+        
+    }
+
+    handleBackToResult(e){
+        e.preventDefault();
+        this.MarkerManager.clearRoute();
+        this.map.setCenter(this.state.mapCenter);
+        this.map.setZoom(this.state.mapZoom);
+        this.setState({showRoute:false});
     }
 
     render(){
         let resultEl =this.props.searchResults.map((el,idx)=>(
-            <SeachRouteElement route={el} key={idx} handleHighlight={this.handleHighlight.bind(this)} />
+            <SeachRouteElement route={el} key={idx} handleHighlight={this.handleHighlight.bind(this)} handleRouteRender={this.handleRouteRender.bind(this)} />
         ))
-        console.log(this.props)
 
         let button = this.props.loading ? 
         ( <button disabled={true}>
@@ -107,8 +139,12 @@ export default class SearchRoute extends React.Component {
             <div className="search-container">
                 <input className="form-control" type="search" id='auto-complete-search' placeholder="Please type the area that you want to run" aria-label="Search"/>
             </div>
+            <button className="btn btn-primary" onClick={this.handleSearch.bind(this)}> Search</button>
+            {this.state.showRoute ? (<button onClick={this.handleBackToResult.bind(this)}> Back</button>) : 'many result' }
+            <div className="d-grip gap-2">
+                {resultEl}
+            </div>
             
-            {resultEl}
             {/* display seach result */}
             
                         {/* map showing */}
