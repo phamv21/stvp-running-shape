@@ -25,7 +25,9 @@ export default class SearchRoute extends React.Component {
         // <--
     }
 
-
+    
+    
+    
     componentDidMount() {
         // set the map to show SF
         const mapOptions = {
@@ -33,11 +35,9 @@ export default class SearchRoute extends React.Component {
             zoom: 16,
             mapId: 'b9270ddec3f692ae'
         };
-
+        // this.initMap(mapOptions)
         // wrap this.mapNode in a Google Map
-
         this.map = new google.maps.Map(this.mapNode, mapOptions);
-        window.gmap = this.map;
         this.directionsRenderer.setMap(this.map);
         this.MarkerManager = new MarkerManager(this.map,this.directionsService,this.directionsRenderer,false);
 
@@ -109,7 +109,7 @@ export default class SearchRoute extends React.Component {
         this.props.searchRoutes(this.props.filters);
         let latCenter = this.map.getCenter().lat();
         let lngCenter = this.map.getCenter().lng();
-        this.setState({mapCenter:{lat:latCenter,lng:lngCenter},mapZoom:this.map.getZoom()})
+        this.setState({mapCenter:{lat:latCenter,lng:lngCenter},mapZoom:this.map.getZoom(),showRoute:false})
         
     }
 
