@@ -7,12 +7,25 @@ export const login = (info) =>{
     })
 }
 
-export const signup = (info) =>{
-    let data = {user:info }
+export const signup = (data) =>{
+    // let data = {user:info }
     return $.ajax({
         url:'api/users',
         method: 'POST',
-        data: data
+        data: data,
+        contentType: false,
+        processData: false,
+
+    })
+}
+
+export const update = (data) =>{
+    return $.ajax({
+        url:'api/users/1',
+        method:'PATCH',
+        data:data,
+        contentType: false,
+        processData: false,
     })
 }
 

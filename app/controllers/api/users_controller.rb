@@ -3,7 +3,8 @@ class Api::UsersController < ApplicationController
     def create
         @user = User.new(user_params)
         if @user.save
-            render :show
+            login!(@user)
+            render 'api/users/show'
         else
             render json: @user.errors.full_messages, status: 401
         end
@@ -15,10 +16,17 @@ class Api::UsersController < ApplicationController
     end
 
     def update
+        #only update avata for now
+        @user = current_user
+        if @user.update(avatar:params[:user][:avatar])
+            render 'api/users/show'
+        else
+            render json: @user.errors.full_messages, status: 401
+        end
         
     end
     private
     def user_params
-        params.require(:user).permit(:username,:gender,:password,:birthday,:email)
+        params.require(:user).permit(:username,:gender,:password,:birthday,:email,:avatar)
     end
 end

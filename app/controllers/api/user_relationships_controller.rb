@@ -5,19 +5,19 @@ class Api::UserRelationshipsController < ApplicationController
         if params[:search] == ''
             render json: ["The search's query can not be empty"], status: 401
         else
-            @users = current_user.available_people(params[:search])
+            @users = current_user.available_people(params[:search]).with_attached_avatar
             render :find
         end
         
     end
     
     def friends #show all my friends (following)
-        @users = current_user.friends
+        @users = current_user.friends.with_attached_avatar
         render :friends
     end
     #show the people who already recieve the friend request from current_user
     def requested_friends
-        @users = current_user.requested_friends
+        @users = current_user.requested_friends.with_attached_avatar
         render :requested_friends
     end
 
@@ -34,7 +34,7 @@ class Api::UserRelationshipsController < ApplicationController
 
     #show the user who make friend request
     def pending_requests
-        @users = current_user.pending_requests
+        @users = current_user.pending_requests.with_attached_avatar
         render :pending_requests
     end
 

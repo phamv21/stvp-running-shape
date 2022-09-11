@@ -2,5 +2,6 @@
     json.set! user.id do
         json.relationship_type 'Pending'
         json.extract! user, :id, :username, :email
+         json.avatar user.avatar.url || ''
     end
 end

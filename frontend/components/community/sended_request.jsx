@@ -15,7 +15,7 @@ export default function SendedRequest(val){
             return(
                 <li key={idx}>
                      {el.username}
-                     <button onClick={e => {e.preventDefault(); handleUndo(el.id);}} >Undo</button>
+                     <button className="btn btn-secondary" onClick={e => {e.preventDefault(); handleUndo(el.id);}} >Undo</button>
                 </li>
             )
         }

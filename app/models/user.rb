@@ -20,6 +20,8 @@ class User < ApplicationRecord
     has_many :activities, dependent: :destroy
     has_many :comments, dependent: :destroy
     has_many :likes, dependent: :destroy
+    #avata
+    has_one_attached :avatar
     #show the people who we are requesting friend and not yet accept
     def requested_friends
         self.other_users.where('user_relationships.relationship_type=?','Pending')

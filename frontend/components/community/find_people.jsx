@@ -35,10 +35,19 @@ export default function FindPeople(val){
     props.nonRelationship.map((el,idx) => {
         if(el != null){
             return(
-                <li key={idx}>
-                     {el.username}
-                     <button onClick={e => {e.preventDefault(); handleMakeFriend(el.id);}} >Add Friend</button>
-                </li>
+                <div className="card text-center" style={{"width": "18rem"}} key={idx}>
+                    {el.avatar == '' ? (<div className="card-img-top"><i className="fa fa-user fa-5x" aria-hidden="true"></i></div>):(
+                        <img className="card-img-top " src={el.avatar} alt="avatar" />
+                    )}
+                    <div className="card-body">
+                        <h5 className="card-title">{el.username} </h5>
+                        
+
+                    </div>
+                    <div className="card-footer">
+                        <button className="btn btn-primary" onClick={e => {e.preventDefault(); handleMakeFriend(el.id);}} >Add Friend</button>
+                    </div>
+                </div>
             )
         }
         
@@ -54,7 +63,7 @@ export default function FindPeople(val){
             </div>
             <button className="btn btn-outline-success my-2 my-sm-0" onClick={handleSubmit} >Search</button>
         </form>
-        <ul>
+        <ul className="d-flex flex-row p-2">
             {searchResult}
         </ul>
 
