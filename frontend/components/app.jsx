@@ -42,7 +42,7 @@ export default function App(){
                 </ProtectedRoute>
             }/>
 
-            <Route exact path='/test' element={
+            <Route exact path='/routes/search' element={
                 <ProtectedRoute>
                     <SearchRouteContainer/>
                 </ProtectedRoute>
@@ -63,7 +63,13 @@ export default function App(){
                 <ProtectedRoute>
                     <ActivityFormContainer/>
                 </ProtectedRoute>
-            }/>
+            }>
+                <Route path=':route_id' element={
+                    <ProtectedRoute>
+                        <ActivityFormContainer/>
+                    </ProtectedRoute>
+                } ></Route>
+            </Route>
             <Route exact path="activities" element={
                 <ProtectedRoute>
                     <DashboardContainter/>

@@ -27,6 +27,9 @@ export default function StaticNav(){
                     <li>
                         <Link to='/routes' className="dropdown-item">My Routes </Link>
                     </li>
+                    <li>
+                        <Link to='/routes/search' className="dropdown-item">Find Routes </Link>
+                    </li>
                 </ul>
             </li>
 

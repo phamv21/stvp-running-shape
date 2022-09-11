@@ -4,6 +4,7 @@ import AutoCompleteSearch from "../../utils/auto_complete_search_util";
 import { PRIVACY, ACTIVITIES } from "../../utils/const_util";
 import getStaticMap from "../../utils/get_static_map";
 import SeachRouteElement from "./search_route_element";
+import { Link } from "react-router-dom";
 export default class SearchRoute extends React.Component {
     constructor(props){
         super(props)
@@ -129,6 +130,7 @@ export default class SearchRoute extends React.Component {
                 <div className="row">
                     <p className=" h4 col-7 jusstify-content-center">Distance: {this.props.routes[this.state.hightlightRouteId].distance/1000} Km</p>
                 <p className=" h4 col-7 jusstify-content-center">Description: {this.props.routes[this.state.hightlightRouteId].description}</p>
+                <Link to={'/activities/create/'+this.state.hightlightRouteId} className="btn"> Create Activity with this Route</Link>
                 </div>
                 
                 

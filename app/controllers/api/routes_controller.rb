@@ -17,7 +17,7 @@ class Api::RoutesController < ApplicationController
     end
 
     def show
-        @route = Route.includes(:pins).find_by(id:params[:id])
+        @route = Route.with_attached_thumb.includes(:pins).find_by(id:params[:id])
         if @route.try(:can_show?,current_user.id) 
             render :show
         else

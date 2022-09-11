@@ -2,13 +2,17 @@ import React from "react";
 import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import RouteElement from "./route_element";
-import { useNavigate } from "react-router-dom";
-export default function ActivityForm({routes,loading,routeHash,newActivityId,submit,fetchRoutes}){
+import { useNavigate,useParams } from "react-router-dom";
+export default function ActivityForm({routes,loading,routeHash,newActivityId,submit,fetchRoutes,getRoute,}){
+
+    //test params
+    let {route_id} = useParams();
+
     const [title,setTitle] = useState('');
     const [note,setNote] = useState('');
     const [startingTime, setStartingTime] = useState(0);
     // const [duration,setDuration] = useState(0); no need this one we can make duration on the submit
-    const [routeId,setRouteId] = useState(0);
+    const [routeId,setRouteId] = useState(route_id||0);
     const [hour,setHour] = useState(0);
     const [minute,setMinute] = useState(0);
     const [second,setSecond] = useState(0);
@@ -16,7 +20,12 @@ export default function ActivityForm({routes,loading,routeHash,newActivityId,sub
     const navigate = useNavigate();
     // fetch the routes on mount
     useEffect(()=>{
-        fetchRoutes();
+        if (!route_id){
+            fetchRoutes();
+        }else{
+            getRoute(route_id);
+        }
+        
     },[]);
 
     useEffect(()=>{
@@ -36,11 +45,11 @@ export default function ActivityForm({routes,loading,routeHash,newActivityId,sub
     //function here
     //<--
     // later userEffect to fetch the route that we already created
-    const routeEl = routes.map((el,idx)=>(
+    const routeEl = !route_id ? routes.map((el,idx)=>(
         <RouteElement key={idx} props={el} fnc={setRouteId} setIsShow={setIsShow} isShow={isShow}/>
-    ))
+    )) : null
     let dropdownMenu = isShow ? 'dropdown-menu route-dropdown show' : 'dropdown-menu';
-    let selectedRoute = routeId == 0 ? (<span>Please select the route</span>) : (<div>
+    let selectedRoute = routeId == 0 || routeHash[routeId] == null   ? (<span>Please select the route</span>) : (<div>
         <img className="img-thumbnail super-small-img" src={routeHash[routeId].thumb} alt="" />
         {routeHash[routeId].name}:{routeHash[routeId].area_name}
     </div>)
