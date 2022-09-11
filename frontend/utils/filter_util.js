@@ -12,7 +12,7 @@ export const showUserFeed = state => user_id => {
     let activityIds = state.filters.userFeed[user_id];
     if (activityIds != null){
         let activities = activityIds.map(id=> state.entities.activities[id]);
-        return activities;
+        return activities.sort((a,b)=> b['id']-a['id']);
     }else{
         return [];
     }

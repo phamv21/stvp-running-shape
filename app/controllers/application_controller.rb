@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
     end
 
     def store_activities(activities)
-      @@storage_activities = activities unless activities.nil?
+      @@storage_activities = activities unless activities.nil? || activities.length == 0
     end
     
     def get_activities

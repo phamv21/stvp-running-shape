@@ -12,16 +12,16 @@ export const findActivity = id =>{
     })
 }
 
-export const fetchFeed = () => {
+export const fetchFeed = (page_num = 0) => {
     return $.ajax({
-        url:'api/activities_feed',
+        url:`api/activities_feed?page=${page_num}`,
         method:'GET',
     })
 }
 
-export const fetchUserFeed = (user_id) =>{
+export const fetchUserFeed = (user_id,page_num = 0) =>{
     return $.ajax({
-        url:`api/profile/${user_id}/activity_feed`,
+        url:`api/profile/${user_id}/activity_feed?page=${page_num}`,
         method: 'GET',
     })
 }

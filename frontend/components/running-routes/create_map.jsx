@@ -31,7 +31,9 @@ class CreateMap extends React.Component {
         // set the map to show SF
         const mapOptions = {
             center: this.props.lastLocation, //{ lat: 37.7758, lng: -122.435 }, // this is SF
-            zoom: 16
+            zoom: 16,
+            mapId:'IDb9270ddec3f692ae',
+
         };
 
         // wrap this.mapNode in a Google Map
@@ -45,7 +47,6 @@ class CreateMap extends React.Component {
             let northEast = this.map.getBounds().getNorthEast();
             let southWest = this.map.getBounds().getSouthWest();
             this.setState({bounds:{northEast:{lat:northEast.lat(),lng:northEast.lng()},southWest:{lat:southWest.lat(),lng:southWest.lng()}}});
-            console.log(this.state.bounds)
         })
 
         //add the seach box for place in the map
@@ -149,7 +150,7 @@ class CreateMap extends React.Component {
     render(){
         let button = this.props.loading ? 
         ( <button disabled={true}>
-                <div className="spinner-border" role="status">
+                <div className="btn btn-light spinner-border" role="status">
                     <span className="sr-only">Loading...</span>
                 </div>
             </button>)

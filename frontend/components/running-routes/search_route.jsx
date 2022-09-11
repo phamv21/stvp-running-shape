@@ -26,8 +26,6 @@ export default class SearchRoute extends React.Component {
     }
 
     
-    
-    
     componentDidMount() {
         // set the map to show SF
         const mapOptions = {
@@ -95,7 +93,8 @@ export default class SearchRoute extends React.Component {
     }
     handleHighlight(route_id){
         if(!this.state.showRoute){
-        this.MarkerManager.highlightSearchMarker(route_id)
+        this.setState({hightlightRouteId:route_id});
+        this.MarkerManager.highlightSearchMarker(route_id);
         }
     }
     handleRouteRender(route_id){
@@ -122,7 +121,19 @@ export default class SearchRoute extends React.Component {
     }
 
     render(){
-        let resultEl =this.props.searchResults.map((el,idx)=>(
+        let resultEl = this.state.showRoute ? (<div className='d-flex justify-content-center' >
+                <div className="row">
+                    <img className="img-thumbnail super-small-img col-4" src={this.props.routes[this.state.hightlightRouteId].thumb} alt="" />
+                    <p className="h3 col-8 jusstify-content-center" >{this.props.routes[this.state.hightlightRouteId].name}</p>
+                </div>
+                <div className="row">
+                    <p className=" h4 col-7 jusstify-content-center">Distance: {this.props.routes[this.state.hightlightRouteId].distance/1000} Km</p>
+                <p className=" h4 col-7 jusstify-content-center">Description: {this.props.routes[this.state.hightlightRouteId].description}</p>
+                </div>
+                
+                
+
+        </div>) : this.props.searchResults.map((el,idx)=>(
             <SeachRouteElement route={el} key={idx} handleHighlight={this.handleHighlight.bind(this)} handleRouteRender={this.handleRouteRender.bind(this)} />
         ))
 
@@ -134,12 +145,15 @@ export default class SearchRoute extends React.Component {
             </button>)
              : (<div className="col-12"><input className="btn btn-dark" type="submit" value="Submit" /></div>);
         return(
-        <div className="row mb-3 text-center">
-           <div className="col-4 col-lg-4 themed-grid-col">
-            <div className="search-container">
-                <input className="form-control" type="search" id='auto-complete-search' placeholder="Please type the area that you want to run" aria-label="Search"/>
-            </div>
-            <button className="btn btn-primary" onClick={this.handleSearch.bind(this)}> Search</button>
+        <>
+        <div className=" container row text-center justify-content-center">
+                <input className="form-control col-lg-8 col-sm-12" type="search" id='auto-complete-search' placeholder="Please type the area that you want to run" aria-label="Search"/>
+                <button className="btn btn-primary col-lg-2 col-sm-12" onClick={this.handleSearch.bind(this)}> Search</button>
+        </div>    
+        <div className="container row mb-3 text-center">
+           <div className="col-lg-4 col-sm-12 mh-sm-25">
+            
+            
             {this.state.showRoute ? (<button onClick={this.handleBackToResult.bind(this)}> Back</button>) : 'many result' }
             <div className="d-grip gap-2">
                 {resultEl}
@@ -149,12 +163,13 @@ export default class SearchRoute extends React.Component {
             
                         {/* map showing */}
            </div> 
-             <div className="col-sm-8 col-lg-8 themed-grid-col"id="map-container" ref={map => this.mapNode = map}>
+             <div className="col-sm-12 col-lg-8 themed-grid-col "id="map-container" ref={map => this.mapNode = map}>
             </div>
         
               
         
         </div>
+        </>
 
         )
     }

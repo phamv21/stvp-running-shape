@@ -46,20 +46,20 @@ export const fetchActivities =  () => dispatch  => {
         )
 }
 
-export const fetchFeed=  () => dispatch  => {
+export const fetchFeed=  (page_num=0) => dispatch  => {
         dispatch(receiveLoading());
-        API.fetchFeed().then(
+        API.fetchFeed(page_num).then(
             activities => dispatch(receiveActivities(activities)),
             errors => dispatch(receiveErrors(errors.responseJSON))
         )
 }
-export const initialFeed = () => async(dispatch) =>{
+export const initialFeed = (page_num =0) => async(dispatch) =>{
     dispatch(receiveLoading());
     try {
-        const activities = await API.fetchFeed();
+        const activities = await API.fetchFeed(page_num);
         const comments = await CommentAPI.fetchCommentsFeed();
         const likes = await LikeAPI.fetchLike();
-        dispatch(receiveActivities(activities));
+        dispatch(receiveUserActivities(activities));
         dispatch(receiveComments(comments));
         dispatch(receiveLikes(likes));
     } catch (errors) {
@@ -68,10 +68,10 @@ export const initialFeed = () => async(dispatch) =>{
     
 }
 
-export const fetchUserFeed =  user_id => async(dispatch)  => {
+export const fetchUserFeed =  (user_id,page_num) => async(dispatch)  => {
         dispatch(receiveLoading());
         try {
-        const activities = await API.fetchUserFeed(user_id);
+        const activities = await API.fetchUserFeed(user_id,page_num);
         const comments = await CommentAPI.fetchCommentsFeed();
         const likes = await LikeAPI.fetchLike();
         dispatch(receiveUserActivities(activities,user_id));

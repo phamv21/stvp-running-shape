@@ -17,8 +17,7 @@ export default function ActivityForm({routes,loading,routeHash,newActivityId,sub
     // fetch the routes on mount
     useEffect(()=>{
         fetchRoutes();
-        console.log(routeId)
-    },[routeId]);
+    },[]);
 
     useEffect(()=>{
         if (newActivityId != null){
@@ -45,8 +44,8 @@ export default function ActivityForm({routes,loading,routeHash,newActivityId,sub
         <img className="img-thumbnail super-small-img" src={routeHash[routeId].thumb} alt="" />
         {routeHash[routeId].name}:{routeHash[routeId].area_name}
     </div>)
-    return(
-        <form onSubmit={handleSubmit}>
+    let content = loading ? (<h1>Loading</h1>) :(<form onSubmit={handleSubmit}>
+            
             <div className="input-group mb-3">
                 <div className="input-group-prepend">
                     <span className="input-group-text" id="">Title:</span>
@@ -87,7 +86,11 @@ export default function ActivityForm({routes,loading,routeHash,newActivityId,sub
                     <input type="text" className="form-control" value={second} onChange={e => setSecond(e.target.value)}  />
             </div>
             <button> Save</button>
-        </form>
+        </form>)
+    return(
+        <>
+        {content}
+        </>
     )
 
 

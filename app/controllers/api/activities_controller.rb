@@ -7,7 +7,12 @@ class Api::ActivitiesController < ApplicationController
 
     def feed #use to show the activities of friends
         sleep 1
-        @activity_feed = current_user.feed
+        if params[:page].to_i == 0
+        @activity_feed = current_user.feed.order('activities.id DESC').limit(Activity::FEEDPERPAGE)
+        elsif params[:page].to_i > 0
+            last_id = get_activities.last.id
+            @activity_feed = current_user.feed.order('activities.id DESC').where('activities.id < ?',last_id).limit(Activity::FEEDPERPAGE)
+        end
         store_activities(@activity_feed)
         @activity_ids = @activity_feed.map{|el| el.id}
         @comment_count = Activity.comment_count(@activity_ids)
@@ -20,7 +25,12 @@ class Api::ActivitiesController < ApplicationController
         if @user.nil?
             render json: ['invalid User'], status: 401
         else
-            @activity_feed = @user.personal_feed(current_user.id)
+            if params[:page].to_i == 0
+               @activity_feed = @user.personal_feed(current_user.id).order('activities.id DESC').limit(Activity::FEEDPERPAGE)
+            elsif params[:page].to_i > 0
+                last_id = get_activities.last.id
+                @activity_feed = @user.personal_feed(current_user.id).order('activities.id DESC').where('activities.id < ?',last_id).limit(Activity::FEEDPERPAGE)
+            end
             store_activities(@activity_feed)
             @activity_ids = @activity_feed.map{|el| el.id}
             @comment_count = Activity.comment_count(@activity_ids)

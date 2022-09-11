@@ -1,14 +1,30 @@
 import React from "react";
 import { useEffect,useState } from "react";
 import FeedElement from "./feed_element";
+import { FEEDPERPAGE } from "../../utils/const_util";
 // we should show the title,date, duration, distance, pace,
 export default function Feed(props){
     // const props = data.props;
     const[initialLoad,setInitialLoad] = useState(true);
+    // const[pageNum,setPageNum] = useState(0);
     useEffect(()=>{
-        props.initialFeed(props.user_id);
-        setInitialLoad(true)
+      if(props.user_id != null){
+        props.initialFeed(props.user_id,props.page);
+      }else{
+        props.initialFeed(props.page);
+      }
+      setInitialLoad(true)
     },[])
+    useEffect(()=>{
+      if (props.page > 0){
+        if(props.user_id != null){
+        props.initialFeed(props.user_id,props.page);
+        }else{
+        props.initialFeed(props.page);
+      }
+      }
+
+    },[props['page']])
 
     let activities = [];
     if(typeof props.activities == 'function'){
@@ -76,6 +92,17 @@ export default function Feed(props){
 </div>
 </div>
   )
+  let moreBtn = props.loading ? (
+    <div className="row g-0">
+      <button className="btn disabled"> Loading</button>
+    </div>
+
+  ) : (<div className="row g-0">
+      <button onClick={e => {e.preventDefault(); props.updatePage(props.page +1) } } className="btn">Load More</button>
+  </div>)
+  let loadMore = (props.page * FEEDPERPAGE) <= activities.length ? moreBtn : <div className="row g-0">
+      <button className="btn disabled"> No more Feed</button>
+    </div>
     if(!props.loading && initialLoad){
         setInitialLoad(false);
     }
@@ -86,7 +113,11 @@ export default function Feed(props){
                 {loadingContent}
                 {loadingContent}
             </div>)
-            :feedEl
+            :(<>
+            {feedEl}
+            {loadMore}
+            </>)
+            
             }
             
         </div>)
@@ -99,10 +130,12 @@ export default function Feed(props){
       
     </div>  
   </div>)
+
+  
     return(
         !props.loading && activities.length == 0 ?
-        noContent :
-        content
+        noContent :content
+        
     )
 
 }

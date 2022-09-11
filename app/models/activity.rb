@@ -1,5 +1,6 @@
 class Activity < ApplicationRecord
     #use it to record the activity of user
+    Activity::FEEDPERPAGE = 3
     validates :title, presence: true
     validates :starting_time, presence: true
     validates :duration, presence: true
