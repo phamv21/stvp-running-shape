@@ -91,10 +91,20 @@ export default function SignupForm({submit,loading}){
             </div>
             
             
-            <div className="form-check" onChange={handleGender}>
-            <input className="form-check-input"  type="radio" name="gender" value='Male'/> Male
-            <input  className="form-check-input"  type="radio" name="gender" value='Female'/> Female
-            <input  className="form-check-input" type="radio" name="gender" value='None'/> Other
+            <div onChange={handleGender}>
+                <div className="form-check form-check-inline">
+                    <input className="form-check-input"  type="radio" name="gender" value='Male' id="male-check"/> 
+                    <label className="form-check-label"  htmlFor="male-check">Male</label>
+                </div>
+                <div className="form-check form-check-inline">
+                    <input  className="form-check-input"  type="radio" name="gender" value='Female' id='female-check'/>
+                    <label className="form-check-label"  htmlFor="female-check">Female</label> 
+                </div>
+                <div className="form-check form-check-inline">
+                    <input  className="form-check-input" type="radio" name="gender" value='None' id='none-check'/>
+                    <label className="form-check-label"  htmlFor="none-check">Other</label>
+                </div>
+
             </div>
             
             <DatePicker selected={birthday} onChange={(date) => setBirthday(date)} />
