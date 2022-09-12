@@ -2,7 +2,7 @@ import { RECEIVE_FEED_PAGE, RECEIVE_USER_FEED_PAGE } from "../actions/pagination
 import { LOGOUT_CURRENT_USER } from "../actions/session_actions";
 const defaultState = {
     feedPage: 0,
-    userFeedPage:0,
+    userFeedPage:{},
 }
 export const uiFeedPageReducer = (state = defaultState, action) =>{
     Object.freeze(state);
@@ -13,8 +13,10 @@ export const uiFeedPageReducer = (state = defaultState, action) =>{
             return newState;
 
         case RECEIVE_USER_FEED_PAGE:
+            let tmp = {};
+            tmp[action.userId] = action.page
             newState = {...state};
-            newState['userFeedPage'] = action.page;
+            newState['userFeedPage'] = Object.assign({},newState['userFeedPage'],tmp);
             return newState;
         case LOGOUT_CURRENT_USER:
             return defaultState;

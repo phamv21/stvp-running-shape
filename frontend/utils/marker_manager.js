@@ -27,7 +27,8 @@ export default class MarkerManager{
 
     oldRouteMarkers.forEach(r_id =>{
         if(coords[r_id]==null){
-            this.searchMarkers[r_id].setMap(null)
+            this.searchMarkers[r_id].setMap(null);
+            delete this.searchMarkers[r_id];
         }
     })
 

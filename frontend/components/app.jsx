@@ -42,7 +42,7 @@ export default function App(){
                     <DashboardContainter/>
                 </ProtectedRoute>
             }/>
-            <Route exact path='/test' element={
+            <Route exact path='/profile/update' element={
                 <ProtectedRoute>
                     <UpdateProfileFormContainer/>
                 </ProtectedRoute>

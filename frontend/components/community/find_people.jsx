@@ -63,9 +63,13 @@ export default function FindPeople(val){
             </div>
             <button className="btn btn-outline-success my-2 my-sm-0" onClick={handleSubmit} >Search</button>
         </form>
-        <ul className="d-flex flex-row p-2">
+        {props.loading 
+        ? (<p> Loading</p>) 
+        : (<ul className="d-flex flex-row p-2">
             {searchResult}
-        </ul>
+        </ul>)
+        }
+        
 
         </div>
     )

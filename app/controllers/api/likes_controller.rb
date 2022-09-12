@@ -2,7 +2,6 @@ class Api::LikesController < ApplicationController
     before_action :ensure_current_user!
     #for show all people who like the activity
     def index
-        sleep 1
         activity_ids = get_activities.map{|el| el.id}
        if activity_ids.empty?
             @likes = []

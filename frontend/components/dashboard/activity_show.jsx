@@ -1,6 +1,7 @@
 import React from "react";
 import {useParams} from 'react-router-dom'
 import MarkerManager from "../../utils/marker_manager";
+import { Link } from "react-router-dom";
 
 class Show extends React.Component{
     constructor(props){
@@ -79,6 +80,9 @@ class Show extends React.Component{
                     </li>
                     <li className="list-group-item">
                         <span>Total Comment: {this.currentActivity.comment_count} </span>
+                    </li>
+                    <li className="list-group-item">
+                       <Link to={'/activities/create/'+this.currentActivity.route_id}> Run with this route</Link>
                     </li>
                 </ul>
                 </div>

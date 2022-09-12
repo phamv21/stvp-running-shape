@@ -19,7 +19,7 @@ export default function Friends(val){
 
                     </div>
                     <div className="card-footer">
-                        <button className="btn btn-primary disabled" > UnFriend</button>
+                        <button onClick={e =>{e.preventDefault(); props.unFriend(el.id) }} className="btn btn-primary" > UnFriend</button>
                     </div>
                 </div>)
         }
@@ -27,7 +27,7 @@ export default function Friends(val){
     })
     return(
         <ul className="d-flex flex-row p-2">
-            {myFriends}
+            { props.loading ? ( <p>Loading</p> ) : myFriends}
         </ul>
     )
 }

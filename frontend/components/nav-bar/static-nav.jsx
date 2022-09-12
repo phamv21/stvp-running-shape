@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-export default function StaticNav(){
+export default function StaticNav(props){
     return(
         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             {/* add dashboard */}
@@ -10,7 +10,7 @@ export default function StaticNav(){
                 <a id='navDashboard' className="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Dashboard</a>
                 <ul className='dropdown-menu' aria-labelledby="navDashboard">
                     <li>
-                        <Link to='/activities' className="dropdown-item"> My Activities</Link>
+                        <Link  to='/activities' className="dropdown-item"> My Activities</Link>
                     </li>
                     <li>
                         <Link to='/activities/create' className="dropdown-item">Create Activity </Link>
@@ -28,7 +28,7 @@ export default function StaticNav(){
                         <Link to='/routes' className="dropdown-item">My Routes </Link>
                     </li>
                     <li>
-                        <Link to='/routes/search' className="dropdown-item">Find Routes </Link>
+                        <Link to='/routes/search' className="dropdown-item">Search Routes </Link>
                     </li>
                 </ul>
             </li>

@@ -9,21 +9,23 @@ export default function Feed(props){
     // const[pageNum,setPageNum] = useState(0);
     useEffect(()=>{
       if(props.user_id != null){
-        props.initialFeed(props.user_id,props.page);
+        let page = props.page[props.user_id] || 0
+        props.initialFeed(props.user_id,page);
       }else{
         props.initialFeed(props.page);
       }
       setInitialLoad(true)
     },[])
     useEffect(()=>{
-      if (props.page > 0){
-        if(props.user_id != null){
-        props.initialFeed(props.user_id,props.page);
-        }else{
-        props.initialFeed(props.page);
-      }
-      }
+        if(props.user_id != null && props.page[props.user_id] > 0){
 
+        props.initialFeed(props.user_id,props.page[props.user_id]);
+
+        }else{
+          if(props.page > 0){
+            props.initialFeed(props.page);
+          } 
+      }
     },[props['page']])
 
     let activities = [];
@@ -34,7 +36,9 @@ export default function Feed(props){
     }
 
     const feedEl =  activities.map((el,idx)=>(
-        <FeedElement  activity={el} {...props} key={idx}/>
+      el.like_count != null ? // this to prevent load the my_activity out of the feed range
+        (<FeedElement  activity={el} {...props} key={idx}/>) :
+        null
     )); 
 
 
@@ -92,15 +96,17 @@ export default function Feed(props){
 </div>
 </div>
   )
+  let page = props.user_id == null ? props.page : (props.page[props.user_id] || 0)
   let moreBtn = props.loading ? (
     <div className="row g-0">
       <button className="btn disabled"> Loading</button>
     </div>
 
   ) : (<div className="row g-0">
-      <button onClick={e => {e.preventDefault(); props.updatePage(props.page +1) } } className="btn">Load More</button>
+      <button onClick={e => {e.preventDefault(); props.updatePage(page +1,props.user_id) } } className="btn">Load More</button>
   </div>)
-  let loadMore = (props.page * FEEDPERPAGE) <= activities.length ? moreBtn : <div className="row g-0">
+  
+  let loadMore = (page * FEEDPERPAGE) <= activities.length ? moreBtn : <div className="row g-0">
       <button className="btn disabled"> No more Feed</button>
     </div>
     if(!props.loading && initialLoad){

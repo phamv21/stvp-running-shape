@@ -6,7 +6,8 @@ export const RECEIVE_PEOPLE = 'RECEIVE_PEOPLE';
 export const RECEIVE_REQUESTED = 'RECEIVE_REQUESTED';
 export const RECEIVE_PENDING = 'RECEIVE_PENDING';
 export const RECEIVE_A_REQUEST = 'RECEIVE_A_REQUEST'
-export const UNDO_A_REQUEST = 'UNDO_A_REQUEST'
+export const UNDO_A_REQUEST = 'UNDO_A_REQUEST';
+export const RECEIVE_UNFRIEND = 'RECEIVE_UNFRIEND';
 export const RECEIVE_A_PENDING_RESPONSE = 'RECEIVE_A_PENDING_RESPONSE'
 
 export const receiveAPendingResponse= (userId,decision)=>({
@@ -36,6 +37,10 @@ export const receiveARequest = (userId) =>({
 })
 export const undoARequest = (userId) =>({
     type: UNDO_A_REQUEST,
+    userId
+})
+export const receiveUnFriend = (userId) =>({
+    type: RECEIVE_UNFRIEND,
     userId
 })
 // use to show the pending request
@@ -121,16 +126,25 @@ export const undoFriendRequest = (other_id) => dispatch =>{
     dispatch(receiveLoading())
     API.undoRequest(other_id).then(
         users =>{
-            dispatch(stopLoading());
             dispatch(undoARequest(other_id));
         },
         errors =>{
-            dispatch(stopLoading());
             dispatch(receiveErrors(errors.responseJSON));
         }
     )
 }
 
+export const unFriend = (userId) => dispatch =>{
+    dispatch(receiveLoading())
+    API.unFriend(userId).then(
+        users =>{
+            dispatch(receiveUnFriend(userId));
+        },
+        errors =>{
+            dispatch(receiveErrors(errors.responseJSON));
+        }
+    )
+}
 
 
 export const findRequested  = () => dispatch =>{

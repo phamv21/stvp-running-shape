@@ -5,7 +5,9 @@ const mapStateToProps = state => (
     
     {
         loggedIn: Boolean(state.session.currentUserId),
-        userInfo: state.entities.users[state.session.currentUserId]
+        userInfo: state.entities.users[state.session.currentUserId],
+        loading: state.ui.loading,
+
 
     }
 

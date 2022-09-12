@@ -11,9 +11,10 @@ export const receiveCurrentRoutes = routes => ({
     routes
 })
 
-export const receiveSearchedRoutes = routes => ({
+export const receiveSearchedRoutes = (routes,page) => ({
     type: RECEIVE_SEARCHED_ROUTES,
-    routes
+    routes,
+    page
 })
 
 export const receiveCurrentRoute = route => (
@@ -43,10 +44,10 @@ export const fetchRoutes = () => dispatch => {
     )
 }
 
-export const searchRoutes = filters => dispatch => {
+export const searchRoutes = (filters,page=0) => dispatch => {
     dispatch(receiveLoading());
-    API.searchRoutes(filters).then(
-        routes => dispatch(receiveSearchedRoutes(routes)),
+    API.searchRoutes(filters,page).then(
+        routes => dispatch(receiveSearchedRoutes(routes,page)),
         errors => dispatch(receiveErrors(errors.responseJSON))
     )
 }

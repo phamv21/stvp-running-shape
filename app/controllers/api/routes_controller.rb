@@ -4,7 +4,6 @@ class Api::RoutesController < ApplicationController
         #it have the boundary
         #it may show my run
         #it my show the result of the friend route or the public route in the area
-        sleep 2
         @routes = current_user.routes.with_attached_thumb #should apply filter later
         render :index
 
@@ -12,7 +11,19 @@ class Api::RoutesController < ApplicationController
     #serch here using the bounds to show the result 
     def search
         filters = params[:filters]
-        @routes = Route.with_filters(filters,current_user.id)
+        page = params[:page].to_i
+        @search = Route.with_filters(filters,current_user.id)
+        if page == 0
+            @total_result = @search.select('count(*) AS total')[0].total
+            @routes = @search.order(:id).limit(Route::ROUTEPERPAGE)
+            store_searched_routes(@routes,@total_result)
+        elsif page > 0
+            last_id = get_searched_routes[:routes].last
+            @routes = @search.order(:id).limit(Route::ROUTEPERPAGE).where('routes.id > ?',last_id);
+            @total_result = get_searched_routes[:total]
+            store_searched_routes(@routes)
+        end
+
         render :search
     end
 
@@ -27,7 +38,6 @@ class Api::RoutesController < ApplicationController
     end
 
     def create
-        sleep 2
         tmp = route_params
         tmp[:user_id] = current_user.id
         tmp[:pin_infos] = tmp[:pin_infos].map{|el| JSON.parse(el)}

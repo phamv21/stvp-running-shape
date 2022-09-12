@@ -5,6 +5,7 @@ import { PRIVACY, ACTIVITIES } from "../../utils/const_util";
 import getStaticMap from "../../utils/get_static_map";
 import SeachRouteElement from "./search_route_element";
 import { Link } from "react-router-dom";
+import { ROUTEPERPAGE } from "../../utils/const_util";
 export default class SearchRoute extends React.Component {
     constructor(props){
         super(props)
@@ -15,7 +16,8 @@ export default class SearchRoute extends React.Component {
             mapCenter: {},
             mapZoom: 16,
             showRoute: false,
-
+            pageNum:0,
+            currentSearched:[]
         }
 
         this.directionsService = new google.maps.DirectionsService();
@@ -60,14 +62,32 @@ export default class SearchRoute extends React.Component {
 
     componentDidUpdate(prevProps,prevState){
         if(prevProps.searchResults != this.props.searchResults){
-            let coords = {};
-            this.props.searchResults.forEach(route =>{
-                coords[route.id] = route.pins[0]
-            })
-         this.MarkerManager.updateSearchMarker(coords);
+            let pageNum = this.state.pageNum
+            this.setState({currentSearched:this.props.searchResults.slice(pageNum*ROUTEPERPAGE,pageNum*ROUTEPERPAGE +ROUTEPERPAGE)})
         }
+
         if(prevState.bounds != this.state.bounds){
             this.props.updateFilter("bounds",this.state.bounds)
+        }
+
+        if(prevState.pageNum != this.state.pageNum){
+            
+            if (this.state.pageNum * ROUTEPERPAGE >= this.props.searchResults.length){
+                this.props.searchRoutes(this.props.filters,this.state.pageNum)
+            }else{
+                let pageNum = this.state.pageNum
+                this.setState({currentSearched:this.props.searchResults.slice(pageNum*ROUTEPERPAGE,pageNum*ROUTEPERPAGE +ROUTEPERPAGE)})
+            }
+        }
+        if(prevState.currentSearched != this.state.currentSearched){
+            if(this.state.currentSearched.length > 0){
+                
+                let coords = {};
+                this.state.currentSearched.forEach(route =>{
+                coords[route.id] = route.pins[0]
+                })
+                this.MarkerManager.updateSearchMarker(coords);
+            }
         }
 
     //     if (prevProps.highlightId != this.props.highlightId){
@@ -112,6 +132,15 @@ export default class SearchRoute extends React.Component {
         this.setState({mapCenter:{lat:latCenter,lng:lngCenter},mapZoom:this.map.getZoom(),showRoute:false})
         
     }
+    handleNextPage(e){
+        e.preventDefault();
+        this.setState({pageNum:(this.state.pageNum + 1)})
+    }
+
+    handlePrevPage(e){
+         e.preventDefault();
+        this.setState({pageNum:this.state.pageNum - 1})
+    }
 
     handleBackToResult(e){
         e.preventDefault();
@@ -122,6 +151,9 @@ export default class SearchRoute extends React.Component {
     }
 
     render(){
+        let pageNum = this.state.pageNum
+        let showResult = this.props.searchResults.slice(pageNum*ROUTEPERPAGE,pageNum*ROUTEPERPAGE +ROUTEPERPAGE) // only 2 result per page
+        let totalResult = this.props.searchResults[0] == null ? 0 : this.props.searchResults[0].total_result || 0
         let resultEl = this.state.showRoute ? (<div className='d-flex justify-content-center' >
                 <div className="row">
                     <img className="img-thumbnail super-small-img col-4" src={this.props.routes[this.state.hightlightRouteId].thumb} alt="" />
@@ -135,10 +167,14 @@ export default class SearchRoute extends React.Component {
                 
                 
 
-        </div>) : this.props.searchResults.map((el,idx)=>(
+        </div>) : showResult.map((el,idx)=>(
+            el != null ?
             <SeachRouteElement route={el} key={idx} handleHighlight={this.handleHighlight.bind(this)} handleRouteRender={this.handleRouteRender.bind(this)} />
+            : null
+            
         ))
 
+        
         let button = this.props.loading ? 
         ( <button disabled={true}>
                 <div className="spinner-border" role="status">
@@ -149,14 +185,19 @@ export default class SearchRoute extends React.Component {
         return(
         <>
         <div className=" container row text-center justify-content-center">
-                <input className="form-control col-lg-8 col-sm-12" type="search" id='auto-complete-search' placeholder="Please type the area that you want to run" aria-label="Search"/>
-                <button className="btn btn-primary col-lg-2 col-sm-12" onClick={this.handleSearch.bind(this)}> Search</button>
+                <input disabled={this.state.showRoute} className="form-control col-lg-8 col-sm-12" type="search" id='auto-complete-search' placeholder="Please type the area that you want to run" aria-label="Search"/>
+                <button disabled={this.state.showRoute} className="btn btn-primary col-lg-2 col-sm-12" onClick={this.handleSearch.bind(this)}> Search</button>
         </div>    
         <div className="container row mb-3 text-center">
            <div className="col-lg-4 col-sm-12 mh-sm-25">
             
+            <div className="row justify-content-between">
+                {!this.state.showRoute && (this.state.pageNum > 0) ? (<button className="btn btn-secondary col-2" onClick={this.handlePrevPage.bind(this)}><i className="fa-solid fa-chevron-left"></i></button>) : ( <button className="btn btn-secondary col-2 disabled" ><i className="fa-solid fa-chevron-left"></i></button> ) }
+                {!this.state.showRoute && (this.state.pageNum * ROUTEPERPAGE + ROUTEPERPAGE < totalResult) ? (<button className="btn btn-secondary col-2" onClick={this.handleNextPage.bind(this)}> <i className="fa-solid fa-chevron-right"></i> </button>) : ( <button className="btn btn-secondary col-2 disabled" ><i className="fa-solid fa-chevron-right"></i></button> ) }
+            </div>
+            {this.state.showRoute ? (<button className="btn" onClick={this.handleBackToResult.bind(this)}> Back</button>) : <p>{totalResult + ' results'}</p>  }
             
-            {this.state.showRoute ? (<button onClick={this.handleBackToResult.bind(this)}> Back</button>) : 'many result' }
+
             <div className="d-grip gap-2">
                 {resultEl}
             </div>

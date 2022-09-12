@@ -75,7 +75,7 @@ export default function UpdateProfileForm(props){
         <div className="text-center">
             <main className="form-signin w-100 m-auto">
             <form onSubmit={handleSubmit}>
-            <h1 className="h3 mb-3 fw-normal">Please Fill Your Info</h1>
+            <h1 className="h3 mb-3 fw-normal">Update Profile</h1>
           
             {/* <div className="form-floating">
                 <input id="username" className="form-control" type="text" name="username" value={username} onChange={handleUsername} placeholder='Username'/>

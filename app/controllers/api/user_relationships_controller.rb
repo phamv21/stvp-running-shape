@@ -22,13 +22,22 @@ class Api::UserRelationshipsController < ApplicationController
     end
 
     def undo #remove the request that have made
-        @request = UserRelationship.find_by(user_id:current_user.id,other_user_id:params[:other_user_id])
-        if @request.nil?
-            render json: ['The request is invalid'],status: 401 
+        if params[:unfriend].nil?
+            @request = UserRelationship.find_by(user_id:current_user.id,other_user_id:params[:other_user_id])
+            if @request.nil?
+                render json: ['The request is invalid'],status: 401 
+            else
+                @request.delete
+                # @users = current_user.requested_friends
+                # render 'api/user_relationships/requested_friends'
+            end
         else
-            @request.delete
-            # @users = current_user.requested_friends
-            # render 'api/user_relationships/requested_friends'
+            @request = UserRelationship.find_by(user_id:current_user.id,other_user_id:params[:other_user_id]) || @request = UserRelationship.find_by(other_user_id:current_user.id,user_id:params[:other_user_id])
+            if @request != nil && (@request.relationship_type == 'Friend')
+                @request.delete
+            else
+                render json: ['The request is invalid'],status: 401 
+            end
         end
     end
 

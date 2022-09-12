@@ -30,7 +30,7 @@ export default function PendingRequest(val){
     })
     return(
         <ul className="d-flex flex-row p-2">
-            {pendingEl}
+            { props.loading ? ( <p>Loading</p> ) : pendingEl}
         </ul>
     )
 

@@ -5,8 +5,8 @@ export const fetchRoutes = () =>{
         method: 'GET',
     })
 }
-export const searchRoutes = (filters) =>{
-    let data ={filters:filters}
+export const searchRoutes = (filters,page=0) =>{
+    let data ={filters:filters,page:page}
     return $.ajax({
         url:'api/routes/search',
         method: 'POST',

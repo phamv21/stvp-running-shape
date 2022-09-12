@@ -23,11 +23,11 @@ export default function ProfileControl({loggedIn,userInfo,logout}){
             <li className="nav-item dropdown ">
                 <a className="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false"><i className="fa-solid fa-user"></i> </a>
                 <ul className='dropdown-menu' >
-                    <li>
-                        <a className="dropdown-item" href="#">{userInfo.username}</a>
+                    <li className="dropdown-item">
+                        <Link className="btn btn-light"  to='profile/update'>{userInfo.username}</Link>
                     </li>
-                    <li>
-                        <button className="dropdown-item" onClick={handleLogout}>
+                    <li className="dropdown-item">
+                        <button className="btn btn-light"  onClick={handleLogout}>
                             Logout
                         </button>
                     </li>

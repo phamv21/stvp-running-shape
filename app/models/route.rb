@@ -1,7 +1,7 @@
 class Route < ApplicationRecord
     Route::PRIVACY = ['Friend','Public','Private']
     Route::ACTIVITIES = ['Run','Walk']
-
+    Route::ROUTEPERPAGE = 2
     validates :name, presence: true
     validates :privacy, inclusion: PRIVACY
     validates :activity, inclusion: ACTIVITIES

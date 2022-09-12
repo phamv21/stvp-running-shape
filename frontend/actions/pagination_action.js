@@ -7,7 +7,8 @@ export const receiveFeedPage = page => ({
     page
 })
 
-export const receiveUserFeedPage = page =>({
+export const receiveUserFeedPage = (page,userId) =>({
     type:RECEIVE_USER_FEED_PAGE,
-    page
+    page,
+    userId
 })

@@ -4,7 +4,7 @@ import Logo from "./logo";
 import StaticNav from "./static-nav";
 import ProfileControl from "./profile-control";
 
-export default function Home({loggedIn,userInfo,logout}){
+export default function Home({loggedIn,userInfo,logout,loading}){
     return(
         <nav className="navbar navbar-expand-lg bg-light rounded">
             <div className="container-fluid">
@@ -13,7 +13,7 @@ export default function Home({loggedIn,userInfo,logout}){
             <span className="navbar-toggler-icon"></span>
             </button>
             <div className="collapse navbar-collapse" id="toggle-menu">
-            <StaticNav/>
+            <StaticNav loading={loading}/>
             <ProfileControl loggedIn={loggedIn} userInfo={userInfo} logout={logout}/>
             </div>
             

@@ -22,7 +22,7 @@ const mapDispatchToProps = dispatch =>({
     fetchLike: () => dispatch(fetchLike()),
     createLike: activity_id => dispatch(createLike(activity_id)),
     destroyLike: like_id => dispatch(destroyLike(like_id)),
-    updatePage: page => dispatch(receiveUserFeedPage(page)),
+    updatePage: (page,userId) => dispatch(receiveUserFeedPage(page,userId)),
 
 })
 

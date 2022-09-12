@@ -10,7 +10,7 @@ const activityReducer = (state ={}, action) => {
         case RECEIVE_USER_ACTIVITIES:
             return Object.assign({},state,action.activities);
         case RECEIVE_MY_ACTIVITIES:
-            return Object.assign({},state,action.activities);
+            return Object.assign({},action.activities,state);
         case RECEIVE_ACTIVITY:
             return Object.assign({},state,action.activity);
         case RECEIVE_NEW_ACTIVITY:

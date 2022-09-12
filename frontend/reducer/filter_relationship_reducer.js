@@ -1,6 +1,6 @@
-import { RECEIVE_FRIENDS,RECEIVE_REQUESTED,RECEIVE_PEOPLE, RECEIVE_PENDING,RECEIVE_A_REQUEST, UNDO_A_REQUEST, RECEIVE_A_PENDING_RESPONSE } from "../actions/relationship_actions";
+import { RECEIVE_FRIENDS,RECEIVE_REQUESTED,RECEIVE_PEOPLE, RECEIVE_PENDING,RECEIVE_A_REQUEST, UNDO_A_REQUEST, RECEIVE_A_PENDING_RESPONSE,RECEIVE_UNFRIEND } from "../actions/relationship_actions";
 
-
+//save the user id of each catagories
 const default_state = {
     friends:[],
     people:[],
@@ -14,7 +14,9 @@ const default_state = {
         case RECEIVE_FRIENDS:
             let friendIds = Object.keys(action.users);
             return Object.assign({},state,{friends:friendIds});
-
+        case RECEIVE_UNFRIEND:
+            friendIds = state.friends.filter(el => el != action.userId)
+            return Object.assign({},state,{friends:friendIds});
         case RECEIVE_PENDING:
             let pendingIds = Object.keys(action.users);
             return Object.assign({},state,{pending:pendingIds});

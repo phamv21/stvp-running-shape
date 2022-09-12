@@ -35,6 +35,16 @@ export const undoRequest = (other_user_id) =>{
     })
 }
 
+export const unFriend = (other_user_id) =>{
+    let data = {other_user_id,unfriend:true}
+    return $.ajax({
+        url:'api/relationship/undo',
+        method: 'DELETE',
+        data:data,
+    })
+}
+
+
 export const fetchFriends = () =>{
     return $.ajax({
         url:'api/relationship/friends',
