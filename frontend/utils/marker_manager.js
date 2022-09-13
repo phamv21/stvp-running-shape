@@ -212,11 +212,6 @@ export default class MarkerManager{
                         }
                     })
                     
-                    
-                    // this.directionsRenderer.setDirections(response);
-                    // let steps = response.routes
-                    // console.log('map respond',response.routes)
-                    
                 },  
                 errors => {
                     console.log('errors',errors)

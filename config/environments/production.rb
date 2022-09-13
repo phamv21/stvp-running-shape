@@ -2,6 +2,9 @@ require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
+#static_assets
+config.serve_static_assets = true
+config.static_cache_control = "public, max-age=31536000"
 
 #amazon_S3
   config.active_storage.service = :amazon_prod
