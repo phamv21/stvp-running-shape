@@ -53,11 +53,7 @@ body {
 .form-signin .btn-primary{
     margin-bottom: 10px;
 }
-/* show drop down menu */
-/* .show>.dropdown-menu {
-    display: block;
-    position: absolute;
-} */
+
 .route-dropdown{
     max-height: 30vh;
     overflow: auto;

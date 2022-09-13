@@ -17,22 +17,24 @@ export default function ProfileControl({loggedIn,userInfo,logout}){
 
     let showEl 
     if(!loggedIn){
-        showEl = (<Link to='/login' className="nav-item">Login</Link>)
+        showEl = (<Link to='/login' className="nav-item" >Login</Link>)
     }else{
         showEl = (
-            <li className="nav-item dropdown ">
-                <a className="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false"><i className="fa-solid fa-user"></i> </a>
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            <li className="nav-item dropdown me-1 ">
+                <button type="button" className="btn btn-secondary dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,100"><i className="fa-solid fa-user"></i> </button>
                 <ul className='dropdown-menu' >
-                    <li className="dropdown-item">
-                        <Link className="btn btn-light"  to='profile/update'>{userInfo.username}</Link>
+                    <li>
+                        <Link className="dropdown-item"  to='profile/update'>{userInfo.username}</Link>
                     </li>
-                    <li className="dropdown-item">
-                        <button className="btn btn-light"  onClick={handleLogout}>
+                    <li>
+                        <a className="dropdown-item"  onClick={handleLogout}>
                             Logout
-                        </button>
+                        </a>
                     </li>
                 </ul>
             </li>
+            </ul>
         )
     }
     return(
