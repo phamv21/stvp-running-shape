@@ -16,7 +16,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch =>({
-    fetchFeed: () => dispatch(fetchFeed()),
+    fetchFeed: (pageNum,lastId) => dispatch(fetchFeed(pageNum,lastId)),
     initialFeed: pageNum => dispatch(initialFeed(pageNum)),
     fetchComments: activity_id => dispatch(fetchComments(activity_id)),
     createComment: raw_data => dispatch(createComment(raw_data)),

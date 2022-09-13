@@ -73,7 +73,9 @@ export default class SearchRoute extends React.Component {
         if(prevState.pageNum != this.state.pageNum){
             
             if (this.state.pageNum * ROUTEPERPAGE >= this.props.searchResults.length){
-                this.props.searchRoutes(this.props.filters,this.state.pageNum)
+                let total_result = this.props.searchResults[0] == null ? 0 : this.props.searchResults[0].total_result || 0;
+                let last_id = this.props.searchResults[0] == null ? 0: this.props.searchResults[this.props.searchResults.length -1]['id'];
+                this.props.searchRoutes(this.props.filters,this.state.pageNum,total_result,last_id);
             }else{
                 let pageNum = this.state.pageNum
                 this.setState({currentSearched:this.props.searchResults.slice(pageNum*ROUTEPERPAGE,pageNum*ROUTEPERPAGE +ROUTEPERPAGE)})

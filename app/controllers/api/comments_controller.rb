@@ -12,15 +12,6 @@ class Api::CommentsController < ApplicationController
         end
         
     end
-    def feed
-        activity_ids ||= get_activities.map{|el| el.id}
-        if activity_ids.empty?
-            @comments = []
-        else
-            @comments = Comment.feed_recent_comments(activity_ids)
-        end
-        render :feed
-    end
     
     def create
         @comment = Comment.new(comment_params)
@@ -40,5 +31,6 @@ class Api::CommentsController < ApplicationController
     def comment_params 
         params.require(:comment).permit(:content,:activity_id)
     end
+
 
 end

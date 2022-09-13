@@ -44,9 +44,9 @@ export const fetchRoutes = () => dispatch => {
     )
 }
 
-export const searchRoutes = (filters,page=0) => dispatch => {
+export const searchRoutes = (filters,page=0,total_result=0,last_id=0) => dispatch => {
     dispatch(receiveLoading());
-    API.searchRoutes(filters,page).then(
+    API.searchRoutes(filters,page,total_result,last_id).then(
         routes => dispatch(receiveSearchedRoutes(routes,page)),
         errors => dispatch(receiveErrors(errors.responseJSON))
     )

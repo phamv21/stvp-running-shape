@@ -66,8 +66,6 @@ export default function UpdateProfileForm(props){
         setSubmitted(true)
     }
     let submitBtnClass = !props.loading ? "w-100 btn btn-lg btn-primary" : "w-100 btn btn-lg btn-secondary disabled"
-    console.log(submited);
-    console.log(props.errorsCount)
     if(submited && props.loading == false && props.errorsCount.length == 0){
         navigate('/routes',true)
     }

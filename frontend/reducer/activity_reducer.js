@@ -1,4 +1,4 @@
-import { RECEIVE_ACTIVITIES,RECEIVE_USER_ACTIVITIES, RECEIVE_ACTIVITY,RECEIVE_NEW_ACTIVITY, RECEIVE_MY_ACTIVITIES } from "../actions/activity_actions";
+import { RECEIVE_ACTIVITIES,RECEIVE_USER_ACTIVITIES, RECEIVE_ACTIVITY,RECEIVE_NEW_ACTIVITY, RECEIVE_MY_ACTIVITIES,RECEIVE_FEED_ACTIVITIES,RECEIVE_USER_FEED_ACTIVITIES } from "../actions/activity_actions";
 import { RECEIVE_LIKE, REMOVE_LIKE } from "../actions/like_action";
 import { RECEIVE_COMMENT } from "../actions/comment_action";
 import { LOGOUT_CURRENT_USER } from "../actions/session_actions";
@@ -7,6 +7,12 @@ const activityReducer = (state ={}, action) => {
     switch(action.type){
         case RECEIVE_ACTIVITIES:
             return Object.assign({},state,action.activities);
+        case RECEIVE_FEED_ACTIVITIES:
+            let activities = action.feedActivities.activities || {};
+            return Object.assign({},state,activities);
+        case RECEIVE_USER_FEED_ACTIVITIES:
+             activities = action.feedActivities.activities || {};
+            return Object.assign({},state,activities);
         case RECEIVE_USER_ACTIVITIES:
             return Object.assign({},state,action.activities);
         case RECEIVE_MY_ACTIVITIES:
