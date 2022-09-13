@@ -10,20 +10,24 @@ export default function Feed(props){
     useEffect(()=>{
       if(props.user_id != null){
         let page = props.page[props.user_id] || 0
-        props.initialFeed(props.user_id,page);
+        props.fetchFeed(props.user_id,page);
       }else{
-        props.initialFeed(props.page);
+        props.fetchFeed(props.page);
       }
       setInitialLoad(true)
     },[])
     useEffect(()=>{
         if(props.user_id != null && props.page[props.user_id] > 0){
-
-        props.initialFeed(props.user_id,props.page[props.user_id]);
+          // finding the last id 
+          let filterAct = activities.filter(el => el.like_count !=null)
+          let lastId = filterAct[filterAct.length -1].id
+        props.fetchFeed(props.user_id,props.page[props.user_id],lastId);
 
         }else{
           if(props.page > 0){
-            props.initialFeed(props.page);
+            let filterAct = activities.filter(el => el.like_count !=null)
+            let lastId = filterAct[filterAct.length -1].id
+            props.fetchFeed(props.page,lastId);
           } 
       }
     },[props['page']])
@@ -34,12 +38,16 @@ export default function Feed(props){
     }else{
         activities = props.activities
     }
-
-    const feedEl =  activities.map((el,idx)=>(
-      el.like_count != null ? // this to prevent load the my_activity out of the feed range
-        (<FeedElement  activity={el} {...props} key={idx}/>) :
-        null
-    )); 
+    console.log(activities)
+    const feedEl =  activities.map((el,idx)=>{
+      if(el.like_count != null){
+        // setLastActivityId(idx);
+        return (<FeedElement  activity={el} {...props} key={idx}/>)
+      }else{
+        return null
+      }  // this to prevent load the my_activity out of the feed range    
+          
+  }); 
 
 
     const loadingContent =(

@@ -133,10 +133,6 @@ export default class MarkerManager{
           anchor: marker,
         });
         this.currentInfoWindow = infowindow;
-        
-        
-        // let xx = $('#form-2').serializeArray();
-        // console.log(xx)
     });
     this.infoNodes.push(marker)
     }
@@ -149,8 +145,6 @@ export default class MarkerManager{
 
         this.infoNodes.forEach(el => el.setMap(null))
         this.infoNodes =[]
-        // this.directionsService.route({});
-        // console.log(this.directionsService)
         this.nodes = [];
     }
     renderRoute(){

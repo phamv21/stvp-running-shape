@@ -1,5 +1,6 @@
 class Api::ActivitiesController < ApplicationController
     before_action :ensure_current_user!
+
     def index
         @activities = current_user.activities.includes(:route)
         render :index
@@ -7,16 +8,30 @@ class Api::ActivitiesController < ApplicationController
 
     def feed #use to show the activities of friends
         if params[:page].to_i == 0
-        @activity_feed = current_user.feed.order('activities.id DESC').limit(Activity::FEEDPERPAGE)
+            @activity_feed = current_user.feed.order('activities.id DESC').limit(Activity::FEEDPERPAGE)
         elsif params[:page].to_i > 0
-            last_id = get_activities.last.id
-            @activity_feed = current_user.feed.order('activities.id DESC').where('activities.id < ?',last_id).limit(Activity::FEEDPERPAGE)
+            last_id = params[:last_id].to_i
+                if last_id > 0
+                    @activity_feed = current_user.feed.order('activities.id DESC').where('activities.id < ?',last_id).limit(Activity::FEEDPERPAGE)
+                else
+                    @activity_feed = current_user.feed.order('activities.id DESC').limit(Activity::FEEDPERPAGE).offset(params[:page].to_i*Activity::FEEDPERPAGE)
+                end
         end
-        store_activities(@activity_feed)
-        @activity_ids = @activity_feed.map{|el| el.id}
-        @comment_count = Activity.comment_count(@activity_ids)
-        @like_count = Activity.like_count(@activity_ids)
+        
+        activity_ids = @activity_feed.map{|el| el.id}
+        if activity_ids.empty?
+            @comments = []
+            @likes = []
+            @comment_count = 0
+            @like_count = 0
+        else
+            @comments = Comment.feed_recent_comments(activity_ids)
+            @likes = Like.like_index(activity_ids, current_user.id)
+            @comment_count = Activity.comment_count(activity_ids)
+            @like_count = Activity.like_count(activity_ids)
+        end
         render :feed
+
     end
     def user_feed
         @user = User.find_by(id:params[:id])
@@ -26,15 +41,28 @@ class Api::ActivitiesController < ApplicationController
             if params[:page].to_i == 0
                @activity_feed = @user.personal_feed(current_user.id).order('activities.id DESC').limit(Activity::FEEDPERPAGE)
             elsif params[:page].to_i > 0
-                last_id = get_activities.last.id
-                @activity_feed = @user.personal_feed(current_user.id).order('activities.id DESC').where('activities.id < ?',last_id).limit(Activity::FEEDPERPAGE)
+                last_id = params[:last_id].to_i
+                if last_id > 0
+                    @activity_feed = @user.personal_feed(current_user.id).order('activities.id DESC').where('activities.id < ?',last_id).limit(Activity::FEEDPERPAGE)
+                else
+                    @activity_feed = @user.personal_feed(current_user.id).order('activities.id DESC').limit(Activity::FEEDPERPAGE).offset(params[:page].to_i*Activity::FEEDPERPAGE)
+                end
             end
-            store_activities(@activity_feed)
-            @activity_ids = @activity_feed.map{|el| el.id}
-            @comment_count = Activity.comment_count(@activity_ids)
-            @like_count = Activity.like_count(@activity_ids)
-            render 'api/activities/feed'
+            activity_ids = @activity_feed.map{|el| el.id}
+
+            if activity_ids.empty?
+            @comments = []
+            @likes = []
+            @comment_count = 0
+            @like_count = 0
+        else
+            @comments = Comment.feed_recent_comments(activity_ids)
+            @likes = Like.like_index(activity_ids, current_user.id)
+            @comment_count = Activity.comment_count(activity_ids)
+            @like_count = Activity.like_count(activity_ids)
         end
+            render 'api/activities/feed'
+     end
         
     end
 

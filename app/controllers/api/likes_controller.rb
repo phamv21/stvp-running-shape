@@ -1,16 +1,6 @@
 class Api::LikesController < ApplicationController
     before_action :ensure_current_user!
-    #for show all people who like the activity
-    def index
-        activity_ids = get_activities.map{|el| el.id}
-       if activity_ids.empty?
-            @likes = []
-       else
-            @likes = Like.like_index(activity_ids, current_user.id)
-       end
-        render :index
-
-    end
+    # show all people who like the activity
 
     def create
         @like = Like.new(user_id:current_user.id,activity_id:params[:activity_id])

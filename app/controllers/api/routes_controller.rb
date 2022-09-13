@@ -16,12 +16,16 @@ class Api::RoutesController < ApplicationController
         if page == 0
             @total_result = @search.select('count(*) AS total')[0].total
             @routes = @search.order(:id).limit(Route::ROUTEPERPAGE)
-            store_searched_routes(@routes,@total_result)
+
         elsif page > 0
-            last_id = get_searched_routes[:routes].last
-            @routes = @search.order(:id).limit(Route::ROUTEPERPAGE).where('routes.id > ?',last_id);
-            @total_result = get_searched_routes[:total]
-            store_searched_routes(@routes)
+            @total_result = params[:total_result].to_i
+            last_id = params[:last_id].to_i
+            if last_id == 0
+                @routes = @search.order(:id).limit(Route::ROUTEPERPAGE).offset(Route::ROUTEPERPAGE*page)
+            else
+                @routes = @search.order(:id).limit(Route::ROUTEPERPAGE).where('routes.id > ?',last_id)
+            end
+            
         end
 
         render :search

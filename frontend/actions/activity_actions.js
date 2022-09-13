@@ -10,11 +10,23 @@ export const RECEIVE_ACTIVITY = 'RECEIVE_ACTIVITY';
 export const RECEIVE_MY_ACTIVITIES = 'RECEIVE_MY_ACTIVITIES';
 export const RECEIVE_NEW_ACTIVITY = 'RECEIVE_NEW_ACTIVITY';
 export const RECEIVE_USER_ACTIVITIES = 'RECEIVE_USER_ACTIVITIES';
+export const RECEIVE_FEED_ACTIVITIES = 'RECEIVE_FEED_ACTIVITIES';
+export const RECEIVE_USER_FEED_ACTIVITIES = 'RECEIVE_USER_FEED_ACTIVITIES';
 
 
 export const receiveActivities = (activities) => ({
     type:RECEIVE_ACTIVITIES,
     activities
+});
+export const receiveFeedActivities = (feedActivities) => ({
+    type:RECEIVE_FEED_ACTIVITIES,
+    feedActivities
+});
+
+export const receiveUserFeedActivities = (feedActivities,user_id) => ({
+    type:RECEIVE_USER_FEED_ACTIVITIES,
+    feedActivities,
+    user_id
 });
 
 export const receiveUserActivities = (activities,user_id) => ({
@@ -46,13 +58,23 @@ export const fetchActivities =  () => dispatch  => {
         )
 }
 
-export const fetchFeed=  (page_num=0) => dispatch  => {
+export const fetchFeed=  (page_num=0,last_id = 0) => dispatch  => {
         dispatch(receiveLoading());
-        API.fetchFeed(page_num).then(
-            activities => dispatch(receiveActivities(activities)),
+        API.fetchFeed(page_num,last_id).then(
+            feedActivities => dispatch(receiveFeedActivities(feedActivities)),
             errors => dispatch(receiveErrors(errors.responseJSON))
         )
 }
+
+export const fetchUserFeed = (user_id,page_num=0,last_id=0) => dispatch =>{
+    dispatch(receiveLoading());
+    API.fetchUserFeed(user_id,page_num,last_id).then(
+        feedActivities => dispatch(receiveUserFeedActivities(feedActivities,user_id)),
+        errors => dispatch(receiveErrors(errors.responseJSON))
+    )
+}
+
+
 export const initialFeed = (page_num =0) => async(dispatch) =>{
     dispatch(receiveLoading());
     try {
@@ -68,7 +90,7 @@ export const initialFeed = (page_num =0) => async(dispatch) =>{
     
 }
 
-export const fetchUserFeed =  (user_id,page_num) => async(dispatch)  => {
+export const fetchUserFeedAsync =  (user_id,page_num) => async(dispatch)  => {
         dispatch(receiveLoading());
         try {
         const activities = await API.fetchUserFeed(user_id,page_num);

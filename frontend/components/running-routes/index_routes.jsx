@@ -99,7 +99,6 @@ export default class IndexRoutes extends React.Component{
     )
 
         let routes = this.props.routes;
-        // console.log(routes);
         let routeEl = routes.map((el,idx) => <IndexRouteElement key={idx} route={el}/> )
         if(this.props.loading == false && routeEl.length == 0){routeEl = ( <tr><td><Link to='/map'>No Route, Click to create your first route</Link></td></tr> )}
         let showEl = this.props.loading ? (loadingContent

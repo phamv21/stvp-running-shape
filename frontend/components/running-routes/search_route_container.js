@@ -16,7 +16,7 @@ const mapStateToProps = state => (
 )
 
 const mapDispatchToProps = dispatch => ({
-    searchRoutes: (filters,page=0) => dispatch(searchRoutes(filters,page)),
+    searchRoutes: (filters,page=0,total_result=0,last_id=0) => dispatch(searchRoutes(filters,page,total_result,last_id)),
     updateFilter: (filter,value) => dispatch(updateSearchFilter(filter,value))
     // updateFilterAndSearch : (filter,value) => dispatch(updateFilterAndSearch(filter,value)),
 

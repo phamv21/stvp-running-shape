@@ -38,7 +38,6 @@ export default function ActivityForm({routes,loading,routeHash,newActivityId,sub
         e.preventDefault();
         let duration = hour * 3600 + minute * 60 + second;
         let rawData = {title:title,note:note,duration:duration,route_id:routeId,starting_time:startingTime}
-        // console.log(props)
         submit(rawData);
     }
 

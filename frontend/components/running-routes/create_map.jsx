@@ -105,7 +105,6 @@ class CreateMap extends React.Component {
     }
     // handleFile(e){
     //     e.preventDefault();
-    //     console.log(e.target.files[0])
     // }
     handleSubmit(e){
         e.preventDefault();

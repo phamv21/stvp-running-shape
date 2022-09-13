@@ -25,9 +25,6 @@ const IndexRouteElement = ({route}) => {
             <td>
                 {route.privacy}
             </td>
-            <td>
-                action
-            </td>
             </tr>
             
     )
