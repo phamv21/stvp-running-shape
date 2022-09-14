@@ -156,14 +156,15 @@ export default class SearchRoute extends React.Component {
         let pageNum = this.state.pageNum
         let showResult = this.props.searchResults.slice(pageNum*ROUTEPERPAGE,pageNum*ROUTEPERPAGE +ROUTEPERPAGE) // only 2 result per page
         let totalResult = this.props.searchResults[0] == null ? 0 : this.props.searchResults[0].total_result || 0
-        let resultEl = this.state.showRoute ? (<div className='d-flex justify-content-center' >
+        let resultEl = this.state.showRoute ? (<div className='container justify-content-center' >
                 <div className="row">
-                    <img className="img-thumbnail super-small-img col-4" src={this.props.routes[this.state.hightlightRouteId].thumb} alt="" />
-                    <p className="h3 col-8 jusstify-content-center" >{this.props.routes[this.state.hightlightRouteId].name}</p>
+                    <img className="img-thumbnail col-12 " src={this.props.routes[this.state.hightlightRouteId].thumb} alt="" />
+                    
                 </div>
                 <div className="row">
-                    <p className=" h4 col-7 jusstify-content-center">Distance: {this.props.routes[this.state.hightlightRouteId].distance/1000} Km</p>
-                <p className=" h4 col-7 jusstify-content-center">Description: {this.props.routes[this.state.hightlightRouteId].description}</p>
+                    <p className="h3 col-12 jusstify-content-center" >{this.props.routes[this.state.hightlightRouteId].name}</p>
+                    <p className=" h4 col-12 jusstify-content-center">Distance: {this.props.routes[this.state.hightlightRouteId].distance/1000} Km</p>
+                <p className=" h4 col-12 jusstify-content-center">Description: {this.props.routes[this.state.hightlightRouteId].description}</p>
                 <Link to={'/activities/create/'+this.state.hightlightRouteId} className="btn"> Create Activity with this Route</Link>
                 </div>
                 
