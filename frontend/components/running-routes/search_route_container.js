@@ -11,6 +11,8 @@ const mapStateToProps = state => (
         searchResults: seachedRoutes(state),
         routes: state.entities.routes,
         filters: state.filters.searchRouteFilters,
+        lastLocation: state.entities.users[state.session.currentUserId].last_route_location,
+
 
     }
 )

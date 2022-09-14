@@ -32,7 +32,7 @@ export default class SearchRoute extends React.Component {
     componentDidMount() {
         // set the map to show SF
         const mapOptions = {
-            center:{ lat: 10.78058, lng: 106.694385 }, // this is HCM
+            center:this.props.lastLocation, // this is SF or last location of user
             zoom: 16,
             mapId: 'b9270ddec3f692ae'
         };
