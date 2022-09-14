@@ -2,7 +2,7 @@ class Api::UsersController < ApplicationController
     before_action :ensure_current_user!, only:[:show,:update]
     def create
         tmp_params = user_params
-        tmp_params[:username] = tmp[:username].downcase
+        tmp_params[:username] = tmp_params[:username].downcase
         @user = User.new(tmp_params)
         if @user.save
             login!(@user)

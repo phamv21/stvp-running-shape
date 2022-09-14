@@ -65,8 +65,6 @@ export default function SignupForm({submit,loading}){
         submit(formData);
     }
     let submitBtnClass = !loading ? "w-100 btn btn-lg btn-primary" : "w-100 btn btn-lg btn-secondary disabled"
-
-    console.log(avatarFile)
      return(
         <div className="text-center">
             <main className="form-signin w-100 m-auto">
