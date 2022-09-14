@@ -4,8 +4,8 @@ const IndexRouteElement = ({route}) => {
     return(
         
             <tr>
-            <td className="d-flex justify-content-center">
-            <Link to={"/routes/"+route.id} className="card" >
+            <td className="justify-content-center">
+            <Link to={"/routes/"+route.id} className="card" style={{'width':'6.4rem'}} >
                 <img className="card-img-top route-thumb" src={route.thumb} />
                 <div className="card-body">
                     <h5 className="card-title">{route.name}</h5>
@@ -14,7 +14,7 @@ const IndexRouteElement = ({route}) => {
                 
             </td>
             <td>
-                {route.distance}
+                {route.distance/1000}
             </td>
             <td>
                 {route.area_name}

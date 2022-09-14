@@ -14,7 +14,7 @@ export default function DashboardElement({info}){
             {info.duration}
         </td>
         <td>
-            {info.distance}
+            {info.distance/1000}
         </td>
 
     </tr>)

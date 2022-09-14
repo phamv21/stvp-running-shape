@@ -115,7 +115,7 @@ export default class IndexRoutes extends React.Component{
                     Route Name
                 </th>
                 <th scope="col">
-                    Distance
+                    Distance(Km)
                 </th>
                 <th scope="col">
                     City
