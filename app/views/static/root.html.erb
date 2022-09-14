@@ -1,5 +1,5 @@
 <script type='text/javascript'>
-window.keys = <%= ({map:ENV.fetch('GOOGLE_MAPS_API')}).to_json.html_safe  %>;
+window.keys = <%= ({map: Rails.application.credentials.google[:api_key]}).to_json.html_safe  %>;
 <% if logged_in? %>
  window.currentUser = <%= (render partial:'api/users/user', formats: :json, locals:{user: current_user}).html_safe %>;
 <% else %>
