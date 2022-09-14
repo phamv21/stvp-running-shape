@@ -12,6 +12,7 @@
     "npm": "6.9.0"
   },
   "scripts": {
+    "webpack": "webpack --watch --mode=development",
     "postinstall": "webpack"
   },
   "keywords": [],

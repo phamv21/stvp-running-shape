@@ -1,7 +1,9 @@
 class Api::UsersController < ApplicationController
     before_action :ensure_current_user!, only:[:show,:update]
     def create
-        @user = User.new(user_params)
+        tmp_params = user_params
+        tmp_params[:username] = tmp[:username].downcase
+        @user = User.new(tmp_params)
         if @user.save
             login!(@user)
             render 'api/users/show'

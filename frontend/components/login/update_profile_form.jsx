@@ -17,6 +17,7 @@ export default function UpdateProfileForm(props){
     const [avatarUrl,setAvatarUrl] = useState('');
     const [avatarFile,setAvatarFile] = useState(null);
     const [submited,setSubmitted] = useState(false);
+    const[warning,setWarning] = useState('')
     const navigate = useNavigate();
     function handleGender(e){
         e.preventDefault();
@@ -36,6 +37,7 @@ export default function UpdateProfileForm(props){
     }
     function handleAvatar(e){
         e.preventDefault();
+        setWarning('')
         setSubmitted(false);
         const reader = new FileReader();
         const file = e.currentTarget.files[0];
@@ -61,9 +63,14 @@ export default function UpdateProfileForm(props){
         // formData.append('user[password]',password);
         // formData.append('user[gender]',gender);
         // formData.append('user[birthday]',birthday);
-        formData.append('user[avatar]',avatarFile);
-        props.submit(formData);
-        setSubmitted(true)
+        if(avatarFile != null){
+            formData.append('user[avatar]',avatarFile);
+            props.submit(formData);
+            setSubmitted(true)
+        }else{
+            setWarning('Pease choose a Picture')
+        }
+        
     }
     let submitBtnClass = !props.loading ? "w-100 btn btn-lg btn-primary" : "w-100 btn btn-lg btn-secondary disabled"
     if(submited && props.loading == false && props.errorsCount.length == 0){
@@ -71,6 +78,7 @@ export default function UpdateProfileForm(props){
     }
      return(
         <div className="text-center">
+            {warning == '' ? null : <p className="text-danger">{warning}</p> }
             <main className="form-signin w-100 m-auto">
             <form onSubmit={handleSubmit}>
             <h1 className="h3 mb-3 fw-normal">Update Profile</h1>

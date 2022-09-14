@@ -59,13 +59,14 @@ export default function SignupForm({submit,loading}){
         formData.append('user[password]',password);
         formData.append('user[gender]',gender);
         formData.append('user[birthday]',birthday);
-        formData.append('user[avatar]',avatarFile);
-        let data = {username,email,password,gender,birthday};
+        if(avatarFile != null){
+            formData.append('user[avatar]',avatarFile);
+        }
         submit(formData);
     }
     let submitBtnClass = !loading ? "w-100 btn btn-lg btn-primary" : "w-100 btn btn-lg btn-secondary disabled"
 
-
+    console.log(avatarFile)
      return(
         <div className="text-center">
             <main className="form-signin w-100 m-auto">

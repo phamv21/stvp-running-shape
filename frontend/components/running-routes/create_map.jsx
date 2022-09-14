@@ -103,9 +103,7 @@ class CreateMap extends React.Component {
         e.preventDefault();
         this.setState({privacy:e.target.value})
     }
-    // handleFile(e){
-    //     e.preventDefault();
-    // }
+
     handleSubmit(e){
         e.preventDefault();
         // count total distance 
@@ -155,8 +153,8 @@ class CreateMap extends React.Component {
             </button>)
              : (<div className="col-12"><input className="btn btn-dark" type="submit" value="Submit" /></div>);
         return(
-        <div className="row mb-3 text-center">
-           <div className="col-4 col-lg-4 themed-grid-col">
+        <div className="row mb-3 text-center" style={{'height':'95vh'}}>
+           <div className="col-sm-12 col-lg-4 border">
             <div className="search-container">
                 <input className="form-control" type="search" id='auto-complete-search' placeholder="Please type the area that you want to run" aria-label="Search"/>
             </div>
@@ -196,7 +194,7 @@ class CreateMap extends React.Component {
         </form>
                         {/* map showing */}
            </div> 
-             <div className="col-sm-8 col-lg-8 themed-grid-col"id="map-container" ref={map => this.mapNode = map}>
+             <div className="col-sm-12 col-lg-8 border"id="map-container" ref={map => this.mapNode = map} style={{'minHeight':'60vh'}}>
             </div>
         
               
