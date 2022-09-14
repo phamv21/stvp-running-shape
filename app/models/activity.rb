@@ -61,7 +61,7 @@ class Activity < ApplicationRecord
     end
     def thumb
         @route ||= self.route
-        @route.thumb.url
+        url_for(@route.thumb)
     end
     def duration_text
         parts = ActiveSupport::Duration.build(self[:duration].to_i).parts
