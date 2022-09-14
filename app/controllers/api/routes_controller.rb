@@ -44,6 +44,7 @@ class Api::RoutesController < ApplicationController
         tmp = route_params
         tmp[:user_id] = current_user.id
         tmp[:pin_infos] = tmp[:pin_infos].map{|el| JSON.parse(el)}
+        tmp[:thumb] = tmp[:thumb]
         @route = Route.new(tmp)
         if @route.save
             render 'api/routes/show'

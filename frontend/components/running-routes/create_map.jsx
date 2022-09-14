@@ -122,8 +122,6 @@ class CreateMap extends React.Component {
             if(res != 'error'){
                 image = new File([res],area_name,{type:'image/png'});
             }
-    
-
         let formData = new FormData();
         formData.append('route[name]',this.state.name);
             if(image != null){
@@ -146,11 +144,14 @@ class CreateMap extends React.Component {
 
     render(){
         let button = this.props.loading ? 
-        ( <button disabled={true}>
+        (<div className="col-12">
+            <button className="btn btn-secondary disabled">
                 <div className="btn btn-light spinner-border" role="status">
                     <span className="sr-only">Loading...</span>
                 </div>
-            </button>)
+            </button>
+        </div> 
+        )
              : (<div className="col-12"><input className="btn btn-dark" type="submit" value="Submit" /></div>);
         return(
         <div className="row mb-3 text-center" style={{'height':'95vh'}}>
