@@ -1,7 +1,4 @@
 class Api::RoutesController < ApplicationController
-    before_action :ensure_current_user!
-    cache_action :index, :show
-    cache_sweeper :route_sweeper
     def index
         #it have the boundary
         #it may show my run

@@ -38,7 +38,6 @@ export default function Feed(props){
     }else{
         activities = props.activities
     }
-    console.log(activities)
     const feedEl =  activities.map((el,idx)=>{
       if(el.like_count != null){
         // setLastActivityId(idx);

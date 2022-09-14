@@ -1,7 +1,4 @@
 class Api::ActivitiesController < ApplicationController
-    before_action :ensure_current_user!
-    cache_action :index
-    cache_sweeper :activity_sweeper
     def index
         @activities = current_user.activities.includes(:route)
         render :index
