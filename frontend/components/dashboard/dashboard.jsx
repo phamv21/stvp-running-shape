@@ -77,7 +77,7 @@ export default function Dashboard(props){
                         Duration
                     </th>
                     <th>
-                        Distance(Km)
+                        Distance
                     </th>
                 </tr>
             </thead>

@@ -14,7 +14,8 @@ class CreateMap extends React.Component {
             name: '',
             description: '',
             privacy: 'Friend',
-            activity: 'Run'
+            activity: 'Run',
+            distance:0.0,
 
         }
 
@@ -81,8 +82,15 @@ class CreateMap extends React.Component {
         let loc = { lat:coords.lat(),lng:coords.lng() }
         this.MarkerManager.updateMarker(loc);
         this.MarkerManager.renderRoute();
-        // loc['pin_type'] = 'Ways'
-        // this.setState({pin_infos:[...this.state.pin_infos,loc]})
+        if(typeof(this.MarkerManager.renderRoute()) =='object'){
+            this.MarkerManager.renderRoute().then(
+            res =>{
+                let distanceSum = 0.0;
+                this.MarkerManager.route_steps.forEach(el => {distanceSum += el.distance.value});
+                this.setState({distance:distanceSum});
+            }
+        );
+        }
 
     }
     handleName(e){
@@ -139,8 +147,9 @@ class CreateMap extends React.Component {
         this.props.submit(formData);
         
         });
-        
+
     }
+    
 
     render(){
         let button = this.props.loading ? 
@@ -171,6 +180,8 @@ class CreateMap extends React.Component {
                 {/* <label htmlFor="route-description">Description</label> */}
                 <input className="form-control" id="route-description" placeholder="Description" type="text" name='description' value={this.state.description} onChange={this.handleDescription.bind(this)}/>
             </div>
+            <p className="h3 text-warning" >Route's Length in Km: {Math.round(this.state.distance/10)/100} Km</p>
+            <p className="h3 text-warning" >Route's Length in Miles: {Math.round(this.state.distance*0.0621)/100} Miles</p>
             {/* add field privacy and activity type */}
 
                 <label htmlFor="privacy"> Visibility</label>

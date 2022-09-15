@@ -14,7 +14,8 @@ export default function DashboardElement({info}){
             {info.duration}
         </td>
         <td>
-            {info.distance/1000}
+            {Math.round(info.distance/10)/100} Km/
+            {Math.round(info.distance*0.0621371)/100} Miles
         </td>
 
     </tr>)

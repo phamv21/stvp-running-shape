@@ -76,7 +76,8 @@ class Show extends React.Component{
                         <span>Note: {this.currentActivity.note} </span>
                     </li>
                     <li className="list-group-item">
-                        <span>Distance: {this.currentActivity.distance}</span>
+                        <span>Distance: {Math.round(this.currentActivity.distance/10)/100} Km</span>
+                        <span>{Math.round(this.currentActivity.distance*0.0621371)/100} Miles</span>
                     </li>
                     <li className="list-group-item">
                         <span>Duration: {this.currentActivity.duration} </span>

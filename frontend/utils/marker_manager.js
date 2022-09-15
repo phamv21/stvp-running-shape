@@ -184,7 +184,7 @@ export default class MarkerManager{
                 location:el.location,
                 stopover:true,
             };});
-            this.directionsService
+            return this.directionsService
             .route({
                 origin: headTail[0],
                 destination: headTail[1],

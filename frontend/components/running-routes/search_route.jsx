@@ -165,7 +165,8 @@ export default class SearchRoute extends React.Component {
         <div className='container text-center justify-content-center' >
                 <div className="row">
                     <p className="h3 col-12 jusstify-content-center" >{this.props.routes[this.state.hightlightRouteId].name}</p>
-                    <p className=" h4 col-12 jusstify-content-center">Distance: {this.props.routes[this.state.hightlightRouteId].distance/1000} Km</p>
+                    <p className=" h4 col-12 jusstify-content-center">Distance(Km): {Math.round(this.props.routes[this.state.hightlightRouteId].distance/10)/100}</p>
+                    <p className=" h4 col-12 jusstify-content-center">Distance(Miles): {Math.round(this.props.routes[this.state.hightlightRouteId].distance*0.0621371)/100}</p>
                     <p className=" h4 col-12 jusstify-content-center">Description: {this.props.routes[this.state.hightlightRouteId].description}</p>
                 <Link to={'/activities/create/'+this.state.hightlightRouteId} className="btn"> Create Activity with this Route</Link>
                 </div>

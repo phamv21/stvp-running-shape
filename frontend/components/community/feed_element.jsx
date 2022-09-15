@@ -15,10 +15,9 @@ const [hideComment,setHideComment] = useState(true)
     <div className="row g-0 text-center">
         <div className="col-md-4 border-left" > 
           <div className="card-body">
-            <p className="card-text"><small className="text-muted">Distance(Km)</small></p> 
-            <h3 className=" h3 card-title">
-              {props.activity.distance/1000}
-            </h3>           
+            <p className="card-text"><small className="text-muted">Distance</small></p> 
+            <p className="card-title"><strong className=" h3 ">{Math.round(props.activity.distance/10)/100}</strong>Km</p>           
+            <p className="card-title"><strong className=" h3 ">{Math.round(props.activity.distance*0.0621371)/100}</strong>Miles</p>           
           </div>  
     </div>
 

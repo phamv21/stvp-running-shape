@@ -72,7 +72,9 @@ class Show extends React.Component{
                         <span>Description: {route.description} </span>
                     </li>
                     <li className="list-group-item">
-                        <span>Distance(Km): {route.distance/1000}</span>
+                        <span>Distance(Km): {Math.round(route.distance/10)/100}</span>
+                        <br />
+                        <span>Distance(Miles): {Math.round(route.distance*0.0621371)/100}</span>
                     </li>
                     <li className="list-group-item">
                         <span>Visibility: {route.privacy} </span>

@@ -14,7 +14,8 @@ const IndexRouteElement = ({route}) => {
                 
             </td>
             <td>
-                {route.distance/1000}
+                {Math.round(route.distance/10)/100} Km/
+                {Math.round(route.distance*0.0621)/100} Miles
             </td>
             <td>
                 {route.area_name}
