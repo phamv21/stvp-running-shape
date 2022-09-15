@@ -14,7 +14,7 @@ export default function PendingRequest(val){
         if(el!=null){
         return (            
             <div className="card text-center" style={{"width": "18rem"}} key={idx}>
-                    {el.avatar == '' ? (<div className="card-img-top"><i className="fa fa-user fa-5x" aria-hidden="true"></i></div>):(
+                    {el.avatar == null ? (<div className="card-img-top"><i className="fa fa-user fa-5x" aria-hidden="true"></i></div>):(
                         <img className="card-img-top " src={el.avatar} alt="avatar" />
                     )}
                     <div className="card-body">
