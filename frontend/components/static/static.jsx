@@ -39,7 +39,7 @@ export default function Static(props){
                         <p>
                         <Link className="btn btn-primary m-2" to='/community/feed'>Check Feed</Link>
                         </p>
-                </div>
+                </div> 
             </div>
                 <button className="carousel-control-prev" type="button" data-bs-target="#slide1" data-bs-slide="prev">
                 <span className="carousel-control-prev-icon" aria-hidden="true"></span>
