@@ -59,7 +59,7 @@ export default function App(){
             }/>
 
 
-            <Route path='/map' element={
+            <Route exact path='/routes/create' element={
                 <ProtectedRoute>
                     <CreateMapContainer/>
                 </ProtectedRoute>

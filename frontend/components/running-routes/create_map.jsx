@@ -195,7 +195,7 @@ class CreateMap extends React.Component {
         </form>
                         {/* map showing */}
            </div> 
-             <div className="col-sm-12 col-lg-8 border"id="map-container" ref={map => this.mapNode = map} style={{'minHeight':'60vh'}}>
+             <div className="col-sm-12 col-lg-8 border"id="map-container" ref={map => this.mapNode = map} style={{'minHeight':'70vh'}}>
             </div>
         
               

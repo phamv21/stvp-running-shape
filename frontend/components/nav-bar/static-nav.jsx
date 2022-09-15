@@ -22,7 +22,7 @@ export default function StaticNav(props){
                 <a className="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Routes</a>
                 <ul className='dropdown-menu'>
                     <li>
-                        <Link to='/map' className="dropdown-item"> Create Route</Link>
+                        <Link to='/routes/create' className="dropdown-item"> Create Route</Link>
                     </li>
                     <li>
                         <Link to='/routes' className="dropdown-item">My Routes </Link>

@@ -156,26 +156,25 @@ export default class SearchRoute extends React.Component {
         let pageNum = this.state.pageNum
         let showResult = this.props.searchResults.slice(pageNum*ROUTEPERPAGE,pageNum*ROUTEPERPAGE +ROUTEPERPAGE) // only 2 result per page
         let totalResult = this.props.searchResults[0] == null ? 0 : this.props.searchResults[0].total_result || 0
-        let resultEl = this.state.showRoute ? (<div className='container justify-content-center' >
-                <div className="row">
-                    <img className="img-thumbnail col-12 " src={this.props.routes[this.state.hightlightRouteId].thumb} alt="" />
-                    
-                </div>
+        let pinDetails = showResult.map((el,idx)=>(
+            el != null ?
+            <SeachRouteElement route={el} key={idx} handleHighlight={this.handleHighlight.bind(this)} handleRouteRender={this.handleRouteRender.bind(this)} />
+            : null  
+        ))
+        let resultEl = this.state.showRoute ? (
+        <div className='container text-center justify-content-center' >
                 <div className="row">
                     <p className="h3 col-12 jusstify-content-center" >{this.props.routes[this.state.hightlightRouteId].name}</p>
                     <p className=" h4 col-12 jusstify-content-center">Distance: {this.props.routes[this.state.hightlightRouteId].distance/1000} Km</p>
-                <p className=" h4 col-12 jusstify-content-center">Description: {this.props.routes[this.state.hightlightRouteId].description}</p>
+                    <p className=" h4 col-12 jusstify-content-center">Description: {this.props.routes[this.state.hightlightRouteId].description}</p>
                 <Link to={'/activities/create/'+this.state.hightlightRouteId} className="btn"> Create Activity with this Route</Link>
                 </div>
                 
-                
-
-        </div>) : showResult.map((el,idx)=>(
-            el != null ?
-            <SeachRouteElement route={el} key={idx} handleHighlight={this.handleHighlight.bind(this)} handleRouteRender={this.handleRouteRender.bind(this)} />
-            : null
-            
-        ))
+        </div>) : (
+            <div className="row">
+                {pinDetails}
+            </div>
+        )
 
         
         let button = this.props.loading ? 
@@ -186,13 +185,13 @@ export default class SearchRoute extends React.Component {
             </button>)
              : (<div className="col-12"><input className="btn btn-dark" type="submit" value="Submit" /></div>);
         return(
-        <>
-        <div className=" container row text-center justify-content-center">
+        <div className="container">
+            <div className="row text-center justify-content-center">
                 <input disabled={this.state.showRoute} className="form-control col-lg-8 col-sm-12" type="search" id='auto-complete-search' placeholder="Please type the area that you want to run" aria-label="Search"/>
                 <button disabled={this.state.showRoute} className="btn btn-primary col-lg-2 col-sm-12" onClick={this.handleSearch.bind(this)}> Search</button>
-        </div>    
-        <div className="container row mb-3 text-center">
-           <div className="col-lg-4 col-sm-12 mh-sm-25">
+            </div>    
+        <div className="row mb-3 text-center" style={{'minHeight':'80vh'}} >
+           <div className="col-sm-12 col-lg-4 border">
             
             <div className="row justify-content-between">
                 {!this.state.showRoute && (this.state.pageNum > 0) ? (<button className="btn btn-secondary col-2" onClick={this.handlePrevPage.bind(this)}><i className="fa-solid fa-chevron-left"></i></button>) : ( <button className="btn btn-secondary col-2 disabled" ><i className="fa-solid fa-chevron-left"></i></button> ) }
@@ -201,21 +200,19 @@ export default class SearchRoute extends React.Component {
             {this.state.showRoute ? (<button className="btn" onClick={this.handleBackToResult.bind(this)}> Back</button>) : <p>{totalResult + ' results'}</p>  }
             
 
-            <div className="d-grip gap-2">
+            <div className="row">
                 {resultEl}
             </div>
             
-            {/* display seach result */}
-            
-                        {/* map showing */}
+
            </div> 
-             <div className="col-sm-12 col-lg-8 themed-grid-col "id="map-container" ref={map => this.mapNode = map}>
+             <div className="col-sm-12 col-lg-8 border" style={{'minHeight':'70vh'}} id="map-container" ref={map => this.mapNode = map}>
             </div>
         
               
         
         </div>
-        </>
+        </div>
 
         )
     }

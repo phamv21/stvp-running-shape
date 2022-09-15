@@ -28,12 +28,12 @@ export default function Comment({activity,comments,createComment,fetchComments,l
         setLoadedMore(true);
         fetchComments(activity.id)
     }
-    const loadMoreBtn = !loading ? (<button className="btn btn-link" onClick={handleLoadmore}> Load All Comments...</button>) :
+    const loadMoreBtn = !loading ? (<button className="btn btn-link" onClick={handleLoadmore}> Load all comments...</button>) :
     (<button className="btn btn-link disabled" > Fetching Comments...</button>)
 
     return (
         <div>
-            { commentArr == null || activity.comment_count > commentArr.length ? (loadMoreBtn) : null }
+            { commentArr != null && activity.comment_count > commentArr.length ? (loadMoreBtn) : null }
             {commentEl}
             <form onSubmit={handleSubmit} >
                 <input type="text" value={content} onChange={e=> {e.preventDefault(); setContent(e.target.value)}} />
