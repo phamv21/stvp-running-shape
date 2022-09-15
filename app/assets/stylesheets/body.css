@@ -77,7 +77,8 @@ body {
     offset: 0;
 }
 .feed-card{
-    width: 540px;
+    max-width: 600px;
+    min-width: 20rem;
     margin: auto;
 }
 .red{
