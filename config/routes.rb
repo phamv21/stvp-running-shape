@@ -20,6 +20,7 @@ Rails.application.routes.draw do
         get 'activities_feed', to: "activities#feed"
         get 'profile/:id/activity_feed', to: 'activities#user_feed'
       resources :comments, only:[:index,:create,:destroy]
+      resources :statics, only:[:index]
         # get 'comments_feed',to: 'comments#feed'
       resources :likes, only:[:create,:destroy]
     end

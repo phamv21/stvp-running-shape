@@ -18,6 +18,7 @@ import UserFeedContainer from "./community/user_feed_container";
 import NotFound from "./404/404";
 import SearchRouteContainer from "./running-routes/search_route_container";
 import UpdateProfileFormContainer from "./login/update_profile_form_container";
+import StaticContainer from "./static/static_container";
 export default function App(){
     return(
         <>
@@ -26,7 +27,9 @@ export default function App(){
         </header>
         <ErrorsShowContainer/>
         <Routes>
-            
+            <Route exact path="/" element={
+                <StaticContainer/>
+            }/>
             <Route exact path="/login" element={
                 <AuthRoute>
                     <LoginFormContainer/>
@@ -37,11 +40,7 @@ export default function App(){
                     <SignupFormContainer/>
                 </AuthRoute>
             }/>
-            <Route exact path='/' element={
-                <ProtectedRoute>
-                    <DashboardContainter/>
-                </ProtectedRoute>
-            }/>
+            
             <Route exact path='/profile/update' element={
                 <ProtectedRoute>
                     <UpdateProfileFormContainer/>

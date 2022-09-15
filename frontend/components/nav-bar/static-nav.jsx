@@ -13,7 +13,7 @@ export default function StaticNav(props){
                         <Link  to='/activities' className="dropdown-item"> My Activities</Link>
                     </li>
                     <li>
-                        <Link to='/activities/create' className="dropdown-item">Create Activity </Link>
+                        <Link to='/activities/create' className="dropdown-item">Record A Activity </Link>
                     </li>
                 </ul>
             </li>
