@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import DashboardElement from "./dashboard_element";
-
+import { Link } from "react-router-dom";
 // we should show the title,date, duration, distance, pace,
 export default function Dashboard(props){
     // const props = data.props;
@@ -12,7 +12,8 @@ export default function Dashboard(props){
         <DashboardElement info={el} key={idx}/>
     )):(<tr>
         <td>
-            You have not created any activity
+            You have not created any activity 
+            <Link to='/activities/create'>Click here to create a new Activity</Link>
         </td>
         </tr> )
 

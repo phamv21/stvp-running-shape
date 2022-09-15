@@ -1,5 +1,5 @@
 import React from "react";
-import {useParams} from 'react-router-dom'
+import {useNavigate, useParams} from 'react-router-dom'
 import MarkerManager from "../../utils/marker_manager";
 import { Link } from "react-router-dom";
 
@@ -45,6 +45,15 @@ class Show extends React.Component{
             this.props.getRoute(this.currentActivity['route_id'])
         }
     }
+
+     handleDelete(e){
+        e.preventDefault();
+        if(confirm('The Deleted Activity can not be Recovered.\n Are you sure?')){
+            this.props.deleteActivity(this.props.id).then(res=>this.props.navigate('/activities'))
+        }else{
+            //do nothing
+        }
+    }
     
     render(){
         
@@ -84,6 +93,10 @@ class Show extends React.Component{
                     <li className="list-group-item">
                        <Link to={'/activities/create/'+this.currentActivity.route_id}> Run with this route</Link>
                     </li>
+                    <li className="list-group-item">
+                        <button onClick={this.handleDelete.bind(this)} type="button" className="btn btn- btn-outline-danger" >Delete This Activity</button>
+                    </li>
+
                 </ul>
                 </div>
                 </div>
@@ -100,5 +113,6 @@ class Show extends React.Component{
 
 export default function ActivityShow(props){//wrapper 
     const {id} = useParams();
-    return <Show {...props} id={id}/>
+    const navigate = useNavigate();
+    return <Show {...props} id={id} navigate={navigate}/>
 } 

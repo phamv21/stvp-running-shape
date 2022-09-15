@@ -1,6 +1,6 @@
 import ShowMap from "./show_map";
 import { connect } from "react-redux";
-import { getRoute } from "../../actions/route_actions";
+import { getRoute,deleteRoute } from "../../actions/route_actions";
 
 
 const mapStateToProps = state => ({
@@ -8,8 +8,9 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    getRoute: routeId => dispatch(getRoute(routeId))
-})
+    getRoute: routeId => dispatch(getRoute(routeId)),
+    // deleteRoute: routeId => dispatch(deleteRoute(routeId))
 
+})
 
 export default connect(mapStateToProps,mapDispatchToProps)(ShowMap)

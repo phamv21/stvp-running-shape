@@ -114,6 +114,14 @@ export const findActivity =  id => dispatch  => {
         )
 }
 
+export const deleteActivity =  id => dispatch  => {
+        dispatch(receiveLoading());
+        return API.deleteActivity(id).then(
+            activity => 'sucess',
+            errors => dispatch(receiveErrors(errors.responseJSON))
+        )
+}
+
 export const createActivity =  rawData => dispatch  => {
         dispatch(receiveLoading());
         API.createActivity(rawData).then(

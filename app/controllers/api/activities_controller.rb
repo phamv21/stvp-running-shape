@@ -91,10 +91,17 @@ class Api::ActivitiesController < ApplicationController
     end
 
     def update
-        
+       
     end
 
     def destroy
+        @activity = Activity.find_by(id:params[:id])
+        if @activity.nil? || (@activity.user_id != current_user.id)
+            render json: ['Invalid activity'], status: 401
+        else
+            @activity.delete
+            render json:['success']
+        end
     end
     private
     def activity_params

@@ -1,5 +1,5 @@
 import React from "react";
-import {useParams} from 'react-router-dom'
+import {useParams,useNavigate} from 'react-router-dom'
 import MarkerManager from "../../utils/marker_manager";
 import { Link } from "react-router-dom";
 
@@ -40,6 +40,14 @@ class Show extends React.Component{
         }
 
     }
+    // handleDelete(e){
+    //     e.preventDefault();
+    //     if(confirm('The Deleted Route can not be Recovered. Are you sure?')){
+    //         this.props.deleteRoute(this.props.id).then(res=>this.props.navigate('/routes'))
+    //     }else{
+    //         //do not
+    //     }
+    // }
     
     render(){
         let route = this.props.routes[this.props.id];
@@ -49,8 +57,8 @@ class Show extends React.Component{
             return(<div className="loading"></div>)
         }else{
             return(
-            <div className="row mb-3 text-center">
-                <div className="col-4 col-lg-4 themed-grid-col">
+            <div className="row mb-3 text-center" style={{'height':'95vh'}}>
+                <div className="col-sm-12 col-lg-4 border">
                     <div className="card">
                         <div className="card-header h2">
                                 Route Infomation
@@ -72,12 +80,20 @@ class Show extends React.Component{
                     <li className="list-group-item">
                         <Link to={'/activities/create/'+route.id}>Create Activity with this route</Link>
                     </li>
+                    {/* <li className="list-group-item">
+                        <button onClick={this.handleDelete.bind(this)} type="button" className="btn btn- btn-outline-danger" >Delete This Route</button>
+                    </li> */}
+                    {/* // */}
+
+                
+
+                    {/* // */}
 
                 </ul>
                 </div>
                 </div>
             
-            <div className="col-8 col-lg-8 themed-grid-col" id="map-container" ref={map => this.mapNode = map}></div>
+            <div className="col-sm-12 col-lg-8 border" id="map-container" ref={map => this.mapNode = map}></div>
             </div>)
         } 
             
@@ -89,5 +105,6 @@ class Show extends React.Component{
 
 export default function ShowMap(props){//wrapper 
     const {id} = useParams();
-    return <Show {...props} id={id}/>
+    const navigate = useNavigate();
+    return <Show {...props} id={id} navigate={navigate}/>
 } 

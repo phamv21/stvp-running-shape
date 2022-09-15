@@ -12,6 +12,13 @@ export const findActivity = id =>{
     })
 }
 
+export const deleteActivity = id => {
+    return $.ajax({
+        url:`api/activities/${id}`,
+        method:'DELETE'
+    })
+}
+
 export const fetchFeed = (page_num = 0,last_id=0) => {
     return $.ajax({
         url:`api/activities_feed?page=${page_num}&last_id=${last_id}`,

@@ -57,12 +57,10 @@ class Activity < ApplicationRecord
     #get the infomation of the route
     def distance
         @route ||= self.route
-        @route.distance
+        return @route.distance unless @route.nil?
+        0
     end
-    def thumb
-        @route ||= self.route
-        url_for(@route.thumb)
-    end
+    
     def duration_text
         parts = ActiveSupport::Duration.build(self[:duration].to_i).parts
         h_p = parts[:hours] || 0

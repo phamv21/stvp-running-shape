@@ -63,7 +63,15 @@ export const getRoute = routeId => dispatch => {
         }
     )
 }
-
+export const deleteRoute = routeId => dispatch => {
+    dispatch(receiveLoading());
+    return API.deleteRoute(routeId).then(
+        route => 'sucess',
+        errors => {
+            dispatch(receiveErrors(errors.responseJSON));
+        }
+    )
+}
 
 
 export const createRoute = info => dispatch => {

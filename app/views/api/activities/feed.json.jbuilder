@@ -2,8 +2,9 @@
 json.activities do
     @activity_feed.each do |activity|
     json.set! activity.id do
-        json.extract! activity, :id, :title,:note, :distance, :thumb, :privacy, :starting_time, :starting_time_text,:route_id, :user_id
+        json.extract! activity, :id, :title,:note, :distance, :privacy, :starting_time, :starting_time_text,:route_id, :user_id
         #we will build the func to parse second to time later
+        json.thumb url_for(activity.route.thumb) if !activity.route.nil? && activity.route.thumb.attached?
         json.duration activity.duration_text
         json.comment_count  @comment_count[activity.id]
         json.like_count  @like_count[activity.id]

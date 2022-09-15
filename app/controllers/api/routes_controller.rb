@@ -56,6 +56,15 @@ class Api::RoutesController < ApplicationController
 
     def update
     end
+    def destroy
+    #     @route = Route.find_by(id:params[:id])
+    #    if @route.nil? || @route.user_id != current_user.id
+    #         render json: ['invalid route'],status: 401
+    #    else
+    #         @route.delete
+    #         render json: ['sucess']
+    #    end
+    end
 
     private
     def route_params

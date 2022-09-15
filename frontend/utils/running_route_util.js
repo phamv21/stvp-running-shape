@@ -21,6 +21,13 @@ export const getRoute = (routeId) => {
     })
 }
 
+export const deleteRoute = (routeId) => {
+    return $.ajax({
+        url:`api/routes/${routeId}`,
+        method: 'DELETE',
+    })
+}
+
 export const createRoute = (info) => {
     // let data = {route:info};
     return $.ajax({
