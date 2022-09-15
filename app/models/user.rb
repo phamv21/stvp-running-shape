@@ -44,7 +44,7 @@ class User < ApplicationRecord
     end
     #show available poeple who not yet have the request
     def available_people(query)
-        User.where('users.username LIKE ?',query + '%')
+        User.where('users.username LIKE ?',query.downcase + '%')
         .where.not(id:self.id)
         .where('NOT EXISTS (:u1) AND NOT EXISTS (:u2)',u1:UserRelationship
         .where('user_relationships.user_id=?',self.id)
