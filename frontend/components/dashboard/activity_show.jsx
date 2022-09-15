@@ -61,8 +61,8 @@ class Show extends React.Component{
             return(<div className="loading"></div>)
         }else{
             return(
-            <div className="row mb-3 text-center">
-                <div className="col-4 col-lg-4 themed-grid-col">
+            <div className="row mb-3 text-center" style={{'height':'95vh'}}>
+                <div className="col-sm-12 col-lg-4 border">
                     <div className="card">
                         <div className="card-header h2">
                                 Activity Infomation
@@ -101,7 +101,7 @@ class Show extends React.Component{
                 </div>
                 </div>
             
-            <div className="col-8 col-lg-8 themed-grid-col" id="map-container" ref={map => this.mapNode = map}></div>
+            <div className="col-sm-12 col-lg-8 border" style={{'minHeight':'80%'}} id="map-container" ref={map => this.mapNode = map}></div>
             </div>)
         } 
             

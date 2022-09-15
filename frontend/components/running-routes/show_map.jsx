@@ -93,7 +93,7 @@ class Show extends React.Component{
                 </div>
                 </div>
             
-            <div className="col-sm-12 col-lg-8 border" id="map-container" ref={map => this.mapNode = map}></div>
+            <div className="col-sm-12 col-lg-8 border" style={{'minHeight':'80%'}} id="map-container" ref={map => this.mapNode = map}></div>
             </div>)
         } 
             
