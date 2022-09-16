@@ -216,7 +216,6 @@ export default class MarkerManager{
                 errors => {
                     console.log('errors',errors)
                 }
-
             )
 
 
