@@ -6,6 +6,8 @@ class User < ApplicationRecord
     validates :birthday, presence: {message:'bad birthday\'s format'}
     validates :password_digest, presence:{message: 'password can not be blank'}
     validates :email, presence: true
+    validates :email, uniqueness: true
+    validates :session_token, uniqueness: true
     validates :password, length:{minimum: 6}, allow_blank: true
     attr_reader :password
     validates :gender, inclusion: {in:GENDERS, message:'Only None, Male or Female'}
