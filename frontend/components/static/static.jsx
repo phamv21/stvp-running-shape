@@ -5,6 +5,7 @@ export default function Static(props){
     useEffect(()=>{
         props.fetchImages()
     },[])
+    console.log(props)
     return(
         props.images ? 
     (
