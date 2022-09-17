@@ -36,7 +36,7 @@ export default function ActivityForm({routes,loading,routeHash,newActivityId,sub
 
     function handleSubmit(e){
         e.preventDefault();
-        let duration = hour * 3600 + minute * 60 + second;
+        let duration = hour * 3600 + minute * 60 + second * 1;
         let rawData = {title:title,note:note,duration:duration,route_id:routeId,starting_time:startingTime}
         submit(rawData);
     }

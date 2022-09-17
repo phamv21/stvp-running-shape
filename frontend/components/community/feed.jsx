@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect,useState } from "react";
 import FeedElement from "./feed_element";
 import { FEEDPERPAGE } from "../../utils/const_util";
+import { Link } from "react-router-dom";
 // we should show the title,date, duration, distance, pace,
 export default function Feed(props){
     // const props = data.props;
@@ -157,6 +158,7 @@ export default function Feed(props){
       <p className="card-text"><small className="text-muted"><i className="fa-regular fa-face-sad-tear"></i></small></p> 
       <h3 className=" h3 card-title">
             No Activities can be Found
+            {props.dashboardShow ? (<Link to='/activities/create'>Record your first activity</Link>) : null}
       </h3>           
       
     </div>  
