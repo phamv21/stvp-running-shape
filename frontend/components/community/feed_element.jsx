@@ -2,17 +2,23 @@ import React from "react";
 import Comment from "./comment";
 import { useState } from "react";
 import Like from "./like";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 export default function FeedElement(props){
 const [hideComment,setHideComment] = useState(true)
-
+const navigate = useNavigate()
+  function handleClick(e){
+    e.preventDefault();
+    if(props.dashboardShow){
+      navigate(`/activities/${props.activity.id}`)
+    }
+  }
   return( 
-<div className="border-bottom">
+<div className="border-bottom mb-2">
     <div className="row g-0 text-center">
         <Link to={`/profile/${props.activity.user_id}/activity_feed`}><p className="h3 text-capitalize fw-bold text-start p-2">{props.activity.author}</p></Link>
         <p className="card-text">{props.activity.note}</p>
     </div>
-    <div className="row g-0 text-center">
+    <div className="row g-0 text-center" onClick={handleClick}>
         <div className="col-md-4 border-left" > 
           <div className="card-body">
             <p className="card-text"><small className="text-muted">Distance</small></p> 

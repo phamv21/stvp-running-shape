@@ -9,13 +9,15 @@ export function showMyActivities(state){
 }
 
 export const showUserFeed = state => user_id => {
-    let activities = state.filters.userFeed[user_id];
-    if (activities != null){
-        let activitiesArr = Object.values(activities);
-        return activitiesArr.sort((a,b)=> b['id']-a['id']);
+    console.log(state.filters.userFeed[user_id])
+    let activityIds = state.filters.userFeed[user_id] ? Object.keys(state.filters.userFeed[user_id]): null;
+    if (activityIds != null){
+        let activities = activityIds.map(id=>state.entities.activities[id]);
+        return activities.sort((a,b)=> b['id']-a['id']);
     }else{
         return [];
     }
+    return []
 }
 
 

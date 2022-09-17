@@ -119,6 +119,23 @@ export default function Feed(props){
     if(!props.loading && initialLoad){
         setInitialLoad(false);
     }
+  let totalDis = 0
+  props.dashboardShow ? activities.forEach(el => totalDis += el.distance) : null
+  let sumaryAct = props.dashboardShow ? (<div className="card mb-3 bg-black text-white">
+  <div className="card-header display-6 fst-italic">
+    Your Running Statics Summary
+  </div>
+  <div className="card-body">
+    <blockquote className="blockquote mb-0">
+      <p><strong>You have run total:</strong> {activities.length} times</p>
+      <p><strong>And You Have Cover:</strong> {Math.round(totalDis/10)/100} Km or {Math.round(totalDis*0.0621371)/100} Miles </p>
+    </blockquote>
+  </div>
+</div>
+  
+  ) : null
+
+
     const content = (<div className="card mb-3 feed-card" aria-hidden="true">
             {props.loading && initialLoad ? 
             (<div>
@@ -127,8 +144,9 @@ export default function Feed(props){
                 {loadingContent}
             </div>)
             :(<>
+            {sumaryAct}
             {feedEl}
-            {loadMore}
+            {!props.dashboardShow ? loadMore : null}
             </>)
             
             }
@@ -144,11 +162,8 @@ export default function Feed(props){
     </div>  
   </div>)
 
-  
     return(
-        !props.loading && activities.length == 0 ?
-        noContent :content
-        
+      !props.loading && activities.length == 0 ?
+        noContent : content
     )
-
 }

@@ -10,7 +10,6 @@ import IndexRoutesContainer from "./running-routes/index_routes_container";
 import ErrorsShowContainer from "./errors/errors_show_container";
 
 import CommunityContainer from "./community/community_container";
-import DashboardContainter from "./dashboard/dashboard_containter";
 import ActivityFormContainer from "./dashboard/activity_form_container";
 import FeedContainer from "./community/feed_container";
 import ActivityShowContainer from "./dashboard/activity_show_container";
@@ -19,6 +18,7 @@ import NotFound from "./404/404";
 import SearchRouteContainer from "./running-routes/search_route_container";
 import UpdateProfileFormContainer from "./login/update_profile_form_container";
 import StaticContainer from "./static/static_container";
+import DashboardContainer from "./dashboard/dashboard_container";
 export default function App(){
     return(
         <>
@@ -64,7 +64,7 @@ export default function App(){
                 </ProtectedRoute>
             }/>
 
-            <Route exact path="activities/create" element={
+            <Route exact path="/activities/create" element={
                 <ProtectedRoute>
                     <ActivityFormContainer/>
                 </ProtectedRoute>
@@ -75,9 +75,9 @@ export default function App(){
                     </ProtectedRoute>
                 } ></Route>
             </Route>
-            <Route exact path="activities" element={
+            <Route exact path="/activities" element={
                 <ProtectedRoute>
-                    <DashboardContainter/>
+                    <DashboardContainer/>
                 </ProtectedRoute>
             }/>
 

@@ -50,17 +50,17 @@ export const receiveNewActivity = (activity) => ({
     activity
 })
 
-export const fetchActivities =  () => dispatch  => {
+export const fetchActivities =  (user_id) => dispatch  => {
         dispatch(receiveLoading());
-        API.fetchActivities().then(
-            activities => dispatch(receiveMyActivities(activities)),
+        return API.fetchActivities().then(
+            feedActivities => dispatch(receiveUserFeedActivities(feedActivities,user_id)),
             errors => dispatch(receiveErrors(errors.responseJSON))
         )
 }
 
 export const fetchFeed=  (page_num=0,last_id = 0) => dispatch  => {
         dispatch(receiveLoading());
-        API.fetchFeed(page_num,last_id).then(
+        return API.fetchFeed(page_num,last_id).then(
             feedActivities => dispatch(receiveFeedActivities(feedActivities)),
             errors => dispatch(receiveErrors(errors.responseJSON))
         )
@@ -68,7 +68,7 @@ export const fetchFeed=  (page_num=0,last_id = 0) => dispatch  => {
 
 export const fetchUserFeed = (user_id,page_num=0,last_id=0) => dispatch =>{
     dispatch(receiveLoading());
-    API.fetchUserFeed(user_id,page_num,last_id).then(
+    return API.fetchUserFeed(user_id,page_num,last_id).then(
         feedActivities => dispatch(receiveUserFeedActivities(feedActivities,user_id)),
         errors => dispatch(receiveErrors(errors.responseJSON))
     )

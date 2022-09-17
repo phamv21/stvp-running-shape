@@ -31,7 +31,7 @@ export default function Static(props){
                         <h5 className="h1 shadow opacity-100">Record Your Activity!</h5>
                         <p className="shadow opacity-100">Let's the World Know Your Great Achievement!!! </p>
                         <p>
-                        <Link className="btn btn-primary m-2" to='/activities/create'>Create Your Route</Link>
+                        <Link className="btn btn-primary m-2" to='/activities/create'>Record Your Activity</Link>
                         </p>
                     </div>
                 </div>

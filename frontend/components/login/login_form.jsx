@@ -14,6 +14,11 @@ export default function loginForm({submit}){
         let data = {username,password}
         submit(data)
     }
+    function handleDemo(e){
+        e.preventDefault();
+        let dataDemo = {username:'test',password:123456}
+        submit(dataDemo)
+    }
 
 
 
@@ -36,6 +41,7 @@ export default function loginForm({submit}){
             
             <input className="w-100 btn btn-lg btn-primary" type="submit" value="Login" />
             <Link className="w-100 btn btn-lg btn-primary" to='/signup'> Create Account </Link>
+            <input type='button' className="w-100 btn btn-lg btn-info" onClick={handleDemo} value="Login with Demo Account" />
             <p className="mt-5 mb-3 text-muted">Stephen 2022</p>
         </form>
         </main>

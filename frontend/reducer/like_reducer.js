@@ -1,12 +1,13 @@
 import { RECEIVE_LIKE, RECEIVE_LIKES, REMOVE_LIKE } from "../actions/like_action";
 import { LOGOUT_CURRENT_USER } from "../actions/session_actions";
-import { RECEIVE_FEED_ACTIVITIES } from "../actions/activity_actions";
+import { RECEIVE_FEED_ACTIVITIES, RECEIVE_USER_FEED_ACTIVITIES } from "../actions/activity_actions";
 export default function likeReducer(state={},action){
     Object.freeze(state);
     switch (action.type){
         case RECEIVE_LIKES:
             return Object.assign({},state,action.likes);
         case RECEIVE_FEED_ACTIVITIES:
+        case RECEIVE_USER_FEED_ACTIVITIES:
             let likes = action.feedActivities.likes || {};
             return Object.assign({},state,likes);
         case RECEIVE_LIKE:

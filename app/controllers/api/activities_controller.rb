@@ -1,7 +1,25 @@
 class Api::ActivitiesController < ApplicationController
+    before_action :ensure_current_user!
     def index
-        @activities = current_user.activities.includes(:route)
-        render :index
+        # @activities = current_user.activities.includes(:route)
+        # render :index
+
+        @activity_feed = current_user.personal_feed(current_user.id).order('activities.id DESC')
+        activity_ids = @activity_feed.map{|el| el.id}
+
+        if activity_ids.empty?
+            @comments = []
+            @likes = []
+            @comment_count = 0
+            @like_count = 0
+        else
+            @comments = Comment.feed_recent_comments(activity_ids)
+            @likes = Like.like_index(activity_ids, current_user.id)
+            @comment_count = Activity.comment_count(activity_ids)
+            @like_count = Activity.like_count(activity_ids)
+        end
+            render 'api/activities/feed'
+
     end
 
     def feed #use to show the activities of friends
@@ -53,12 +71,12 @@ class Api::ActivitiesController < ApplicationController
             @likes = []
             @comment_count = 0
             @like_count = 0
-        else
+            else
             @comments = Comment.feed_recent_comments(activity_ids)
             @likes = Like.like_index(activity_ids, current_user.id)
             @comment_count = Activity.comment_count(activity_ids)
             @like_count = Activity.like_count(activity_ids)
-        end
+            end
             render 'api/activities/feed'
      end
         
