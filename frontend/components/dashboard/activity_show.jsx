@@ -94,9 +94,12 @@ class Show extends React.Component{
                     <li className="list-group-item">
                        <Link to={'/activities/create/'+this.currentActivity.route_id}> Run with this route</Link>
                     </li>
-                    <li className="list-group-item">
+                    {/* show the delete activity button for the owner */}
+                    {this.currentActivity.user_id == this.props.currentUserId ? (
+                         <li className="list-group-item">
                         <button onClick={this.handleDelete.bind(this)} type="button" className="btn btn- btn-outline-danger" >Delete This Activity</button>
-                    </li>
+                    </li>):null}
+                   
 
                 </ul>
                 </div>

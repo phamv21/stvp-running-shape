@@ -7,6 +7,7 @@ import { findActivity,deleteActivity } from "../../actions/activity_actions";
 const mapStateToProps = state => ({
     routes: state.entities.routes,
     activities: state.entities.activities,
+    currentUserId: state.session.currentUserId
 })
 
 const mapDispatchToProps = dispatch => ({

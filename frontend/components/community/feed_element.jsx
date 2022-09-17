@@ -31,7 +31,7 @@ const [hideComment,setHideComment] = useState(true)
         </div>
 
         <div className="col-md-4">
-            <Link to={`/activities/${props.activity.id}`}>
+            <Link to={`/routes/${props.activity.route_id}`}>
               <img src={props.activity.thumb} className="img-fluid rounded-start rounded float-right feed-thumb" alt="route"/>
             </Link>
         </div>
