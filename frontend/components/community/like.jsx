@@ -27,9 +27,9 @@ export default function Like(props){
 
 
     return(
-        <div>
+        <div px-2>
             {likeButton} 
-            {props.activity.like_count == 0 ? (<span>Be the first to like this</span>) :(<span>{props.activity.like_count} People Liked this</span>) }
+            {props.activity.like_count == 0 ? (<span> Be the first to like this</span>) :(<span>{props.activity.like_count} People Liked this</span>) }
             
         </div>
     )
