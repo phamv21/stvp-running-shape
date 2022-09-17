@@ -13,7 +13,7 @@ export default function PendingRequest(val){
     const pendingEl = props.pending.map((el,idx)=>{
         if(el!=null){
         return (            
-            <div className="card text-center" style={{"width": "18rem"}} key={idx}>
+            <div className="card text-center" style={{"width": "9rem"}} key={idx}>
                     {el.avatar == null ? (<div className="card-img-top"><i className="fa fa-user fa-5x" aria-hidden="true"></i></div>):(
                         <img className="card-img-top " src={el.avatar} alt="avatar" />
                     )}

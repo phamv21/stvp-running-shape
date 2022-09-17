@@ -91,7 +91,7 @@ export default class MarkerManager{
     getPreviewURL(){
         if (this.response != null){
         let encodedPath = this.response.routes[0].overview_polyline
-        let url = `https://maps.googleapis.com/maps/api/staticmap?size=100x100&path=weight:3%7Ccolor:red%7Cenc:${encodedPath}&key=${keys.map}&v=beta&callback=initMap`
+        let url = `https://maps.googleapis.com/maps/api/staticmap?size=200x200&path=weight:3%7Ccolor:red%7Cenc:${encodedPath}&key=${keys.map}&v=beta&callback=initMap`
         return url;
         }else{
             return null;
