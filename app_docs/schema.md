@@ -131,7 +131,7 @@ renderRoute(){
 
 
 ### - **Using Google Maps Static API to generate the static thumbnail for the route**
-
+![alt text][staticimg]
 <details>
 <summary>Show the Code</summary>
 
@@ -153,31 +153,39 @@ getPreviewURL(){
 
 ### - **Using Amazon Simple Storage Service to storage the static thubnails**
 ----
+## **User's Activities**
+<details>
+<summary><b>Show the personal summary and all of the activities has created by the user.</b></summary>
+
+![alt text][activitiesimg]
+</details>
+ 
+---
 ## **Activity Feed**
-The Feed showing friend's activities with like and comment fuctions.
 <details>
 
-<summary>Show the example  </summary>
+<summary><b>The Feed showing friend's activities with like and comment fuctions.</b></summary>
 
 ![alt text][feedimg]
 </details>
 
+---
+
 ## **Activity Creation**
-Users can create the activity from the list of their created routes.
 <details>
 
-<summary>Show the example  </summary>
+<summary><b>Users can create the activity from the list of their created routes.</b></summary>
 
 ![alt text][addactivityimg]
 </details>
 
+---
 
 ## **Friending** 
-user can search friends, send friend's reuquests, unfriend.
 
 <details>
 
-<summary>Show the example </summary>
+<summary><b>User can search friends, send friend's reuquests, unfriend.</b></summary>
 
 ![alt text][friendsimg]
 </details>
@@ -204,4 +212,4 @@ user can search friends, send friend's reuquests, unfriend.
 
 [showroute]: https://github.com/phamv21/stvp-running-shape/blob/main/app/assets/screenshots/show%20route.png?raw=true "Show Route"
 
-
+[staticimg]: https://github.com/phamv21/stvp-running-shape/blob/main/app/assets/screenshots/staticmap.png?raw=true "Static Image"
