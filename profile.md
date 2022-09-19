@@ -7,7 +7,7 @@ The project was designed and built in a week, with some additional improvements 
 # **Hightlights**
 ---
 * Integrates Google Maps API to create run routes, generate static thumbnail, mangage the route details and enable distance tracking based on geolocation
-* Using Amazon Cloud Service to storage map thumbnails 
+* Using Amazon Simple Storage Service to storage map thumbnails 
 * Adheres to React and ES6 best practices to generate a true single page reactive web app experience
 * Developed a fluid UI to mimic the original website using SASS and HTML5
 Implemented user authentication with BCrypt password encryption
@@ -19,6 +19,7 @@ Implemented user authentication with BCrypt password encryption
 ---
 ## **Route creation**
 ![alt text][createrouteimg]
+
 ### - **Using Google Maps API to render route and caculate the distance**
 ### - **Using Google Maps API to manage the pins' note(description)**
 <details>
@@ -149,35 +150,58 @@ getPreviewURL(){
 ```
 </details>
 
-### - **Using Amazon Could Service to storage the static thubnails**
+
+### - **Using Amazon Simple Storage Service to storage the static thubnails**
 ----
 ## **Activity Feed**
+The Feed showing friend's activities with like and comment fuctions.
+<details>
+
+<summary>Show the example  </summary>
+
+![alt text][feedimg]
+</details>
+
 ## **Activity Creation**
-[picture]
-* 
+Users can create the activity from the list of their created routes.
+<details>
+
+<summary>Show the example  </summary>
+
+![alt text][addactivityimg]
+</details>
+
 
 ## **Friending** 
+user can search friends, send friend's reuquests, unfriend.
+
+<details>
+
+<summary>Show the example </summary>
+
+![alt text][friendsimg]
+</details>
 
 
 
 [homeimg]: https://github.com/phamv21/stvp-running-shape/blob/main/app/assets/screenshots/Home.png?raw=true "Home"
 
-[activitiesimg]: https://github.com/phamv21/stvp-running-shape/blob/main/app/assets/screenshots/activities.png "Activities"
+[activitiesimg]: https://github.com/phamv21/stvp-running-shape/blob/main/app/assets/screenshots/activities.png?raw=true "Activities"
 
-[addactivityimg]: https://github.com/phamv21/stvp-running-shape/blob/main/app/assets/screenshots/add%20activity.png "Add Activity"
+[addactivityimg]: https://github.com/phamv21/stvp-running-shape/blob/main/app/assets/screenshots/add%20activity.png?raw=true "Add Activity"
 
-[createrouteimg]: https://github.com/phamv21/stvp-running-shape/blob/main/app/assets/screenshots/create%20route.png "Create New Route"
+[createrouteimg]: https://github.com/phamv21/stvp-running-shape/blob/main/app/assets/screenshots/create%20route.png?raw=true "Create New Route"
 
-[feedimg]: https://github.com/phamv21/stvp-running-shape/blob/main/app/assets/screenshots/feed.png "Feed"
+[feedimg]: https://github.com/phamv21/stvp-running-shape/blob/main/app/assets/screenshots/feed.png?raw=true "Feed"
 
-[friendsimg]: https://github.com/phamv21/stvp-running-shape/blob/main/app/assets/screenshots/friends.png "Friends"
+[friendsimg]: https://github.com/phamv21/stvp-running-shape/blob/main/app/assets/screenshots/friends.png?raw=true "Friends"
 
-[routeimg]: https://github.com/phamv21/stvp-running-shape/blob/main/app/assets/screenshots/routes.png "Routes"
+[routesimg]: https://github.com/phamv21/stvp-running-shape/blob/main/app/assets/screenshots/routes.png?raw=true "Routes"
 
-[searchroutesimg]: https://github.com/phamv21/stvp-running-shape/blob/main/app/assets/screenshots/search%20routes.png "Search"
+[searchroutesimg]: https://github.com/phamv21/stvp-running-shape/blob/main/app/assets/screenshots/search%20routes.png?raw=true "Search"
 
-[showroutesearch]: https://github.com/phamv21/stvp-running-shape/blob/main/app/assets/screenshots/show%20route%20search.png "Search Show"
+[showroutesearch]: https://github.com/phamv21/stvp-running-shape/blob/main/app/assets/screenshots/show%20route%20search.png?raw=true "Search Show"
 
-[showroute]: https://github.com/phamv21/stvp-running-shape/blob/main/app/assets/screenshots/show%20route.png "Show Route"
+[showroute]: https://github.com/phamv21/stvp-running-shape/blob/main/app/assets/screenshots/show%20route.png?raw=true "Show Route"
 
 
