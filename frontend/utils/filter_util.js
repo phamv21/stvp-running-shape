@@ -9,7 +9,6 @@ export function showMyActivities(state){
 }
 
 export const showUserFeed = state => user_id => {
-    console.log(state.filters.userFeed[user_id])
     let activityIds = state.filters.userFeed[user_id] ? Object.keys(state.filters.userFeed[user_id]): null;
     if (activityIds != null){
         let activities = activityIds.map(id=>state.entities.activities[id]);

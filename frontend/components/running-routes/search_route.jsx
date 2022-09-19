@@ -168,7 +168,7 @@ export default class SearchRoute extends React.Component {
                     <p className=" h4 col-12 jusstify-content-center">Distance(Km): {Math.round(this.props.routes[this.state.hightlightRouteId].distance/10)/100}</p>
                     <p className=" h4 col-12 jusstify-content-center">Distance(Miles): {Math.round(this.props.routes[this.state.hightlightRouteId].distance*0.0621371)/100}</p>
                     <p className=" h4 col-12 jusstify-content-center">Description: {this.props.routes[this.state.hightlightRouteId].description}</p>
-                <Link to={'/activities/create/'+this.state.hightlightRouteId} className="btn"> Create Activity with this Route</Link>
+                <Link to={'/activities/create/'+this.state.hightlightRouteId} className="btn btn-outline-primary"> Create Activity with this Route</Link>
                 </div>
                 
         </div>) : (
@@ -198,7 +198,7 @@ export default class SearchRoute extends React.Component {
                 {!this.state.showRoute && (this.state.pageNum > 0) ? (<button className="btn btn-secondary col-2" onClick={this.handlePrevPage.bind(this)}><i className="fa-solid fa-chevron-left"></i></button>) : ( <button className="btn btn-secondary col-2 disabled" ><i className="fa-solid fa-chevron-left"></i></button> ) }
                 {!this.state.showRoute && (this.state.pageNum * ROUTEPERPAGE + ROUTEPERPAGE < totalResult) ? (<button className="btn btn-secondary col-2" onClick={this.handleNextPage.bind(this)}> <i className="fa-solid fa-chevron-right"></i> </button>) : ( <button className="btn btn-secondary col-2 disabled" ><i className="fa-solid fa-chevron-right"></i></button> ) }
             </div>
-            {this.state.showRoute ? (<button className="btn" onClick={this.handleBackToResult.bind(this)}> Back</button>) : <p>{totalResult + ' results'}</p>  }
+            {this.state.showRoute ? (<button className="btn btn-outline-primary" onClick={this.handleBackToResult.bind(this)}> Back</button>) : <p>{totalResult + ' results'}</p>  }
             
 
             <div className="row">
