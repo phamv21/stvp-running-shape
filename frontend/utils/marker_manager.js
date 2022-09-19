@@ -164,7 +164,7 @@ export default class MarkerManager{
             scale: 3,
         };
         // put the pin for the first marker
-        if(this.nodes.length < 2){//this.headTail.length < 2){
+        if(this.nodes.length < 2){
             this.start_point = new google.maps.Marker({
                 position: this.nodes[0].location,
                 icon: customIcon,
@@ -199,11 +199,8 @@ export default class MarkerManager{
                         
                     });
                     
-                     this.route_steps = response.routes[0].legs;
-                     this.response = response;
-    
-                    // headTail.forEach((el,idx) => this.createMarker(el.location,customIcon,`ht-${idx}`))
-                    // betweens.forEach((el,idx) => this.createMarker(el.location,customIconRed,`b-${idx}`))
+                    this.route_steps = response.routes[0].legs;
+                    this.response = response;
                     this.nodes.forEach((el,idx)=>{
                         if(idx == 0 || idx == nodesLength -1){
                             this.createMarker(el.location,customIconRed,'headTail',idx,el.description);
@@ -214,7 +211,7 @@ export default class MarkerManager{
                     
                 },  
                 errors => {
-                    console.log('errors',errors)
+                    console.log('render map errors',errors)
                 }
             )
 
