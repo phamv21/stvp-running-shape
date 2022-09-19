@@ -1,17 +1,16 @@
 # **MapNRun**
 ----
-[MapNRun](https://mapnru.heroku.com) is a web application inspired by MapMyRun which is a social fitness website that allows for user running route creation. Users can log workout details, including duration, distance, and the map of their route, they can also see the activities of their friends.The app was created with React.js and Redux on the frontend, and Ruby on Rails/PostgreSQL on the backend.
+[MapNRun](https://mapnrun.heroku.com) is a web application inspired by MapMyRun, a social fitness website that allows users to create the running route. Users can log workout details, including duration, distance, and the map of their route. They can also see the activities of their friends. The app was created with React.js and Redux on the frontend and Ruby on Rails/PostgreSQL on the backend.
 
-The project was designed and built in a week, with some additional improvements added later on.
+The project was designed and built in a week, adding some additional improvements later.
 ---
 # **Hightlights**
 ---
-* Integrates Google Maps API to create run routes, generate static thumbnail, mangage the route details and enable distance tracking based on geolocation
+* Integrates Google Maps API to create run routes, generate a static thumbnail, manage the route details and enable distance tracking based on geolocation
 * Using Amazon Simple Storage Service to storage map thumbnails 
-* Adheres to React and ES6 best practices to generate a true single page reactive web app experience
-* Developed a fluid UI to mimic the original website using SASS and HTML5
+* Adheres to React and ES6 best practices to generate a true single-page reactive web app experience
+* Developed a fluid UI to mimic the original website using HTML5
 Implemented user authentication with BCrypt password encryption
-
 
 ![alt text][homeimg]
 
@@ -20,7 +19,7 @@ Implemented user authentication with BCrypt password encryption
 ## **Route creation**
 ![alt text][createrouteimg]
 
-### - **Using Google Maps API to render route and caculate the distance**
+### - **Using Google Maps API to render route and calculate the distance**
 ### - **Using Google Maps API to manage the pins' note(description)**
 <details>
 <summary>Show the Code</summary>
@@ -94,7 +93,6 @@ renderRoute(){
                 }
             )
 
-
         }
         if(this.callFormListener == false){
             // add listening for description
@@ -129,7 +127,6 @@ renderRoute(){
 </details>
 
 
-
 ### - **Using Google Maps Static API to generate the static thumbnail for the route**
 ![alt text][staticimg]
 <details>
@@ -150,8 +147,7 @@ getPreviewURL(){
 ```
 </details>
 
-
-### - **Using Amazon Simple Storage Service to storage the static thubnails**
+### - **Using Amazon Simple Storage Service to store the static thumbnails**
 ----
 ## **User's Activities**
 <details>
@@ -185,19 +181,22 @@ getPreviewURL(){
 
 <details>
 
-<summary><b>User can search friends, send friend's reuquests, unfriend.</b></summary>
+<summary><b>User can search friends, send friends' requests, unfriend.</b></summary>
 
 ![alt text][friendsimg]
 </details>
+
 ---
 
 # **Additional Resources**
+
+---
+
 * [**MVP**][mvp]
 * [**Schema**][schema]
-* [**Sample Statae**][state]
+* [**Sample State**][state]
 * [**Frontend Routes**][front-end]
 * [**Backend Routes**][back-end]
-
 
 
 [homeimg]: https://github.com/phamv21/stvp-running-shape/blob/main/app/assets/screenshots/Home.png?raw=true "Home"
@@ -227,3 +226,4 @@ getPreviewURL(){
 [back-end]: https://github.com/phamv21/stvp-running-shape/blob/main/app_docs/back_end_route.md
 [front-end]: https://github.com/phamv21/stvp-running-shape/blob/main/app_docs/front_end_routes.md
 [state]: https://github.com/phamv21/stvp-running-shape/blob/main/app_docs/state_sample.md
+
