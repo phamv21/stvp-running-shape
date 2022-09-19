@@ -13,13 +13,12 @@ The project was designed and built in a week, with some additional improvements 
 Implemented user authentication with BCrypt password encryption
 
 
-[mapmymyrun website]
+![alt text][homeimg]
 
 # **Features**
 ---
 ## **Route creation**
-[picture]
-![alt-text])
+![alt text][createrouteimg]
 ### - **Using Google Maps API to render route and caculate the distance**
 ### - **Using Google Maps API to manage the pins' note(description)**
 <details>
@@ -158,4 +157,27 @@ getPreviewURL(){
 * 
 
 ## **Friending** 
+
+
+
+[homeimg]: https://github.com/phamv21/stvp-running-shape/blob/main/app/assets/screenshots/Home.png?raw=true "Home"
+
+[activitiesimg]: https://github.com/phamv21/stvp-running-shape/blob/main/app/assets/screenshots/activities.png "Activities"
+
+[addactivityimg]: https://github.com/phamv21/stvp-running-shape/blob/main/app/assets/screenshots/add%20activity.png "Add Activity"
+
+[createrouteimg]: https://github.com/phamv21/stvp-running-shape/blob/main/app/assets/screenshots/create%20route.png "Create New Route"
+
+[feedimg]: https://github.com/phamv21/stvp-running-shape/blob/main/app/assets/screenshots/feed.png "Feed"
+
+[friendsimg]: https://github.com/phamv21/stvp-running-shape/blob/main/app/assets/screenshots/friends.png "Friends"
+
+[routeimg]: https://github.com/phamv21/stvp-running-shape/blob/main/app/assets/screenshots/routes.png "Routes"
+
+[searchroutesimg]: https://github.com/phamv21/stvp-running-shape/blob/main/app/assets/screenshots/search%20routes.png "Search"
+
+[showroutesearch]: https://github.com/phamv21/stvp-running-shape/blob/main/app/assets/screenshots/show%20route%20search.png "Search Show"
+
+[showroute]: https://github.com/phamv21/stvp-running-shape/blob/main/app/assets/screenshots/show%20route.png "Show Route"
+
 
