@@ -65,7 +65,7 @@ export default function ActivityForm({routes,loading,routeHash,newActivityId,sub
                 <div className="input-group-prepend">
                     <span className="input-group-text" id="">Note:</span>
                 </div>
-                <input type="text" value={note} onChange={(e)=>{setNote(e.target.value)}} />
+                <input type="texarea" value={note} onChange={(e)=>{setNote(e.target.value)}} />
             </div>
                     <label htmlFor="datePickerAct">On Date</label>
                     <DatePicker id='datePickerAct' selected={startingTime} onChange={(date) => setStartingTime(date)} />
