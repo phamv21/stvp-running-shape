@@ -8,6 +8,9 @@ import { ProtectedRoute } from "../../utils/route_util";
 
 export default function Community(props){
     const navBaseClass = 'nav-item nav-link'
+     useEffect(()=>{
+        document.title = 'Community'
+    },[])
     return(
         <div>
         <nav className="navbar navbar-expand-lg navbar-light bg-light">

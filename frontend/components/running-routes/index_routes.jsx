@@ -9,6 +9,7 @@ export default class IndexRoutes extends React.Component{
 
     componentDidMount(){
         this.props.fetchRoutes();
+        document.title = 'Routes'
     }
 
     

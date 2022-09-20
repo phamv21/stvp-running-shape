@@ -1,23 +1,23 @@
 import React from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 
 
 export default function loginForm({submit}){
     
     const [username,setUsername] = useState('');
     const [password,setPassword] = useState('');
-
+    const navigate = useNavigate()
 
     function handleSubmit(e){
         e.preventDefault();
         let data = {username,password}
-        submit(data)
+        submit(data).then(res => navigate('/activities'))
     }
     function handleDemo(e){
         e.preventDefault();
         let dataDemo = {username:'test',password:123456}
-        submit(dataDemo)
+        submit(dataDemo).then(res => navigate('/activities'))
     }
 
 

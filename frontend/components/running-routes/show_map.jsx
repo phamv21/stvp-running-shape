@@ -16,6 +16,7 @@ class Show extends React.Component{
         //fetch data
         this.props.getRoute(this.props.id)
         // wrap this.mapNode in a Google Map
+        document.title = 'Show Route'
     }
     componentDidUpdate(prevProps,prevState){
         if(prevProps.routes != this.props.routes){

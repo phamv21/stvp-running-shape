@@ -58,6 +58,7 @@ export default class SearchRoute extends React.Component {
         //     let coords = mapsMouseEvent.latLng
         //     this._handleClick(coords)
         // })
+        document.title = 'Search Route'
     }
 
     componentDidUpdate(prevProps,prevState){

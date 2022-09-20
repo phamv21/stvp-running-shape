@@ -27,7 +27,7 @@ export const receiveErrors = errors =>(
 
 export const login = info => dispatch => {
     dispatch(receiveLoading());
-    API.login(info).then(
+    return API.login(info).then(
         user => dispatch(receiveCurrentUser(user)),
         errors => dispatch(receiveErrors(errors.responseJSON))
     )
@@ -35,7 +35,7 @@ export const login = info => dispatch => {
 
 export const signup = info => dispatch => {
     dispatch(receiveLoading());
-    API.signup(info).then(
+    return API.signup(info).then(
         user => dispatch(receiveCurrentUser(user)),
         errors => dispatch(receiveErrors(errors.responseJSON))
     )

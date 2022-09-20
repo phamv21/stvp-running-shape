@@ -7,7 +7,7 @@ export default function FindPeople(val){
     const [query,setQuery] = useState('');
     const [validateSearch, setValidateSearch] = useState('hidden');
     const [submitted,setSubmitted] = useState(false);
-  
+   
     function handleQuery(e){
         e.preventDefault();
         setSubmitted(false);

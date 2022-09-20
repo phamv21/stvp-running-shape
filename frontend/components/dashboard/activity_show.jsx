@@ -16,7 +16,7 @@ class Show extends React.Component{
     componentDidMount() {
         //fetch data
         this.props.findActivity(this.props.id)
-
+        document.title = 'Activity Infomation'
         // wrap this.mapNode in a Google Map
         
 

@@ -59,6 +59,7 @@ class CreateMap extends React.Component {
             let coords = mapsMouseEvent.latLng
             this._handleClick(coords)
         })
+        document.title = 'Create Route'
     }
 
     componentDidUpdate(prevProps,prevState){

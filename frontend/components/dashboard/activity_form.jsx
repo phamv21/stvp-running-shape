@@ -25,7 +25,7 @@ export default function ActivityForm({routes,loading,routeHash,newActivityId,sub
         }else{
             getRoute(route_id);
         }
-        
+        document.title = 'Create Activity'
     },[]);
 
     useEffect(()=>{

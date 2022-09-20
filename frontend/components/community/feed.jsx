@@ -15,6 +15,12 @@ export default function Feed(props){
       }else{
         props.fetchFeed(props.page);
       }
+      if (props.dashboardShow){
+        document.title = 'Dashboard'
+      }else{
+        document.title = 'Feed'
+      }
+      
       setInitialLoad(true)
     },[])
     useEffect(()=>{
