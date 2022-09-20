@@ -12,12 +12,12 @@ export default function loginForm({submit}){
     function handleSubmit(e){
         e.preventDefault();
         let data = {username,password}
-        submit(data).then(res => navigate('/activities'))
+        submit(data)
     }
     function handleDemo(e){
         e.preventDefault();
         let dataDemo = {username:'test',password:123456}
-        submit(dataDemo).then(res => navigate('/activities'))
+        submit(dataDemo)
     }
 
 

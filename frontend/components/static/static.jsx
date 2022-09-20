@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 export default function Static(props){
     useEffect(()=>{
         props.fetchImages()
+        document.title ='Home Page'
     },[])
     return(
         props.images ? 

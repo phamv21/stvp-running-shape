@@ -5,7 +5,6 @@ export default function PendingRequest(val){
     const props = val.props;
     useEffect(()=>{
         props.findPending();
-        document.title = 'Community'
     },[]);
 
     function handleResponse(data){

@@ -127,7 +127,7 @@ export default function App(){
         </Routes>
     <footer className="footer fixed-bottom bg-transparent" style={{'left':'unset','right':'0'}}>
         <div className="container">
-            <a style={{'color':'black'}} className="btn btn-link" type='button' href="https://www.github.com/phamv21/stvp-running-shape"><i class="fa-brands fa-github fa-3x"></i></a>
+            <a style={{'color':'black'}} className="btn btn-link" type='button' href="https://www.github.com/phamv21/stvp-running-shape"><i className="fa-brands fa-github fa-3x"></i></a>
         </div>
     </footer>
         </>
