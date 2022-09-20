@@ -5,6 +5,7 @@ import FindPeople from "./find_people";
 import Friends from "./friends";
 import PendingRequest from "./pending";
 import { ProtectedRoute } from "../../utils/route_util";
+import { useEffect } from "react";
 
 export default function Community(props){
     const navBaseClass = 'nav-item nav-link'

@@ -1,9 +1,7 @@
 import React from "react";
 import { useNavigate,Link } from "react-router-dom";
-useEffect
 const IndexRouteElement = ({route}) => {
     return(
-        
             <tr>
             <td className="justify-content-center">
             <Link to={"/routes/"+route.id} className="card" style={{'width':'6.4rem'}} >
