@@ -42,8 +42,8 @@ export default function Static(props){
                 <img src={props.images[2]} className="d-block w-100 opacity-75" alt="..."/>
                 <div className="container">
                     <div className="carousel-caption">
-                        <h1 className="h1 shadow">Be Competitive with Your Friends</h1>
-                        <p className="shadow">Let's Find out the Activities of your Friends </p>
+                        <h1 className="h1 shadow opacity-100">Be Competitive with Your Friends</h1>
+                        <p className="shadow opacity-100">Let's Find out the Activities of your Friends </p>
                         <p>
                         <Link className="btn btn-primary m-2" to='/community/feed'>Check Feed</Link>
                         </p>

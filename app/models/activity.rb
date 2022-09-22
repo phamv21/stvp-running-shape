@@ -1,10 +1,11 @@
 class Activity < ApplicationRecord
     #use it to record the activity of user
     Activity::FEEDPERPAGE = 5
+    Activity::PRIVACY = ['Friend','Public','Private']
     validates :title, presence: true
     validates :starting_time, presence: true
     validates :duration, presence: true
-
+    validates :privacy, inclusion: PRIVACY
     belongs_to :user
     belongs_to :route
 

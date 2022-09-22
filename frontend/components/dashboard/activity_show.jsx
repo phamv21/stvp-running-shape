@@ -73,6 +73,9 @@ class Show extends React.Component{
                         <h3 className="h3"> {this.currentActivity.title}</h3>
                     </li>
                     <li className="list-group-item">
+                        <span>Visibility: {this.currentActivity.privacy} </span>
+                    </li>
+                    <li className="list-group-item">
                         <span>Note: {this.currentActivity.note} </span>
                     </li>
                     <li className="list-group-item">

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import RouteElement from "./route_element";
 import { useNavigate,useParams } from "react-router-dom";
+import { PRIVACY } from "../../utils/const_util";
 export default function ActivityForm({routes,loading,routeHash,newActivityId,submit,fetchRoutes,getRoute,}){
 
     //test params
@@ -17,6 +18,7 @@ export default function ActivityForm({routes,loading,routeHash,newActivityId,sub
     const [minute,setMinute] = useState(0);
     const [second,setSecond] = useState(0);
     const [isShow,setIsShow] = useState(false);
+    const [privacy,setPrivacy] = useState('Friend')
     const navigate = useNavigate();
     // fetch the routes on mount
     useEffect(()=>{
@@ -37,7 +39,7 @@ export default function ActivityForm({routes,loading,routeHash,newActivityId,sub
     function handleSubmit(e){
         e.preventDefault();
         let duration = hour * 3600 + minute * 60 + second * 1;
-        let rawData = {title:title,note:note,duration:duration,route_id:routeId,starting_time:startingTime}
+        let rawData = {title:title,note:note,duration:duration,route_id:routeId,starting_time:startingTime,privacy:privacy}
         submit(rawData);
     }
 
@@ -50,7 +52,7 @@ export default function ActivityForm({routes,loading,routeHash,newActivityId,sub
     let dropdownMenu = isShow ? 'dropdown-menu route-dropdown show' : 'dropdown-menu';
     let selectedRoute = routeId == 0 || routeHash[routeId] == null   ? (<span>Please select the route</span>) : (<div>
         <img className="img-thumbnail super-small-img" src={routeHash[routeId].thumb} alt="" />
-        {routeHash[routeId].name}:{routeHash[routeId].area_name}
+        {routeHash[routeId].name}:{routeHash[routeId].area_name}:{(routeHash[routeId].distance/1000)+' Km'}
     </div>)
     let content = loading ? (<h1>Loading</h1>) :(<form onSubmit={handleSubmit}>
             
@@ -65,13 +67,13 @@ export default function ActivityForm({routes,loading,routeHash,newActivityId,sub
                 <div className="input-group-prepend">
                     <span className="input-group-text" id="">Note:</span>
                 </div>
-                <input type="texarea" value={note} onChange={(e)=>{setNote(e.target.value)}} />
+                <textarea type="texarea" value={note} onChange={(e)=>{setNote(e.target.value)}} style={{'width':'18rem'}}/>
             </div>
                     <label htmlFor="datePickerAct">On Date</label>
                     <DatePicker id='datePickerAct' selected={startingTime} onChange={(date) => setStartingTime(date)} />
 
             <div className="dropdown mb-3">
-                <a className="btn btn-outline-dark route-select-btn" type="button" id="selectroute" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onClick={e =>{e.preventDefault();setIsShow(!isShow)}}>  
+                <a style={{'textAlign':'left'}} className="btn btn-outline-dark route-select-btn" type="button" id="selectroute" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onClick={e =>{e.preventDefault();setIsShow(!isShow)}}>  
                     {selectedRoute}
                 </a>
                   <div className={dropdownMenu} >
@@ -89,10 +91,17 @@ export default function ActivityForm({routes,loading,routeHash,newActivityId,sub
                  <div className="input-group-prepend">
                     <span className="input-group-text" id="">H:M:S</span>
                 </div>
-                    <input type="text" className="form-control" value={hour} onChange={e => setHour(e.target.value)} />
-                    <input type="text" className="form-control" value={minute} onChange={e => setMinute(e.target.value)} />
-                    <input type="text" className="form-control" value={second} onChange={e => setSecond(e.target.value)}  />
+                    <input type="text" className="col-1" value={hour} onChange={e => setHour(e.target.value)} />
+                    <input type="text" className="col-1" value={minute} onChange={e => setMinute(e.target.value)} />
+                    <input type="text" className="col-1" value={second} onChange={e => setSecond(e.target.value)}  />
             </div>
+            <label htmlFor="privacy"> Visibility</label>
+                <select className="form-floating form-control-sm" name="privacy" id="privacy" value={privacy} onChange={e => {e.preventDefault(); setPrivacy(e.target.value)}}>
+                    {PRIVACY.map((el,idx)=>(
+                        <option key={idx} value={el}>{el} </option>
+                    ))}
+                </select>
+                <br />
             <button> Save</button>
         </form>)
     return(

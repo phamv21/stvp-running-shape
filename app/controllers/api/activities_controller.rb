@@ -99,8 +99,8 @@ class Api::ActivitiesController < ApplicationController
         tmp[:user_id] = current_user.id
         @activity = Activity.new(tmp)
         if @activity.save
-            @comment_count = Activity.comment_count(@activity.id)
-            @like_count = Activity.like_count(@activity.id)
+            @comment_count = 0 #Activity.comment_count(@activity.id)
+            @like_count = 0 #Activity.like_count(@activity.id)
             render 'api/activities/show'
         else
             render json: @activity.errors.full_messages, status: 401
@@ -123,6 +123,6 @@ class Api::ActivitiesController < ApplicationController
     end
     private
     def activity_params
-        params.require(:activity).permit(:route_id,:title,:note,:duration,:starting_time)
+        params.require(:activity).permit(:route_id,:title,:note,:duration,:starting_time,:privacy)
     end
 end
