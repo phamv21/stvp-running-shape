@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 
 const Auth = ({children,loggedIn}) => {
     if(loggedIn){
-        return (<Navigate to ='/' replace/>)
+        return (<Navigate to ='/community/feed' replace/>)
     }else{
         return children
     }

@@ -27,7 +27,7 @@ export default function App(){
         </header>
         <ErrorsShowContainer/>
         <Routes>
-            <Route exact path="/" element={
+            <Route path="/" element={
                 <StaticContainer/>
             }/>
             <Route exact path="/login" element={
