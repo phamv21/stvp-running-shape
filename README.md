@@ -221,9 +221,9 @@ getPreviewURL(){
 
 [staticimg]: https://github.com/phamv21/stvp-running-shape/blob/main/app/assets/screenshots/staticmap.png?raw=true "Static Image"
 
-[mvp]: https://github.com/phamv21/stvp-running-shape/blob/main/app_docs/mvp.md
-[schema]: https://github.com/phamv21/stvp-running-shape/blob/main/app_docs/schema.md
-[back-end]: https://github.com/phamv21/stvp-running-shape/blob/main/app_docs/back_end_route.md
-[front-end]: https://github.com/phamv21/stvp-running-shape/blob/main/app_docs/front_end_routes.md
-[state]: https://github.com/phamv21/stvp-running-shape/blob/main/app_docs/state_sample.md
+[mvp]: https://github.com/phamv21/stvp-running-shape/wiki/MVP
+[schema]: https://github.com/phamv21/stvp-running-shape/wiki/Schema
+[back-end]: https://github.com/phamv21/stvp-running-shape/wiki/Backend-Routes
+[front-end]: https://github.com/phamv21/stvp-running-shape/wiki/Frontend-Routes
+[state]: https://github.com/phamv21/stvp-running-shape/wiki/Sample-State
 
